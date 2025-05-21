@@ -1,6 +1,8 @@
 import Link from "next/link";
 
 import { Metadata } from "next";
+import { SIGNUP } from "@/data/links";
+import AppNav from "@/components/Common/AppLink";
 
 export const metadata: Metadata = {
   title: "Sign In Page | Free Next.js Template for Startup and SaaS",
@@ -160,9 +162,9 @@ const SigninPage = () => {
                 </form>
                 <p className="text-center text-base font-medium text-body-color">
                   Don’t you have an account?{" "}
-                  <Link href="/signup" className="text-primary hover:underline">
+                  <AppNav href={SIGNUP} className="text-primary hover:underline">
                     Sign up
-                  </Link>
+                  </AppNav>
                 </p>
               </div>
             </div>

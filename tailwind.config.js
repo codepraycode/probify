@@ -1,8 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 const config = {
   content: [
-    // "./src/app/**/*.{ts,tsx}",
-    // "./src/components/**/*.{ts,tsx}",
+    "./src/app/**/*.{ts,tsx}",
+    "./src/components/**/*.{ts,tsx}",
+    "./src/lib/**/*.{ts,tsx}",
+    "./src/layout/**/*.{ts,tsx}",
     "./src/**/*.{ts,tsx}",
   ],
   darkMode: "class", // respects the template

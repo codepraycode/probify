@@ -1,6 +1,8 @@
+import { ComponentType } from "react";
+
 export type Feature = {
   id: number;
-  icon: JSX.Element;
+  Icon: ComponentType;
   title: string;
   paragraph: string;
 };

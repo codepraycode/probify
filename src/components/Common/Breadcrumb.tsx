@@ -1,4 +1,6 @@
+import { HOME } from "@/data/links";
 import Link from "next/link";
+import AppNav from "./AppLink";
 
 const Breadcrumb = ({
   pageName,
@@ -26,12 +28,12 @@ const Breadcrumb = ({
               <div className="text-end">
                 <ul className="flex items-center md:justify-end">
                   <li className="flex items-center">
-                    <Link
-                      href="/"
+                    <AppNav
+                      href={HOME}
                       className="pr-1 text-base font-medium text-body-color hover:text-primary"
                     >
                       Home
-                    </Link>
+                    </AppNav>
                     <span className="mr-3 block h-2 w-2 rotate-45 border-r-2 border-t-2 border-body-color"></span>
                   </li>
                   <li className="text-base font-medium text-primary">

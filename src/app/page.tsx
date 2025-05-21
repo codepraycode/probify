@@ -1,15 +1,14 @@
-import AboutSectionOne from "@/components/About/AboutSectionOne";
-import AboutSectionTwo from "@/components/About/AboutSectionTwo";
 import Blog from "@/components/Blog";
-import Brands from "@/components/Brands";
+import Sources from "@/components/Home/Sources";
 import ScrollUp from "@/components/Common/ScrollUp";
-import Contact from "@/components/Contact";
-import Features from "@/components/Features";
-import Hero from "@/components/Hero";
-import Pricing from "@/components/Pricing";
-import Testimonials from "@/components/Testimonials";
-import Video from "@/components/Video";
+import Contact from "@/components/Home/Contact";
+import Features from "@/components/Home/Features";
+import Hero from "@/components/Home/Hero";
+import Testimonials from "@/components/Home/Survey";
+import Video from "@/components/Home/Intro";
 import { Metadata } from "next";
+import About from "@/components/Home/About";
+import CourseModules from "@/components/Home/CourseModule";
 
 export const metadata: Metadata = {
   title: "Free Next.js Template for Startup and SaaS",
@@ -18,19 +17,19 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
-  return (
-    <>
-      <ScrollUp />
-      <Hero />
-      <Features />
-      <Video />
-      <Brands />
-      <AboutSectionOne />
-      <AboutSectionTwo />
-      <Testimonials />
-      <Pricing />
-      <Blog />
-      <Contact />
-    </>
-  );
+    return (
+        <>
+            <ScrollUp />
+            <Hero />
+            <Features />
+            <Video />
+            <Sources />
+            <About />
+            <Testimonials />
+            {/* <Pricing /> */}
+            {/* <Blog /> */}
+            <CourseModules/>
+            <Contact />
+        </>
+    );
 }

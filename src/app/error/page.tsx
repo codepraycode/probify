@@ -1,6 +1,8 @@
 import Link from "next/link";
 
 import { Metadata } from "next";
+import AppNav from "@/components/Common/AppLink";
+import { HOME } from "@/data/links";
 
 export const metadata: Metadata = {
   title: "Error Page | Free Next.js Template for Startup and SaaS",
@@ -148,12 +150,12 @@ const ErrorPage = () => {
                   The page you were looking for appears to have been moved,
                   deleted or does not exist.
                 </p>
-                <Link
-                  href="/"
+                <AppNav
+                  href={HOME}
                   className="px-8 py-3 text-base font-bold text-white duration-300 rounded-md bg-primary shadow-signUp hover:bg-white hover:text-primary md:px-9 lg:px-8 xl:px-9"
                 >
                   Back to Homepage
-                </Link>
+                </AppNav>
               </div>
             </div>
           </div>
