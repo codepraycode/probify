@@ -5,9 +5,9 @@ import NewsLatterBox from "../Contact/NewsLatterBox";
 import { ContactFormValues, contactSchema } from "@/lib/contactSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
-import InputField from "../Form/InputField";
-import { TextareaField } from "../Form/TextAreaField";
-import FormError from "../Form/FormError";
+import InputField from "../Common/Form/InputField";
+import { TextareaField } from "../Common/Form/TextAreaField";
+import FormError from "../Common/Form/FormError";
 import { PrimaryButton } from "../ui/Button";
 import { showNotImplementedToast } from "@/lib/toast";
 

@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { useTheme } from "next-themes";
 import { BgDesign5 } from "../Common/Icons";
-import InputField from "../Form/InputField";
+import InputField from "../Common/Form/InputField";
 import { PrimaryButton } from "../ui/Button";
 import { showNotImplementedToast } from "@/lib/toast";
 
