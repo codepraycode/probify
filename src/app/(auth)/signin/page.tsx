@@ -17,7 +17,7 @@ export const metadata: Metadata = {
         siteName: "Probify",
         images: [
             {
-                url: "/og/main.png",
+                url: "/og/banner.png",
                 width: 1200,
                 height: 630,
                 alt: "Sign In to Probify",
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
         card: "summary_large_image",
         title: "Sign In – Probify",
         description: "Continue your probability learning journey.",
-        images: ["/og/main.png"],
+        images: ["/og/banner.png"],
     },
 };
 
