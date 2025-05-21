@@ -1,3 +1,4 @@
+export const APP_LIVE_URL = "https://probify.vercel.app";
 
 export const HOME = "/";
 export const SIGNIN = "/signin";

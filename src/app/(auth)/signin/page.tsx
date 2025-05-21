@@ -1,16 +1,36 @@
-import Link from "next/link";
+
 
 import { Metadata } from "next";
-import { SIGNUP } from "@/data/links";
+import { APP_LIVE_URL, SIGNIN, SIGNUP } from "@/data/links";
 import AppNav from "@/components/Common/AppLink";
-import { GoogleIcon } from "@/components/Common/Icons";
 import SignInAuthForm from "@/components/Auth/SigninAuth";
 import { GoogleOAuth } from "@/components/Auth/OAuth";
 
 export const metadata: Metadata = {
-  title: "Sign In Page | Free Next.js Template for Startup and SaaS",
-  description: "This is Sign In Page for Startup Nextjs Template",
-  // other metadata
+    title: "Sign In – Probify",
+    description:
+        "Access your Probify account to continue learning probability in a fun, interactive way.",
+    openGraph: {
+        title: "Sign In – Probify",
+        description: "Access your Probify account to continue learning.",
+        url: `${APP_LIVE_URL}${SIGNIN}`,
+        siteName: "Probify",
+        images: [
+            {
+                url: "/og/main.png",
+                width: 1200,
+                height: 630,
+                alt: "Sign In to Probify",
+            },
+        ],
+        type: "website",
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "Sign In – Probify",
+        description: "Continue your probability learning journey.",
+        images: ["/og/main.png"],
+    },
 };
 
 const SigninPage = () => {

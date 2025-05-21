@@ -1,25 +1,20 @@
-"use client";
 
-import Image from "next/image";
-import { useState } from "react";
 import SectionTitle from "../Common/SectionTitle";
+// import { PlayIcon } from "../Common/Icons";
 
-import ModalVideo from "react-modal-video";
-import { PlayIcon } from "../Common/Icons";
-
-function PlayButton({onClick}:{onClick: ()=>void}) {
-    return (
-        <div className="absolute right-0 top-0 flex h-full w-full items-center justify-center">
-            <button
-                aria-label="video play button"
-                onClick={onClick}
-                className="flex h-[70px] w-[70px] items-center justify-center rounded-full bg-white bg-opacity-75 text-primary transition hover:bg-opacity-100"
-            >
-                <PlayIcon/>
-            </button>
-        </div>
-    );
-}
+// function PlayButton({onClick}:{onClick: ()=>void}) {
+//     return (
+//         <div className="absolute right-0 top-0 flex h-full w-full items-center justify-center">
+//             <button
+//                 aria-label="video play button"
+//                 onClick={onClick}
+//                 className="flex h-[70px] w-[70px] items-center justify-center rounded-full bg-white bg-opacity-75 text-primary transition hover:bg-opacity-100"
+//             >
+//                 <PlayIcon/>
+//             </button>
+//         </div>
+//     );
+// }
 
 const Video = () => {
     return (
