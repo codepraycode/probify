@@ -1,0 +1,153 @@
+[
+    {
+        "id": 1,
+        "type": "mcq",
+        "question": {
+            "plain": "What is the probability of getting a head in a single coin toss?",
+            "katex": "What is the probability of getting a head in a single coin toss?"
+        },
+        "options": [
+            {
+                "plain": "1/2",
+                "katex": "$\\frac{1}{2}$"
+            },
+            {
+                "plain": "1/3",
+                "katex": "$\\frac{1}{3}$"
+            },
+            {
+                "plain": "1/4",
+                "katex": "$\\frac{1}{4}$"
+            },
+            {
+                "plain": "2/3",
+                "katex": "$\\frac{2}{3}$"
+            }
+        ],
+        "answer": "1/2",
+        "hint": {
+            "plain": "A fair coin has two outcomes: head or tail.",
+            "katex": "A fair coin has two outcomes: head or tail, so $P(\\text{Head}) = \\frac{1}{2}$."
+        },
+        "difficulty": "easy",
+        "tags": [
+            "basic",
+            "coin",
+            "intro"
+        ]
+    },
+    {
+        "id": 2,
+        "type": "fill",
+        "question": {
+            "plain": "A standard die has ____ faces.",
+            "katex": "A standard die has $\\underline{\\quad}$ faces."
+        },
+        "options": [],
+        "answer": "6",
+        "hint": {
+            "plain": "Standard dice have faces numbered 1 through 6.",
+            "katex": "Standard dice have faces numbered 1 through 6."
+        },
+        "difficulty": "easy",
+        "tags": [
+            "basic",
+            "die",
+            "intro"
+        ]
+    },
+    {
+        "id": 3,
+        "type": "mcq",
+        "question": {
+            "plain": "Which of these is NOT a valid probability?",
+            "katex": "Which of these is NOT a valid probability?"
+        },
+        "options": [
+            {
+                "plain": "0",
+                "katex": "$0$"
+            },
+            {
+                "plain": "1",
+                "katex": "$1$"
+            },
+            {
+                "plain": "-0.5",
+                "katex": "$-0.5$"
+            },
+            {
+                "plain": "0.8",
+                "katex": "$0.8$"
+            }
+        ],
+        "answer": "-0.5",
+        "hint": {
+            "plain": "Probability must be between 0 and 1.",
+            "katex": "Probability must be in the range $0 \\leq P(E) \\leq 1$."
+        },
+        "difficulty": "easy",
+        "tags": [
+            "basic",
+            "intro",
+            "probability-range"
+        ]
+    },
+    {
+        "id": 4,
+        "type": "mcq",
+        "question": {
+            "plain": "What is the probability of rolling a number less than 4 on a fair six-sided die?",
+            "katex": "What is the probability of rolling a number less than 4 on a fair six-sided die?"
+        },
+        "options": [
+            {
+                "plain": "1/6",
+                "katex": "$\\frac{1}{6}$"
+            },
+            {
+                "plain": "1/2",
+                "katex": "$\\frac{1}{2}$"
+            },
+            {
+                "plain": "3/6",
+                "katex": "$\\frac{3}{6}$"
+            },
+            {
+                "plain": "2/3",
+                "katex": "$\\frac{2}{3}$"
+            }
+        ],
+        "answer": "1/2",
+        "hint": {
+            "plain": "There are 3 outcomes less than 4: 1, 2, and 3.",
+            "katex": "$P(<4) = \\frac{3}{6} = \\frac{1}{2}$"
+        },
+        "difficulty": "easy",
+        "tags": [
+            "die",
+            "comparison",
+            "events"
+        ]
+    },
+    {
+        "id": 5,
+        "type": "fill",
+        "question": {
+            "plain": "If you flip two coins, the total number of possible outcomes is ____.",
+            "katex": "If you flip two coins, the total number of possible outcomes is $\\underline{\\quad}$."
+        },
+        "options": [],
+        "answer": "4",
+        "hint": {
+            "plain": "Each coin has 2 outcomes, so multiply them.",
+            "katex": "$2 \\times 2 = 4$ outcomes"
+        },
+        "difficulty": "easy",
+        "tags": [
+            "coin",
+            "multiplication",
+            "sample-space"
+        ]
+    }
+]

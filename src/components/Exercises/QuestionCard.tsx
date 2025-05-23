@@ -1,0 +1,77 @@
+import "katex/dist/katex.min.css";
+import { InlineMath } from "react-katex";
+import clsx from "clsx";
+import { Question, QuestionOption } from "@/types/questions";
+
+type QuestionCardProps = {
+    question: Question;
+    selectedOption?: QuestionOption;
+    onAnswer: (option: QuestionOption) => void;
+};
+
+export function QuestionCard({
+    question: questionObj,
+    onAnswer,
+    selectedOption,
+}: QuestionCardProps) {
+    const { type, question, options, answer } = questionObj;
+    return (
+        <div className="space-y-6 rounded-2xl border border-stroke p-6 shadow-two dark:border-stroke-dark dark:bg-dark">
+            <div className="font-heading text-lg leading-relaxed text-black dark:text-white">
+                {/* Check if question contains LaTeX markers like $...$ */}
+                {parseQuestionText(question)}
+            </div>
+
+            {type === "mcq" && (
+                <div className="grid gap-4 sm:grid-cols-2">
+                    {options.map((opt, idx) => {
+                        const selected = Object.is(selectedOption?.plain, opt.plain);
+                        return (
+                            <button
+                                key={idx}
+                                onClick={() => onAnswer(opt)}
+                                className={clsx(
+                                    "rounded-xl border px-4 py-3 text-left transition duration-150",
+                                    selected
+                                        ? "border-primary bg-primary/10 text-primary shadow-btn"
+                                        : "border-gray-300 bg-white hover:bg-gray-100 dark:border-stroke-dark dark:bg-gray-dark dark:text-white dark:hover:bg-gray-800",
+                                )}
+                            >
+                                {/* <InlineMath math={opt} /> */}
+
+                                {parseQuestionText(opt)}
+                            </button>
+                        );
+                    })}
+                </div>
+            )}
+
+            {type === "fill" && (
+                <input
+                    type="text"
+                    placeholder="Type your answer here..."
+                    value={selectedOption?.plain}
+                    onChange={(e) => onAnswer({
+                        plain: e.target.value,
+                        katex: e.target.value,
+                    })}
+                    className="w-full rounded-xl border border-stroke px-4 py-3 text-black shadow-sm focus:border-primary focus:outline-none dark:border-stroke-dark dark:bg-gray-dark dark:text-white"
+                />
+            )}
+        </div>
+    );
+}
+
+function parseQuestionText(data: QuestionOption) {
+    const {
+        katex: unraw
+    } = data;
+    
+    const parts = unraw.split(/(\$[^$]*\$)/g); // Split on $...$
+    return parts.map((part, index) => {
+        if (part.startsWith("$") && part.endsWith("$")) {
+            return <InlineMath key={index} math={part.slice(1, -1)} />;
+        }
+        return <span key={index}>{part}</span>;
+    });
+}
