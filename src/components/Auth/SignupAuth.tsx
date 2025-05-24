@@ -8,7 +8,7 @@ import Checkbox from "../Common/Form/Checkbox";
 import InputField from "../Common/Form/InputField";
 import AppNav from "../Common/AppLink";
 import { PrimaryButton } from "../ui/Button";
-import { showNotImplementedToast } from "@/lib/toast";
+import { showNotImplementedToast } from "@/utils/toast";
 import FormError from "../Common/Form/FormError";
 
 const signUpSchema = z

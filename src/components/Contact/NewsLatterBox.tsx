@@ -7,7 +7,7 @@ import { useTheme } from "next-themes";
 import { BgDesign5 } from "../Common/Icons";
 import InputField from "../Common/Form/InputField";
 import { PrimaryButton } from "../ui/Button";
-import { showNotImplementedToast } from "@/lib/toast";
+import { showNotImplementedToast } from "@/utils/toast";
 
 const newsletterSchema = z.object({
     name: z.string({required_error: "Name is required"}).min(2, "Please enter your full name"),

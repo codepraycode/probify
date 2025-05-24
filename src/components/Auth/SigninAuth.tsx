@@ -5,7 +5,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import InputField from "../Common/Form/InputField";
 import { PrimaryButton } from "../ui/Button";
-import { showNotImplementedToast } from "@/lib/toast";
+import { showNotImplementedToast } from "@/utils/toast";
 import FormError from "../Common/Form/FormError";
 
 const signInSchema = z.object({

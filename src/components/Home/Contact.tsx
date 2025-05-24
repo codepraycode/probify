@@ -2,14 +2,14 @@
 
 import { useForm } from "react-hook-form";
 import NewsLatterBox from "../Contact/NewsLatterBox";
-import { ContactFormValues, contactSchema } from "@/lib/contactSchema";
+import { ContactFormValues, contactSchema } from "@/lib/schema/contactSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import InputField from "../Common/Form/InputField";
 import { TextareaField } from "../Common/Form/TextAreaField";
 import FormError from "../Common/Form/FormError";
 import { PrimaryButton } from "../ui/Button";
-import { showNotImplementedToast } from "@/lib/toast";
+import { showNotImplementedToast } from "@/utils/toast";
 
 export default function Contact() {
     return (

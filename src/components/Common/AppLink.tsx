@@ -1,6 +1,6 @@
 "use client"
 import { HASH } from "@/data/links";
-import { showNotImplementedToast } from "@/lib/toast";
+import { showNotImplementedToast } from "@/utils/toast";
 import Link from "next/link"
 import type { LinkProps } from "next/link"
 import { PropsWithChildren } from "react";
