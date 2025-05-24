@@ -1,3 +1,5 @@
+"use client";
+
 import "katex/dist/katex.min.css";
 import { InlineMath } from "react-katex";
 import clsx from "clsx";
@@ -18,9 +20,6 @@ export const QuestionCard = observer(({
     const { type, question, options } = questionObj;
     const selectedOption = sourceAnswer(questionObj.id);
 
-    console.debug("QuestionCard", {
-        questionObj,
-        selectedOption,});
 
     return (
         <div className="space-y-6 rounded-2xl border border-stroke p-6 shadow-two dark:border-stroke-dark dark:bg-dark">

@@ -4,18 +4,17 @@
 import clsx from "clsx";
 import { useEffect, useState } from "react";
 
-export function TimerBar({
-    durationInSeconds,
-    className,
-    onComplete,
-    onTick,
-}: {
+
+type Props = {
     durationInSeconds: number;
     className?: string;
-    onComplete?: () => void;
-    onTick?: (secondsLeft: number) => void;
-}) {
-    const [secondsLeft, setSecondsLeft] = useState(durationInSeconds);
+    onCompleteAction?: () => void;
+    onTickAction?: (secondsLeft: number) => void;
+}
+
+
+function useTimer(duration: number, onComplete?: VoidFunction) {
+    const [secondsLeft, setSecondsLeft] = useState(duration);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -26,7 +25,6 @@ export function TimerBar({
                     onComplete?.();
                     return 0;
                 }
-                onTick?.(next);
                 return next;
             });
         }, 1000);
@@ -35,19 +33,35 @@ export function TimerBar({
 
     const minutes = Math.floor(secondsLeft / 60);
     const seconds = secondsLeft % 60;
+    const remaining = duration - (minutes * 60 + seconds);
+
+    return {
+        timeLeft: secondsLeft / duration,
+        minutes,
+        seconds,
+        remaining,
+    };
+}
+
+export function TimerBar(props: Props) {
+    const { durationInSeconds, className, onCompleteAction, onTickAction } =
+        props;
+    
+    const { minutes, seconds, timeLeft } = useTimer(
+        durationInSeconds,
+        onCompleteAction,
+    );
+
+
+    
 
     return (
-        <div
-            className={clsx(
-                "w-full overflow-hidden",
-                className,
-            )}
-        >
+        <div className={clsx("w-full overflow-hidden", className)}>
             <div
                 className="h-4 rounded-full bg-primary transition-all duration-300"
-                style={{ width: `${(secondsLeft / durationInSeconds) * 100}%` }}
+                style={{ width: `${timeLeft * 100}%` }}
             />
-            <p className="dark:text-muted-foreground mt-1 text-sm text-body-color">
+            <p className="mt-1 text-sm text-body-color dark:text-muted-foreground">
                 ⏳ {minutes}:{seconds.toString().padStart(2, "0")} remaining
             </p>
         </div>
