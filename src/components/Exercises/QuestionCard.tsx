@@ -1,20 +1,27 @@
 import "katex/dist/katex.min.css";
 import { InlineMath } from "react-katex";
 import clsx from "clsx";
-import { Question, QuestionOption } from "@/types/questions";
+import { Question, QuestionAnswer, QuestionId, QuestionOption, QuestionSelectedOption } from "@/types/questions";
+import { observer } from "mobx-react-lite";
 
 type QuestionCardProps = {
     question: Question;
-    selectedOption?: QuestionOption;
-    onAnswer: (option: QuestionOption) => void;
+    sourceAnswer: (id: QuestionId) => QuestionSelectedOption | undefined;
+    onAnswer: (id: QuestionId, value: QuestionAnswer) => void;
 };
 
-export function QuestionCard({
+export const QuestionCard = observer(({
     question: questionObj,
     onAnswer,
-    selectedOption,
-}: QuestionCardProps) {
-    const { type, question, options, answer } = questionObj;
+    sourceAnswer,
+}: QuestionCardProps) => {
+    const { type, question, options } = questionObj;
+    const selectedOption = sourceAnswer(questionObj.id);
+
+    console.debug("QuestionCard", {
+        questionObj,
+        selectedOption,});
+
     return (
         <div className="space-y-6 rounded-2xl border border-stroke p-6 shadow-two dark:border-stroke-dark dark:bg-dark">
             <div className="font-heading text-lg leading-relaxed text-black dark:text-white">
@@ -25,16 +32,21 @@ export function QuestionCard({
             {type === "mcq" && (
                 <div className="grid gap-4 sm:grid-cols-2">
                     {options.map((opt, idx) => {
-                        const selected = Object.is(selectedOption?.plain, opt.plain);
+                        const isSelected = selectedOption?.value === opt.plain;
                         return (
                             <button
                                 key={idx}
-                                onClick={() => onAnswer(opt)}
+                                type="button"
+                                onClick={() => onAnswer(
+                                    questionObj.id,
+                                    opt.plain
+                                )}
                                 className={clsx(
                                     "rounded-xl border px-4 py-3 text-left transition duration-150",
-                                    selected
-                                        ? "border-primary bg-primary/10 text-primary shadow-btn"
-                                        : "border-gray-300 bg-white hover:bg-gray-100 dark:border-stroke-dark dark:bg-gray-dark dark:text-white dark:hover:bg-gray-800",
+                                    {
+                                        "border-primary bg-primary/10 text-primary shadow-btn": isSelected,
+                                        "border-gray-300 bg-white hover:bg-gray-100 dark:border-stroke-dark dark:bg-gray-dark dark:text-white dark:hover:bg-gray-800": !isSelected
+                                    }
                                 )}
                             >
                                 {/* <InlineMath math={opt} /> */}
@@ -50,17 +62,19 @@ export function QuestionCard({
                 <input
                     type="text"
                     placeholder="Type your answer here..."
-                    value={selectedOption?.plain}
-                    onChange={(e) => onAnswer({
-                        plain: e.target.value,
-                        katex: e.target.value,
-                    })}
+                    value={selectedOption?.value || ""}
+                    onChange={(e) =>
+                        onAnswer(
+                            questionObj.id,
+                            e.target.value,
+                        )
+                    }
                     className="w-full rounded-xl border border-stroke px-4 py-3 text-black shadow-sm focus:border-primary focus:outline-none dark:border-stroke-dark dark:bg-gray-dark dark:text-white"
                 />
             )}
         </div>
     );
-}
+})
 
 function parseQuestionText(data: QuestionOption) {
     const {

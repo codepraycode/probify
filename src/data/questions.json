@@ -27,33 +27,31 @@
         "answer": "1/2",
         "hint": {
             "plain": "A fair coin has two outcomes: head or tail.",
-            "katex": "A fair coin has two outcomes: head or tail, so $P(\\text{Head}) = \\frac{1}{2}$."
+            "katex": "A fair coin has two outcomes: head or tail, so $P(\\text{head}) = \\frac{1}{2}$"
         },
         "difficulty": "easy",
         "tags": [
             "basic",
-            "coin",
-            "intro"
+            "coin"
         ]
     },
     {
         "id": 2,
         "type": "fill",
         "question": {
-            "plain": "A standard die has ____ faces.",
+            "plain": "A standard die has __ faces.",
             "katex": "A standard die has $\\underline{\\quad}$ faces."
         },
         "options": [],
         "answer": "6",
         "hint": {
-            "plain": "Standard dice have faces numbered 1 through 6.",
-            "katex": "Standard dice have faces numbered 1 through 6."
+            "plain": "A die is a cube with faces numbered from 1 to 6.",
+            "katex": "A die is a cube with faces numbered from 1 to 6."
         },
         "difficulty": "easy",
         "tags": [
             "basic",
-            "die",
-            "intro"
+            "dice"
         ]
     },
     {
@@ -83,71 +81,628 @@
         ],
         "answer": "-0.5",
         "hint": {
-            "plain": "Probability must be between 0 and 1.",
-            "katex": "Probability must be in the range $0 \\leq P(E) \\leq 1$."
+            "plain": "Probability must lie between 0 and 1.",
+            "katex": "Valid probabilities satisfy $0 \\leq P(E) \\leq 1$"
         },
         "difficulty": "easy",
         "tags": [
-            "basic",
-            "intro",
-            "probability-range"
+            "definition"
         ]
     },
     {
         "id": 4,
+        "type": "fill",
+        "question": {
+            "plain": "The probability of a certain event is __.",
+            "katex": "The probability of a certain event is $\\underline{\\quad}$."
+        },
+        "options": [],
+        "answer": "1",
+        "hint": {
+            "plain": "A certain event always happens.",
+            "katex": "A certain event always happens, so $P(E) = 1$"
+        },
+        "difficulty": "easy",
+        "tags": [
+            "certainty"
+        ]
+    },
+    {
+        "id": 5,
         "type": "mcq",
         "question": {
-            "plain": "What is the probability of rolling a number less than 4 on a fair six-sided die?",
-            "katex": "What is the probability of rolling a number less than 4 on a fair six-sided die?"
+            "plain": "If two events A and B are mutually exclusive, what is P(A ∩ B)?",
+            "katex": "If two events $A$ and $B$ are mutually exclusive, what is $P(A \\cap B)$?"
         },
         "options": [
             {
-                "plain": "1/6",
-                "katex": "$\\frac{1}{6}$"
+                "plain": "0",
+                "katex": "$0$"
             },
+            {
+                "plain": "1",
+                "katex": "$1$"
+            },
+            {
+                "plain": "P(A) + P(B)",
+                "katex": "$P(A) + P(B)$"
+            },
+            {
+                "plain": "P(A) × P(B)",
+                "katex": "$P(A) \\times P(B)$"
+            }
+        ],
+        "answer": "0",
+        "hint": {
+            "plain": "Mutually exclusive events cannot happen together.",
+            "katex": "If $A$ and $B$ are mutually exclusive, $P(A \\cap B) = 0$"
+        },
+        "difficulty": "medium",
+        "tags": [
+            "mutual exclusion",
+            "set theory"
+        ]
+    },
+
+    {
+        "id": 6,
+        "type": "fill",
+        "question": {
+            "plain": "If an event is impossible, its probability is __.",
+            "katex": "If an event is impossible, its probability is $\\underline{\\quad}$."
+        },
+        "options": [],
+        "answer": "0",
+        "hint": {
+            "plain": "Impossible events never occur.",
+            "katex": "For impossible events, $P(E) = 0$"
+        },
+        "difficulty": "easy",
+        "tags": [
+            "impossible",
+            "definition"
+        ]
+    },
+    {
+        "id": 7,
+        "type": "mcq",
+        "question": {
+            "plain": "A box contains 3 red and 2 green balls. What's the probability of drawing a red ball?",
+            "katex": "A box contains 3 red and 2 green balls. What's the probability of drawing a red ball?"
+        },
+        "options": [
             {
                 "plain": "1/2",
                 "katex": "$\\frac{1}{2}$"
             },
             {
-                "plain": "3/6",
-                "katex": "$\\frac{3}{6}$"
+                "plain": "3/5",
+                "katex": "$\\frac{3}{5}$"
             },
             {
-                "plain": "2/3",
-                "katex": "$\\frac{2}{3}$"
+                "plain": "2/5",
+                "katex": "$\\frac{2}{5}$"
+            },
+            {
+                "plain": "1/5",
+                "katex": "$\\frac{1}{5}$"
+            }
+        ],
+        "answer": "3/5",
+        "hint": {
+            "plain": "Probability = favorable outcomes / total outcomes.",
+            "katex": "$P(\\text{Red}) = \\frac{3}{3 + 2} = \\frac{3}{5}$"
+        },
+        "difficulty": "easy",
+        "tags": [
+            "basic",
+            "fractions"
+        ]
+    },
+    {
+        "id": 8,
+        "type": "fill",
+        "question": {
+            "plain": "In a single 6-sided die roll, the probability of getting an even number is __.",
+            "katex": "In a single 6-sided die roll, the probability of getting an even number is $\\underline{\\quad}$."
+        },
+        "options": [],
+        "answer": "1/2",
+        "hint": {
+            "plain": "Even outcomes: 2, 4, 6",
+            "katex": "3 even numbers out of 6: $P = \\frac{3}{6} = \\frac{1}{2}$"
+        },
+        "difficulty": "easy",
+        "tags": [
+            "dice",
+            "parity"
+        ]
+    },
+    {
+        "id": 9,
+        "type": "mcq",
+        "question": {
+            "plain": "If P(A) = 0.4 and P(B) = 0.5, what is P(A ∪ B) if A and B are mutually exclusive?",
+            "katex": "If $P(A) = 0.4$ and $P(B) = 0.5$, what is $P(A \\cup B)$ if $A$ and $B$ are mutually exclusive?"
+        },
+        "options": [
+            {
+                "plain": "0.9",
+                "katex": "$0.9$"
+            },
+            {
+                "plain": "0.2",
+                "katex": "$0.2$"
+            },
+            {
+                "plain": "0.1",
+                "katex": "$0.1$"
+            },
+            {
+                "plain": "1.0",
+                "katex": "$1.0$"
+            }
+        ],
+        "answer": "0.9",
+        "hint": {
+            "plain": "For mutually exclusive events: P(A ∪ B) = P(A) + P(B)",
+            "katex": "$P(A \\cup B) = P(A) + P(B)$"
+        },
+        "difficulty": "medium",
+        "tags": [
+            "mutual exclusion",
+            "addition rule"
+        ]
+    },
+    {
+        "id": 10,
+        "type": "fill",
+        "question": {
+            "plain": "A deck has 52 cards. The probability of drawing a spade is __.",
+            "katex": "A deck has 52 cards. The probability of drawing a spade is $\\underline{\\quad}$."
+        },
+        "options": [],
+        "answer": "1/4",
+        "hint": {
+            "plain": "There are 13 spades in a deck of 52 cards.",
+            "katex": "$P(\\text{Spade}) = \\frac{13}{52} = \\frac{1}{4}$"
+        },
+        "difficulty": "easy",
+        "tags": [
+            "cards"
+        ]
+    },
+    {
+        "id": 11,
+        "type": "mcq",
+        "question": {
+            "plain": "Which value cannot be a probability?",
+            "katex": "Which value cannot be a probability?"
+        },
+        "options": [
+            {
+                "plain": "0",
+                "katex": "$0$"
+            },
+            {
+                "plain": "0.6",
+                "katex": "$0.6$"
+            },
+            {
+                "plain": "1.2",
+                "katex": "$1.2$"
+            },
+            {
+                "plain": "1",
+                "katex": "$1$"
+            }
+        ],
+        "answer": "1.2",
+        "hint": {
+            "plain": "Probabilities cannot exceed 1.",
+            "katex": "Valid range: $0 \\leq P(E) \\leq 1$"
+        },
+        "difficulty": "easy",
+        "tags": [
+            "definition"
+        ]
+    },
+    {
+        "id": 12,
+        "type": "mcq",
+        "question": {
+            "plain": "P(A) = 0.3, P(B) = 0.4, and P(A ∩ B) = 0.1. What is P(A ∪ B)?",
+            "katex": "If $P(A) = 0.3$, $P(B) = 0.4$, and $P(A \\cap B) = 0.1$, what is $P(A \\cup B)$?"
+        },
+        "options": [
+            {
+                "plain": "0.6",
+                "katex": "$0.6$"
+            },
+            {
+                "plain": "0.7",
+                "katex": "$0.7$"
+            },
+            {
+                "plain": "0.8",
+                "katex": "$0.8$"
+            },
+            {
+                "plain": "0.5",
+                "katex": "$0.5$"
+            }
+        ],
+        "answer": "0.6",
+        "hint": {
+            "plain": "Use the formula: P(A ∪ B) = P(A) + P(B) - P(A ∩ B)",
+            "katex": "$P(A \\cup B) = P(A) + P(B) - P(A \\cap B)$"
+        },
+        "difficulty": "medium",
+        "tags": [
+            "addition rule",
+            "set theory"
+        ]
+    },
+    {
+        "id": 13,
+        "type": "fill",
+        "question": {
+            "plain": "The probability of the complement of an event A is __.",
+            "katex": "The probability of the complement of an event $A$ is $\\underline{\\quad}$"
+        },
+        "options": [],
+        "answer": "1 - P(A)",
+        "hint": {
+            "plain": "P(not A) = 1 - P(A)",
+            "katex": "$P(A') = 1 - P(A)$"
+        },
+        "difficulty": "medium",
+        "tags": [
+            "complement",
+            "identity"
+        ]
+    },
+    {
+        "id": 14,
+        "type": "mcq",
+        "question": {
+            "plain": "Which symbol represents the intersection of two events?",
+            "katex": "Which symbol represents the intersection of two events?"
+        },
+        "options": [
+            {
+                "plain": "∪",
+                "katex": "$\\cup$"
+            },
+            {
+                "plain": "∩",
+                "katex": "$\\cap$"
+            },
+            {
+                "plain": "⊂",
+                "katex": "$\\subset$"
+            },
+            {
+                "plain": "⊆",
+                "katex": "$\\subseteq$"
+            }
+        ],
+        "answer": "∩",
+        "hint": {
+            "plain": "Intersection means both events occur.",
+            "katex": "Intersection is denoted by $\\cap$"
+        },
+        "difficulty": "easy",
+        "tags": [
+            "symbols",
+            "set theory"
+        ]
+    },
+    {
+        "id": 15,
+        "type": "fill",
+        "question": {
+            "plain": "If P(A) = 0.7, then P(not A) = __.",
+            "katex": "If $P(A) = 0.7$, then $P(A') = \\underline{\\quad}$."
+        },
+        "options": [],
+        "answer": "0.3",
+        "hint": {
+            "plain": "P(not A) = 1 - P(A)",
+            "katex": "$P(A') = 1 - P(A) = 1 - 0.7 = 0.3$"
+        },
+        "difficulty": "easy",
+        "tags": [
+            "complement"
+        ]
+    },
+    {
+        "id": 16,
+        "type": "mcq",
+        "question": {
+            "plain": "If P(A) = 0.6 and P(B) = 0.5 and A and B are independent, what is P(A ∩ B)?",
+            "katex": "If $P(A) = 0.6$ and $P(B) = 0.5$ and $A$ and $B$ are independent, what is $P(A \\cap B)$?"
+        },
+        "options": [
+            {
+                "plain": "0.1",
+                "katex": "$0.1$"
+            },
+            {
+                "plain": "0.3",
+                "katex": "$0.3$"
+            },
+            {
+                "plain": "0.5",
+                "katex": "$0.5$"
+            },
+            {
+                "plain": "0.6",
+                "katex": "$0.6$"
+            }
+        ],
+        "answer": "0.3",
+        "hint": {
+            "plain": "For independent events, P(A ∩ B) = P(A) × P(B).",
+            "katex": "$P(A \\cap B) = P(A) \\times P(B)$"
+        },
+        "difficulty": "medium",
+        "tags": [
+            "independence",
+            "intersection"
+        ]
+    },
+    {
+        "id": 17,
+        "type": "fill",
+        "question": {
+            "plain": "The sum of probabilities of all possible outcomes of a random experiment is __.",
+            "katex": "The sum of probabilities of all possible outcomes of a random experiment is $\\underline{\\quad}$."
+        },
+        "options": [],
+        "answer": "1",
+        "hint": {
+            "plain": "Probability space adds up to 1.",
+            "katex": "$\\sum P(E_i) = 1$"
+        },
+        "difficulty": "easy",
+        "tags": [
+            "axioms"
+        ]
+    },
+    {
+        "id": 18,
+        "type": "mcq",
+        "question": {
+            "plain": "In a fair coin toss, what is the probability of getting exactly 1 head in 2 tosses?",
+            "katex": "In a fair coin toss, what is the probability of getting exactly 1 head in 2 tosses?"
+        },
+        "options": [
+            {
+                "plain": "1/2",
+                "katex": "$\\frac{1}{2}$"
+            },
+            {
+                "plain": "1/3",
+                "katex": "$\\frac{1}{3}$"
+            },
+            {
+                "plain": "1/4",
+                "katex": "$\\frac{1}{4}$"
+            },
+            {
+                "plain": "3/4",
+                "katex": "$\\frac{3}{4}$"
             }
         ],
         "answer": "1/2",
         "hint": {
-            "plain": "There are 3 outcomes less than 4: 1, 2, and 3.",
-            "katex": "$P(<4) = \\frac{3}{6} = \\frac{1}{2}$"
+            "plain": "HH, HT, TH, TT — only HT and TH qualify.",
+            "katex": "Favorable: 2 outcomes / 4 total = $\\frac{1}{2}$"
         },
-        "difficulty": "easy",
+        "difficulty": "medium",
         "tags": [
-            "die",
-            "comparison",
-            "events"
+            "coin toss",
+            "sample space"
         ]
     },
     {
-        "id": 5,
+        "id": 19,
         "type": "fill",
         "question": {
-            "plain": "If you flip two coins, the total number of possible outcomes is ____.",
-            "katex": "If you flip two coins, the total number of possible outcomes is $\\underline{\\quad}$."
+            "plain": "The probability that a person is left-handed is 0.1. What is the probability that they are not left-handed?",
+            "katex": "If $P(\\text{left-handed}) = 0.1$, then $P(\\text{not left-handed}) = \\underline{\\quad}$"
         },
         "options": [],
-        "answer": "4",
+        "answer": "0.9",
         "hint": {
-            "plain": "Each coin has 2 outcomes, so multiply them.",
-            "katex": "$2 \\times 2 = 4$ outcomes"
+            "plain": "Use the complement rule.",
+            "katex": "$P(\\text{not } A) = 1 - P(A) = 1 - 0.1 = 0.9$"
         },
         "difficulty": "easy",
         "tags": [
-            "coin",
-            "multiplication",
-            "sample-space"
+            "complement"
+        ]
+    },
+    {
+        "id": 20,
+        "type": "mcq",
+        "question": {
+            "plain": "What is P(A ∪ B) if P(A) = 0.7, P(B) = 0.6, and P(A ∩ B) = 0.4?",
+            "katex": "What is $P(A \\cup B)$ if $P(A) = 0.7$, $P(B) = 0.6$, and $P(A \\cap B) = 0.4$?"
+        },
+        "options": [
+            {
+                "plain": "0.9",
+                "katex": "$0.9$"
+            },
+            {
+                "plain": "1.0",
+                "katex": "$1.0$"
+            },
+            {
+                "plain": "0.8",
+                "katex": "$0.8$"
+            },
+            {
+                "plain": "1.3",
+                "katex": "$1.3$"
+            }
+        ],
+        "answer": "0.9",
+        "hint": {
+            "plain": "Apply: P(A ∪ B) = P(A) + P(B) - P(A ∩ B)",
+            "katex": "$P(A \\cup B) = 0.7 + 0.6 - 0.4 = 0.9$"
+        },
+        "difficulty": "medium",
+        "tags": [
+            "union",
+            "set operations"
+        ]
+    },
+    {
+        "id": 21,
+        "type": "fill",
+        "question": {
+            "plain": "The event with probability 1 is called a __ event.",
+            "katex": "The event with probability $1$ is called a $\\underline{\\quad}$ event."
+        },
+        "options": [],
+        "answer": "sure",
+        "hint": {
+            "plain": "It is guaranteed to happen.",
+            "katex": "$P(E) = 1$ \\Rightarrow$ sure event"
+        },
+        "difficulty": "easy",
+        "tags": [
+            "sure event"
+        ]
+    },
+    {
+        "id": 22,
+        "type": "mcq",
+        "question": {
+            "plain": "Which of the following represents the complement of event A?",
+            "katex": "Which of the following represents the complement of event $A$?"
+        },
+        "options": [
+            {
+                "plain": "A",
+                "katex": "$A$"
+            },
+            {
+                "plain": "A'",
+                "katex": "$A'$"
+            },
+            {
+                "plain": "A∩B",
+                "katex": "$A \\cap B$"
+            },
+            {
+                "plain": "A∪B",
+                "katex": "$A \\cup B$"
+            }
+        ],
+        "answer": "A'",
+        "hint": {
+            "plain": "A' or Aᶜ is used to denote the complement.",
+            "katex": "$A' = \\text{not } A$"
+        },
+        "difficulty": "easy",
+        "tags": [
+            "symbols",
+            "complement"
+        ]
+    },
+    {
+        "id": 23,
+        "type": "mcq",
+        "question": {
+            "plain": "If the probability of rain tomorrow is 0.3, what is the probability it does not rain?",
+            "katex": "If $P(\\text{rain}) = 0.3$, what is $P(\\text{no rain})$?"
+        },
+        "options": [
+            {
+                "plain": "0.3",
+                "katex": "$0.3$"
+            },
+            {
+                "plain": "0.7",
+                "katex": "$0.7$"
+            },
+            {
+                "plain": "1.3",
+                "katex": "$1.3$"
+            },
+            {
+                "plain": "0",
+                "katex": "$0$"
+            }
+        ],
+        "answer": "0.7",
+        "hint": {
+            "plain": "Use complement rule again.",
+            "katex": "$1 - P(\\text{rain}) = 1 - 0.3 = 0.7$"
+        },
+        "difficulty": "easy",
+        "tags": [
+            "complement"
+        ]
+    },
+    {
+        "id": 24,
+        "type": "fill",
+        "question": {
+            "plain": "The probability of an event and its complement always add up to __.",
+            "katex": "The probability of an event and its complement always add up to $\\underline{\\quad}$."
+        },
+        "options": [],
+        "answer": "1",
+        "hint": {
+            "plain": "P(A) + P(A') = 1",
+            "katex": "$P(A) + P(A') = 1$"
+        },
+        "difficulty": "easy",
+        "tags": [
+            "complement",
+            "axioms"
+        ]
+    },
+    {
+        "id": 25,
+        "type": "mcq",
+        "question": {
+            "plain": "If a coin is tossed 3 times, what is the probability of getting at least one head?",
+            "katex": "If a coin is tossed 3 times, what is $P(\\text{at least one head})$?"
+        },
+        "options": [
+            {
+                "plain": "1/8",
+                "katex": "$\\frac{1}{8}$"
+            },
+            {
+                "plain": "7/8",
+                "katex": "$\\frac{7}{8}$"
+            },
+            {
+                "plain": "3/4",
+                "katex": "$\\frac{3}{4}$"
+            },
+            {
+                "plain": "1/2",
+                "katex": "$\\frac{1}{2}$"
+            }
+        ],
+        "answer": "7/8",
+        "hint": {
+            "plain": "Complement method: subtract probability of getting no heads from 1.",
+            "katex": "$1 - P(\\text{no head}) = 1 - \\left(\\frac{1}{2}\\right)^3 = 1 - \\frac{1}{8} = \\frac{7}{8}$"
+        },
+        "difficulty": "medium",
+        "tags": [
+            "complement",
+            "coin toss",
+            "compound events"
         ]
     }
 ]

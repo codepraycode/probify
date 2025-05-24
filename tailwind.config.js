@@ -7,38 +7,37 @@ const config = {
         "./src/layout/**/*.{ts,tsx}",
         "./src/**/*.{ts,tsx}",
     ],
-    darkMode: "class", // respects the template
+    darkMode: "class",
     theme: {
         container: {
-        center: true,
-        padding: "1rem",
+            center: true,
+            padding: "1rem",
         },
         screens: {
-        xs: "450px",
-        sm: "575px",
-        md: "768px",
-        lg: "992px",
-        xl: "1200px",
-        "2xl": "1400px",
+            xs: "450px",
+            sm: "575px",
+            md: "768px",
+            lg: "992px",
+            xl: "1200px",
+            "2xl": "1400px",
         },
         extend: {
             fontFamily: {
                 sans: ['Inter', 'ui-sans-serif', 'system-ui'],
                 heading: ['"Poppins"', 'sans-serif'],
             },
-            keyframes: {
-                wiggle: {
-                    '0%, 100%': { transform: 'rotate(-3deg)' },
-                    '50%': { transform: 'rotate(3deg)' },
-                },
-                pop: {
-                    '0%': { transform: 'scale(0.95)' },
-                    '100%': { transform: 'scale(1.05)' },
-                },
+            spacing: {
+                '1.5': '0.375rem',
+                '4.5': '1.125rem',
+                '18': '4.5rem',
+                '22': '5.5rem',
             },
-            animation: {
-                wiggle: 'wiggle 200ms ease-in-out',
-                pop: 'pop 150ms ease-in',
+            fontSize: {
+                'xs-sm': '0.8125rem',
+            },
+            borderRadius: {
+                'xl': '1rem',
+                '2xl': '1.5rem',
             },
             colors: {
                 current: "currentColor",
@@ -55,6 +54,26 @@ const config = {
                 stroke: "#E3E8EF",
                 "stroke-dark": "#353943",
                 "bg-color-dark": "#171C28",
+                "muted-foreground": "#6B7280", // for subtle text
+            },
+            keyframes: {
+                wiggle: {
+                    '0%, 100%': { transform: 'rotate(-3deg)' },
+                    '50%': { transform: 'rotate(3deg)' },
+                },
+                pop: {
+                    '0%': { transform: 'scale(0.95)' },
+                    '100%': { transform: 'scale(1.05)' },
+                },
+                fadeIn: {
+                    '0%': { opacity: 0 },
+                    '100%': { opacity: 1 },
+                },
+            },
+            animation: {
+                wiggle: 'wiggle 200ms ease-in-out',
+                pop: 'pop 150ms ease-in',
+                fadeIn: 'fadeIn 300ms ease-in-out',
             },
             boxShadow: {
                 signUp: "0px 5px 10px rgba(4, 10, 34, 0.2)",
@@ -72,6 +91,13 @@ const config = {
             },
             dropShadow: {
                 three: "0px 5px 15px rgba(6, 8, 15, 0.05)",
+            },
+            zIndex: {
+                60: '60',
+                70: '70',
+                80: '80',
+                90: '90',
+                100: '100',
             },
         },
     },
