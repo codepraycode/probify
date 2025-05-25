@@ -7,3 +7,7 @@ export const HASH = "/#";
 export const TERMS = "/#";
 export const PRIVACY = "/#";
 export const COOKIES = "/#";
+
+export const EXERCISES="/exercises";
+export const EXERCISE_SETUP=`${EXERCISES}/setup`;
+export const EXERCISE_REPORT=`${EXERCISES}/report`;

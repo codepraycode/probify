@@ -1,10 +1,9 @@
 import Spacer from "@/components/Common/Spacer";
 import ExercisePlayer from "@/components/Exercises";
-import { nanoid } from "nanoid";
 
 export default function ExercisePage() {    
 
-    const reportId = nanoid();
+    const reportId = "cmb3r42480000m6081mufo39z";
 
     return (
         <>

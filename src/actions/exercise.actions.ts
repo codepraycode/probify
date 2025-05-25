@@ -1,12 +1,30 @@
-import prisma from "@/db";
+"use server";
 
-export async function createSession(duration: number) {
-    const session = await prisma.exerciseSession.create({
-        data: {
-            duration
-        },
-    });
-    return session;
+import prisma from "@/db";
+import { CreateExerciseSessionData } from "@/types/exercise.types";
+import { ActionResult } from "./type";
+import { handleActionErrors } from "@/utils/errorHandlers";
+
+export async function createTestSession(data: CreateExerciseSessionData): ActionResult<string> {
+    try {
+            const session = await prisma.exerciseSession.create({
+            data,
+            select: {
+                id: true
+            }
+        });
+        return {
+            success: true,
+            message: "Created Exercise Session",
+            data: session.id
+        };
+    } catch(err) {
+        handleActionErrors(err);
+        return {
+            success: false,
+            message: "Could not create exercise",
+        }
+    }
 }
 
 export async function closeSession({

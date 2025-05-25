@@ -3,7 +3,7 @@
 
 import { useNavigate } from "@/hooks/useNavigate";
 import { useExercise } from "@/lib/context/ExerciseContext";
-import { QuestionAnswer, QuestionId } from "@/types/questions";
+import { QuestionAnswer, QuestionId } from "@/types/exercise.types";
 import { nanoid } from "nanoid";
 import { useCallback, useEffect, useRef } from "react";
 import { observer } from "mobx-react-lite";

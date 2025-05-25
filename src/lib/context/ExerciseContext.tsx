@@ -3,7 +3,7 @@
 import { createContext, useContext } from "react";
 import { ExerciseStore } from "@/lib/store/ExerciseStore";
 import questions from "@/data/questions.json";
-import { QuestionDifficulty, QuestionType } from "@/types/questions";
+import { QuestionDifficulty, QuestionType } from "@/types/exercise.types";
 
 const exerciseStore = new ExerciseStore(
     questions.map((question) => ({

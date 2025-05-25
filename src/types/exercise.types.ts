@@ -1,8 +1,42 @@
+import { ExerciseSession } from "@/db/generated/prisma";
+
+
+export type CreateExerciseSessionData = Pick<ExerciseSession, "duration" | "questions" | "topics" | "type">
+
+export const QuestionTypes = {
+    mcq: "mcq",
+    fill: "fill",
+} as const;
+
+export type QuestionType = (keyof typeof QuestionTypes);
+export type LabelQuestionType = (keyof typeof QuestionTypes) | "both";
+
+export const QUESTION_TYPE_DELIMETER = ",";
+
+export const QuestionTypeLabels: Record<LabelQuestionType, {simple:string; verbose:string; value: string}> = {
+    mcq: {
+        simple: "📝 MCQ",
+        verbose: "Multiple Choice",
+        value: QuestionTypes.mcq,
+    },
+    fill: {
+        simple: "✍️ Fill",
+        verbose: "Fill in the Blank",
+        value: QuestionTypes.fill,
+    },
+    both: {
+        simple: "🔀 Both",
+        verbose: "Both",
+        value: Object.values(QuestionTypes).join(QUESTION_TYPE_DELIMETER),
+    }
+};
+
+
+
 export type QuestionAnswer = string;
 export type QuestionDifficulty = "easy" | "medium" | "hard";
 export type QuestionTag = string[];
 export type QuestionId = number;
-export type QuestionType = "mcq" | "fill";
 export type QuestionOption = {
     plain: string;
     katex: string;

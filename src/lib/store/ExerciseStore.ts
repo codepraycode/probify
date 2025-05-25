@@ -1,6 +1,22 @@
 import { makeAutoObservable, toJS } from "mobx";
 import mockQuestions from "@/data/questions.json"
-import { Question, QuestionAnswer,QuestionReport, QuestionId, QuestionSelectedOption, QuestionType } from "@/types/questions";
+import { Question, QuestionAnswer,QuestionReport, QuestionId, QuestionSelectedOption, QuestionType, QUESTION_TYPE_DELIMETER } from "@/types/exercise.types";
+import { ExerciseSetupFormValues } from "../schema/exerciseSchema";
+import { wait } from "@/utils/functions";
+import { EXERCISE_SETUP } from "@/data/links";
+import { createTestSession } from "@/actions/exercise.actions";
+
+
+// TODO: Make this option user specific
+export const topicOptions = [
+    "All",
+    "Probability",
+    "Permutations",
+    "Combinations",
+    "Events",
+    "Experiments",
+];
+
 export class ExerciseStore {
     questions:Question[] = [];
     currentIndex = 1;
@@ -57,6 +73,28 @@ export class ExerciseStore {
         if (!this.isFirst) {
             this.currentIndex -= 1;
         }
+    }
+
+    async createExerciseSession(data: ExerciseSetupFormValues) {
+        const {
+            duration,
+            questions,
+            topics,
+            type
+        } = data;
+
+        // await wait(2);
+
+        const dataToSubmit = {
+            duration,
+            questions,
+            topics,
+            type: type.split(QUESTION_TYPE_DELIMETER) as QuestionType[]
+        }
+
+        // console.debug("Session Data", dataToSubmit);
+
+        return await createTestSession(dataToSubmit);
     }
 
     submitAnswers({ duration }: { duration: QuestionReport["duration"] }): QuestionReport {

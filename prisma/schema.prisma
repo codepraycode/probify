@@ -10,14 +10,15 @@ datasource db {
 }
 
 model ExerciseSession {
-  id        String   @id @default(cuid())
-  duration  Int      // Total duration in seconds 
-  minutes   Int?
-  seconds   Int?
-  report    ExerciseReport? @relation(fields: [reportid], references: [id])
-  reportid String?
-  createdAt      DateTime           @default(now())
-  updatedAt      DateTime           @updatedAt
+  id              String           @id @default(cuid())
+  duration        Int              // Total duration in seconds 
+  questions       Int              // Total duration in seconds 
+  topics          String[]         // Total duration in seconds 
+  type            QuestionType[]         // Total duration in seconds 
+  report          ExerciseReport?  @relation(fields: [reportid], references: [id])
+  reportid        String?
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
 }
 
 
@@ -26,6 +27,8 @@ model ExerciseReport {
   score          Int
   total          Int
   accuracy       Float              // e.g., 75.5 for 75.5%
+  minutes        Int
+  seconds        Int
   answers        SubmittedAnswer[]
   createdAt      DateTime           @default(now())
 

@@ -3,7 +3,7 @@
 import "katex/dist/katex.min.css";
 import { InlineMath } from "react-katex";
 import clsx from "clsx";
-import { Question, QuestionAnswer, QuestionId, QuestionOption, QuestionSelectedOption } from "@/types/questions";
+import { Question, QuestionAnswer, QuestionId, QuestionOption, QuestionSelectedOption } from "@/types/exercise.types";
 import { observer } from "mobx-react-lite";
 
 type QuestionCardProps = {
