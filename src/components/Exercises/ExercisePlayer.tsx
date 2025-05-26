@@ -3,24 +3,26 @@
 
 import { useNavigate } from "@/hooks/useNavigate";
 import { useExercise } from "@/lib/context/ExerciseContext";
-import { QuestionAnswer, QuestionId } from "@/types/exercise.types";
+import { Exercise, ExerciseWithReport, QuestionAnswer, QuestionId } from "@/types/exercise.types";
 import { nanoid } from "nanoid";
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useMemo, useRef } from "react";
 import { observer } from "mobx-react-lite";
 import { TimerBar } from "./TimeBar";
 import ProgressIndicator from "./ProgressIndicator";
 import { QuestionCard } from "./QuestionCard";
 import { PrimaryButton, SecondaryButton } from "../ui/Button";
-
-const timerDuration = 60 * 5; // 5 minutes
-
+import { calculateExerciseDuration } from "@/utils/functions";
+import { EXERCISE_REPORT_REF_URL } from "@/data/links";
+import { showErrorToast, showSuccessToast } from "@/utils/toast";
 
 type Props = {
-    reportId: string;
+    exercise: Exercise;
 }
 
 function ExercisePlayer(props: Props) {
-    const { reportId } = props;
+    const { exercise } = props;
+
+    const toastId = exercise.id;
 
     const containerRef = useRef<HTMLDivElement>(null);
     const startTimeRef = useRef<number>(Date.now());
@@ -29,11 +31,15 @@ function ExercisePlayer(props: Props) {
     const store = useExercise();
     const { navigate } = useNavigate();
 
-    const handleAnswer = (id: QuestionId, value: QuestionAnswer) => {
+    const duration = useMemo(()=>{
+        return calculateExerciseDuration(exercise.duration);
+    }, [exercise.duration]);
+
+    const handleSaveAnswer = (id: QuestionId, value: QuestionAnswer) => {
         store.setSelection(id, value);
     };
 
-    const handleSubmit = useCallback((e?: React.FormEvent) => {
+    const handleSubmit = useCallback(async (e?: React.FormEvent) => {
         e?.preventDefault();
 
         const endTime = Date.now();
@@ -41,20 +47,25 @@ function ExercisePlayer(props: Props) {
         const minutes = Math.floor(totalTime / 60);
         const seconds = totalTime % 60;
 
-        const report = store.submitAnswers({
+        const {success, message, data: reportId} = await store.submitAnswers({
             duration: { minutes, seconds },
+            exerciseId: exercise.id,
         });
 
-        console.debug("Report generated:", report);
+        if (!success) {
+            // Handle error, show message to user
+            showErrorToast(message, toastId);
+            return;
+        }
 
-        navigate(`/exercises/report?i=${reportId}`);
+        showSuccessToast(message, toastId);
+        navigate(EXERCISE_REPORT_REF_URL(reportId));
     }, []);
 
     const handleKeydown = (e: KeyboardEvent) => {
         if (e.key === "ArrowRight") store.goNext();
         if (e.key === "ArrowLeft") store.goPrev();
     };
-
 
     useEffect(() => {
         window.addEventListener("keydown", handleKeydown);
@@ -81,16 +92,9 @@ function ExercisePlayer(props: Props) {
                     </p>
                     <br />
                     <TimerBar
-                        durationInSeconds={timerDuration}
+                        durationInSeconds={duration}
                         className="mb-4 mt-2"
-                        onCompleteAction={()=>{
-                            console.debug("!!!!!! COMPLETED !!!!!")
-                            handleSubmit();
-                            // testFormRef.current?.submit();
-                            // testFormRef.current?.dispatchEvent(
-                            //     new Event("submit", { cancelable: true })
-                            // );
-                        }}
+                        onCompleteAction={handleSubmit}
                     />
                 </div>
 
@@ -103,7 +107,7 @@ function ExercisePlayer(props: Props) {
 
                 <QuestionCard
                     question={store.currentQuestion}
-                    onAnswer={handleAnswer}
+                    onAnswer={handleSaveAnswer}
                     sourceAnswer={store.getSelectionOption}
                 />
 

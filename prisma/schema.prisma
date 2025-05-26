@@ -10,43 +10,33 @@ datasource db {
 }
 
 model ExerciseSession {
-  id              String           @id @default(cuid())
-  duration        Int              // Total duration in seconds 
-  questions       Int              // Total duration in seconds 
-  topics          String[]         // Total duration in seconds 
-  type            QuestionType[]         // Total duration in seconds 
-  report          ExerciseReport?  @relation(fields: [reportid], references: [id])
-  reportid        String?
-  createdAt       DateTime         @default(now())
-  updatedAt       DateTime         @updatedAt
-}
+  id        String          @id @default(cuid())
+  duration  Int             // Total duration in seconds
+  questions Int             // Total number of questions
+  topics    String[]        // Array of topic strings
+  type      QuestionType[]  // Array of question types
 
+  report    ExerciseReport? @relation(fields: [reportId], references: [id], onDelete: Cascade)
+  reportId  String?         @unique
+
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+}
 
 model ExerciseReport {
-  id             String             @id @default(cuid())
-  score          Int
-  total          Int
-  accuracy       Float              // e.g., 75.5 for 75.5%
-  minutes        Int
-  seconds        Int
-  answers        SubmittedAnswer[]
-  createdAt      DateTime           @default(now())
+  id         String           @id @default(cuid())
+  score      Int
+  total      Int
+  accuracy   Float            // e.g., 75.5 for 75.5%
 
-  ExerciseSession ExerciseSession[]
+  duration    Json             // JSON blob of duration
+  answers    Json             // JSON blob of all submitted answers
+  topics    Json             // JSON blob of topics breakdown
+  types    Json             // JSON blob of question types breakdown
+
+  exercise    ExerciseSession? @relation
+  createdAt  DateTime         @default(now())
 }
-
-model SubmittedAnswer {
-  id            String          @id @default(cuid())
-  reportId      String
-  report        ExerciseReport  @relation(fields: [reportId], references: [id], onDelete: Cascade)
-  questionId    String             // Matches the QuestionId from your JSON
-  questionType  QuestionType
-  selected      String          // Plain text selected value
-  correct       Boolean
-  correctAnswer String
-  hint          String          // Plain or KaTeX as string
-}
-
 
 enum QuestionType {
   mcq

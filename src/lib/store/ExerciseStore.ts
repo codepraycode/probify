@@ -1,10 +1,10 @@
 import { makeAutoObservable, toJS } from "mobx";
 import mockQuestions from "@/data/questions.json"
-import { Question, QuestionAnswer,QuestionReport, QuestionId, QuestionSelectedOption, QuestionType, QUESTION_TYPE_DELIMETER } from "@/types/exercise.types";
-import { ExerciseSetupFormValues } from "../schema/exerciseSchema";
+import { Question, QuestionAnswer, QuestionId, QuestionSelectedOption, QuestionType, QUESTION_TYPE_DELIMETER, ExerciseDuration, Report, BreakDown, ReportData } from "@/types/exercise.types";
+import { ExerciseSetupFormValues, SubmittedAnswer } from "../schema/exerciseSchema";
 import { wait } from "@/utils/functions";
 import { EXERCISE_SETUP } from "@/data/links";
-import { createTestSession } from "@/actions/exercise.actions";
+import { createTestSession, saveExerciseReport } from "@/actions/exercise.actions";
 
 
 // TODO: Make this option user specific
@@ -97,39 +97,41 @@ export class ExerciseStore {
         return await createTestSession(dataToSubmit);
     }
 
-    submitAnswers({ duration }: { duration: QuestionReport["duration"] }): QuestionReport {
+    async submitAnswers({ duration, exerciseId }: { duration: ExerciseDuration, exerciseId: string }) {
         const total = this.questions.length;
         let score = 0;
 
-        const answers: QuestionReport["answers"] = [];
+        const answers: SubmittedAnswer[] = [];
+        // Compute topic breakdown
+        const topicCounts = new Map<string, number>();
 
-        for (const question of this.questions) {
-            const selection = this.selections.get(question.id);
+        for (const questionObj of this.questions) {
+            const selection = this.selections.get(questionObj.id);
 
-            const isCorrect = selection?.value === question.answer;
+            const isCorrect = selection?.value === questionObj.answer;
+
             if (isCorrect) score++;
 
             answers.push({
-                questionId: question.id,
-                selection: selection!,
+                question: questionObj.question.katex,
+                selected: selection?.value || "",
                 correct: isCorrect,
-                answer: question.answer,
-                hint: question.hint,
+                correctAnswer: questionObj.answer,
+                hint: questionObj.hint.katex || "",
+                questionType: questionObj.type,
             });
+
+
+            // Use question.tags[0] as the primary topic
+
+            const topic = questionObj.tags?.[0] ?? "General";
+            topicCounts.set(topic, (topicCounts.get(topic) || 0) + 1);
         }
 
         const accuracy = Number(((score / total) * 100).toFixed(2));
 
-        // Compute topic breakdown
-        const topicCounts = new Map<string, number>();
-        // Use question.tags[0] as the primary topic
-        for (const question of this.questions) {
-            const topic = question.tags?.[0] ?? "General";
-            topicCounts.set(topic, (topicCounts.get(topic) || 0) + 1);
-        }
-
-        const breakdown: QuestionReport["breakdown"] = Array.from(topicCounts.entries()).map(
-            ([topic, count]) => ({ topic, count })
+        const topics: BreakDown[] = Array.from(topicCounts.entries()).map(
+            ([topic, count]) => ({ label:topic, count })
         );
 
         // Compute question type distribution
@@ -139,21 +141,21 @@ export class ExerciseStore {
             typeCounts.set(type, (typeCounts.get(type) || 0) + 1);
         }
 
-        const questionTypes: QuestionReport["questionTypes"] = Array.from(typeCounts.entries()).map(
-            ([type, count]) => ({ type, count })
+        const types: BreakDown[] = Array.from(typeCounts.entries()).map(
+            ([type, count]) => ({ label:type, count })
         );
 
-        const report: QuestionReport = {
+        const report: ReportData = {
             score,
             total,
             accuracy,
             duration,
-            breakdown,
-            questionTypes,
             answers,
+            topics,
+            types
         };
 
-        return report;
+        return await saveExerciseReport({...report, exerciseId})
     }
 
 

@@ -1,7 +1,19 @@
-import { ExerciseSession } from "@/db/generated/prisma";
+import { ExerciseSession, ExerciseReport } from "@/db/generated/prisma";
+import { SubmittedAnswer } from "@/lib/schema/exerciseSchema";
 
 
 export type CreateExerciseSessionData = Pick<ExerciseSession, "duration" | "questions" | "topics" | "type">
+
+export type ExerciseDuration = {
+    minutes: number;
+    seconds: number;
+}; 
+
+export type Report = ExerciseReport;
+export type ReportData = Omit<ExerciseReport, "id" | "createdAt" | "updatedAt" | "answers"> & { answers: SubmittedAnswer[] };
+
+export type Exercise = ExerciseSession; 
+export type ExerciseWithReport = Exercise & {report: Report};
 
 export const QuestionTypes = {
     mcq: "mcq",
@@ -57,28 +69,33 @@ export type Question = {
     tags: QuestionTag;
 }
 
-
-export type QuestionReport = {
-    score: number;
-    total: number;
-    accuracy: number;
-    duration: {
-        minutes: number;
-        seconds: number;
-    };
-    breakdown: {
-        topic: string;
-        count: number;
-    }[];
-    questionTypes: {
-        type: QuestionType;
-        count: number;
-    }[];
-    answers: {
-        questionId: QuestionId;
-        selection: QuestionSelectedOption;
-        correct: boolean;
-        answer: QuestionAnswer;
-        hint: QuestionOption;
-    }[];
+export type BreakDown = {
+    label: string;
+    count: number;
 }
+
+
+// export type QuestionReport = {
+//     score: number;
+//     total: number;
+//     accuracy: number;
+//     duration: {
+//         minutes: number;
+//         seconds: number;
+//     };
+//     breakdown: {
+//         topic: string;
+//         count: number;
+//     }[];
+//     questionTypes: {
+//         type: QuestionType;
+//         count: number;
+//     }[];
+//     answers: {
+//         questionId: QuestionId;
+//         selection: QuestionSelectedOption;
+//         correct: boolean;
+//         answer: QuestionAnswer;
+//         hint: QuestionOption;
+//     }[];
+// }
