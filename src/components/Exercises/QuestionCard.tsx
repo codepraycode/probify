@@ -1,10 +1,9 @@
 "use client";
 
-import "katex/dist/katex.min.css";
-import { InlineMath } from "react-katex";
 import clsx from "clsx";
-import { Question, QuestionAnswer, QuestionId, QuestionOption, QuestionSelectedOption } from "@/types/exercise.types";
+import { Question, QuestionAnswer, QuestionId, QuestionSelectedOption } from "@/types/exercise.types";
 import { observer } from "mobx-react-lite";
+import { parseQuestionText } from "@/utils/renderes";
 
 type QuestionCardProps = {
     question: Question;
@@ -25,7 +24,7 @@ export const QuestionCard = observer(({
         <div className="space-y-6 rounded-2xl border border-stroke p-6 shadow-two dark:border-stroke-dark dark:bg-dark">
             <div className="font-heading text-lg leading-relaxed text-black dark:text-white">
                 {/* Check if question contains LaTeX markers like $...$ */}
-                {parseQuestionText(question)}
+                {parseQuestionText(question.katex)}
             </div>
 
             {type === "mcq" && (
@@ -50,7 +49,7 @@ export const QuestionCard = observer(({
                             >
                                 {/* <InlineMath math={opt} /> */}
 
-                                {parseQuestionText(opt)}
+                                {parseQuestionText(opt.katex)}
                             </button>
                         );
                     })}
@@ -75,16 +74,3 @@ export const QuestionCard = observer(({
     );
 })
 
-function parseQuestionText(data: QuestionOption) {
-    const {
-        katex: unraw
-    } = data;
-    
-    const parts = unraw.split(/(\$[^$]*\$)/g); // Split on $...$
-    return parts.map((part, index) => {
-        if (part.startsWith("$") && part.endsWith("$")) {
-            return <InlineMath key={index} math={part.slice(1, -1)} />;
-        }
-        return <span key={index}>{part}</span>;
-    });
-}

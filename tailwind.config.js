@@ -69,11 +69,26 @@ const config = {
                     '0%': { opacity: 0 },
                     '100%': { opacity: 1 },
                 },
+                shake: {
+                    "0%, 100%": { transform: "translateX(0)" },
+                    "20%": { transform: "translateX(-5px)" },
+                    "40%": { transform: "translateX(5px)" },
+                    "60%": { transform: "translateX(-5px)" },
+                    "80%": { transform: "translateX(5px)" },
+                },
+                flicker: {
+                    "0%, 100%": { opacity: "1" },
+                    "50%": { opacity: "0.5" },
+                },
             },
             animation: {
                 wiggle: 'wiggle 200ms ease-in-out',
                 pop: 'pop 150ms ease-in',
                 fadeIn: 'fadeIn 300ms ease-in-out',
+                shake: "shake 0.4s ease-in-out",
+                flicker: "flicker 1.5s infinite",
+                bounce: "bounce 1s infinite",
+                pulse: "pulse 2s infinite",
             },
             boxShadow: {
                 signUp: "0px 5px 10px rgba(4, 10, 34, 0.2)",

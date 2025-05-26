@@ -36,7 +36,7 @@ export function BaseButton({ children, className, ...props }: Props) {
 
 export function PrimaryButton({ children, className, ...props }: Props) {
     const style = clsx(
-        "rounded-sm bg-primary px-8 py-3 text-base font-medium text-white shadow-btn",
+        "rounded-sm bg-primary px-8 py-4 text-base font-medium text-white shadow-btn",
         "md:block md:px-9 lg:px-6 xl:px-9",
         "hover:bg-opacity-90 hover:shadow-btn-hover hover:bg-primary/80",
         "ease-in-out hidden transition duration-300",
@@ -53,9 +53,10 @@ export function PrimaryButton({ children, className, ...props }: Props) {
 export function SecondaryButton({ children, className, ...props }: Props) {
     const style = clsx(
         "bg-black rounded-sm px-8 py-4",
-        "text-base text-white font-semibold",
+        "text-base text-white font-medium",
+        "md:block md:px-9 lg:px-6 xl:px-9",
         "hover:bg-black/90 dark:bg-white/10 dark:text-white dark:hover:bg-white/5",
-        "inline-block duration-300 ease-in-out",
+        "ease-in-out hidden transition duration-300",
         className,
     );
 

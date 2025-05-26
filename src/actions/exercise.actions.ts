@@ -133,6 +133,10 @@ export async function getExerciseReportById(reportId: string): ActionResult<Repo
             // },
         });
 
+        if (!dt) {
+            throw new Error("Report not found!");
+        }
+
         return {
             success: true,
             message: "Fetched Exercise Report",

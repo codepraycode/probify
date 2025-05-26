@@ -10,10 +10,10 @@ import { observer } from "mobx-react-lite";
 import { TimerBar } from "./TimeBar";
 import ProgressIndicator from "./ProgressIndicator";
 import { QuestionCard } from "./QuestionCard";
-import { PrimaryButton, SecondaryButton } from "../ui/Button";
-import { calculateExerciseDuration } from "@/utils/functions";
+import { PrimaryButton, SecondaryButton } from "../ui/Button";;
 import { EXERCISE_REPORT_REF_URL } from "@/data/links";
 import { showErrorToast, showSuccessToast } from "@/utils/toast";
+import { calculateExerciseDuration } from "@/utils/functions";
 
 type Props = {
     exercise: Exercise;
