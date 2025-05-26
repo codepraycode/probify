@@ -5,8 +5,10 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:prod": "prisma generate && prisma migrate deploy && next build",
     "start": "next start",
     "lint": "next lint",
+    "postinstall": "prisma generate",
     "db:migrate": "prisma migrate dev",
     "db:generate": "prisma generate",
     "db:studio": "prisma studio",
@@ -44,6 +46,7 @@
     "@types/react": "^18.2.33",
     "@types/react-katex": "^3.0.4",
     "autoprefixer": "^10.4.16",
+    "dotenv-cli": "^8.0.0",
     "postcss": "^8.4.31",
     "prettier": "^3.0.3",
     "prettier-plugin-tailwindcss": "^0.5.6",

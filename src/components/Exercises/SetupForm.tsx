@@ -48,7 +48,6 @@ export default function ExerciseSetupForm() {
         // setTimeout(() => reset(), 2000);
     };
 
-    console.debug(Object.values(QuestionTypeLabels));
     return (
         <form
             onSubmit={handleSubmit(onSubmit)}
