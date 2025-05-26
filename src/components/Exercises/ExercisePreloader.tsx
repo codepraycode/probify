@@ -4,14 +4,16 @@ type Props = {
     className?: string;
     label: string;
     description?: string;
+    full?: boolean;
 }
 
-export default function ExerciseLoader({ className, label, description }: Props) {
+export default function ExerciseLoader({ full, className, label, description }: Props) {
     return (
         <div
             className={clsx(
-                "flex h-screen w-full animate-fadeIn flex-col items-center justify-center px-4 text-center",
+                "flex w-full animate-fadeIn flex-col items-center justify-center px-4 text-center",
                 className,
+                {"h-screen": full, "h-52": !full },
             )}
         >
             <div className="relative mb-6 h-20 w-20">

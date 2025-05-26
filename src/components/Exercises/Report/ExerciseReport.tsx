@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import { BreakDown, ExerciseDuration, Report } from "@/types/exercise.types";
 import { Card, CardContent } from "./Card";
-import Progress from "./Progress";
 import { Bar, BarChart, Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { Switch } from "./Switch";
 import { PrimaryButton, SecondaryButton } from "@/components/ui/Button";
@@ -19,6 +18,7 @@ import {
 import clsx from "clsx";
 import { showNotImplementedToast } from "@/utils/toast";
 import { EXERCISES } from "@/data/links";
+import { ProgressBar } from "../ProgressIndicator";
 
 export function ExerciseReportHeader() {
     return (
@@ -418,7 +418,7 @@ function Accuracy({accuracy}:{accuracy: number}) {
                     Accuracy
                 </h2>
 
-                <Progress
+                <ProgressBar
                     value={accuracy}
                     className={`transition-colors duration-500 ${
                         accuracy < 50

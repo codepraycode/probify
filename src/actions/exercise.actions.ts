@@ -77,6 +77,29 @@ export async function getSession(id: string): ActionResult<Exercise> {
     }
 }
 
+export async function getAllTestSession(): ActionResult<ExerciseWithReport[]> {
+    try {
+        // @ts-ignore
+        const data = await prisma.exerciseSession.findMany({
+            include: {
+                report: true,
+            },
+        });
+
+        return {
+            success: true,
+            message: "Fetched Exercise Sessions",
+            data: data,
+        }
+    } catch (err) {
+        handleActionErrors(err);
+        return {
+            success: false,
+            message: "Could not fetch exercise sessions",
+        }
+    }
+}
+
 // export async function isSessionClosed(id: string) {
 //     // @ts-ignore
 //     const session = await prisma.exerciseSession.findUnique({

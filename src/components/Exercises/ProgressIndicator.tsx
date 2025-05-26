@@ -64,3 +64,23 @@ export default function ProgressIndicator(props: Props) {
         </div>
     );
 }
+
+interface ProgressBarProps {
+    value: number; // Between 0 and 100
+    className?: string;
+}
+
+export function ProgressBar({ value, className }: ProgressBarProps) {
+    return (
+        <div
+            className={clsx(
+                "bg-muted h-3 w-full overflow-hidden rounded-full border border-gray-500",
+            )}
+        >
+            <div
+                className={clsx("h-full rounded-md transition-all", className)}
+                style={{ width: `${value}%` }}
+            />
+        </div>
+    );
+}
