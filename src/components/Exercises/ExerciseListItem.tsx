@@ -83,7 +83,7 @@ export function ExerciseListItem({ exercise }: ExerciseListItemProps) {
             </div>
 
             <div className="mt-1 text-xs italic text-muted-foreground">
-                🗓 Created on {formatDate(exercise.createdAt)}
+                🗓 Taken on {formatDate(exercise.createdAt)}
             </div>
 
             {!exercise.reportId && (
@@ -93,7 +93,7 @@ export function ExerciseListItem({ exercise }: ExerciseListItemProps) {
             )}
 
             {exercise.report && (
-                <div className="mt-3 rounded-md bg-gray-100 px-3 py-2 text-sm dark:bg-gray-800 space-y-4">
+                <div className="mt-auto rounded-md bg-gray-100 px-3 py-2 text-sm dark:bg-gray-800 space-y-4">
                     <div className="flex flex-wrap items-center justify-between gap-2">
                         <span className="font-semibold ">
                             ✅ Score: {exercise.report.score}/
@@ -128,7 +128,7 @@ export function ExerciseSetup() {
             className={clsx(
                 "group relative overflow-hidden rounded-2xl border-2 border-dashed border-primary p-8 text-primary transition-all duration-300 ease-in-out",
                 "cursor-pointer select-none focus:outline-none focus:ring-4 focus:ring-primary/40",
-                "hover:bg-primary hover:text-white",
+                "hover:bg-primary hover:text-white flex flex-col items-center justify-center gap-4",
             )}
         >
             {/* Glow + Hover Background Effect */}

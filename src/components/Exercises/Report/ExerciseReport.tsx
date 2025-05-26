@@ -490,8 +490,8 @@ function Correction({data}:{data: SubmittedAnswer[]}) {
                         </p>
 
                         <p className="text-sm">
-                            <span className="font-medium">Selected:</span>{" "}
-                            {parseQuestionText(answer.selected) || (
+                            <span className="font-medium">Your answer:</span>{" "}
+                            {answer.selected ? parseQuestionText(answer.selected) : (
                                 <i className="text-muted-foreground">Nothing</i>
                             )}
                         </p>
@@ -505,7 +505,7 @@ function Correction({data}:{data: SubmittedAnswer[]}) {
                                 </p>
                                 {answer.hint && (
                                     <p className="mt-2 text-xs italic text-muted-foreground">
-                                        Hint: {parseQuestionText(answer.hint)}
+                                        Explanation: {parseQuestionText(answer.hint)}
                                     </p>
                                 )}
                             </>
