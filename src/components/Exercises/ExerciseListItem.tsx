@@ -104,17 +104,9 @@ export function ExerciseListItem({ exercise }: ExerciseListItemProps) {
                         </span>
                     </div>
 
-                    {/* Optional: Progress bar */}
                     <ProgressBar
                         value={exercise.report.accuracy}
-                        // className="mt-2 h-2 w-full"
                     />
-                    {/* <div className="bg-muted mt-2 h-2 w-full overflow-hidden rounded">
-                        <div
-                            className="h-full rounded bg-primary transition-all"
-                            style={{ width: `${exercise.report.accuracy}%` }}
-                        />
-                    </div> */}
                 </div>
             )}
         </Link>
