@@ -4,6 +4,9 @@ export const headerMenu = [];
 export const MIN_EXERCISE_QUESTIONS = 5
 export const MIN_EXERCISE_DURATION = 5
 
+export const OG_BANNER_URL="/og/banner.png";
+export const METADATA_BASE_URL=new URL("https://probify.vercel.app");
+
 export const default_metadata = {
     keywords: [
         "probability",

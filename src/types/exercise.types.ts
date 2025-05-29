@@ -88,3 +88,12 @@ export type Module = {
   isPassed?: boolean;
   scorePercent?: number;
 };
+
+export type Topic = {
+    title: string;
+    description: string;
+    slug: string;
+    completed?: boolean;
+    completedAt?: string;
+    progress?: number;
+};

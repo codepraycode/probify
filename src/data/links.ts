@@ -22,3 +22,7 @@ export const MODULES="/modules";
 export function MODULE_PAGE_URL(ref: string) {
     return `${MODULES}/${ref}`;
 }
+
+export function MODULE_TOPIC_PAGE_URL(slug: string, topic:string) {
+    return `${MODULES}/${slug}/${topic}`;
+}
