@@ -74,27 +74,17 @@ export type BreakDown = {
     count: number;
 }
 
-// export type QuestionReport = {
-//     score: number;
-//     total: number;
-//     accuracy: number;
-//     duration: {
-//         minutes: number;
-//         seconds: number;
-//     };
-//     breakdown: {
-//         topic: string;
-//         count: number;
-//     }[];
-//     questionTypes: {
-//         type: QuestionType;
-//         count: number;
-//     }[];
-//     answers: {
-//         questionId: QuestionId;
-//         selection: QuestionSelectedOption;
-//         correct: boolean;
-//         answer: QuestionAnswer;
-//         hint: QuestionOption;
-//     }[];
-// }
+// ||||||||||||||||  Modules ||||||||||||
+
+export type Module = {
+  id: string;
+  title: string;
+  slug: string;
+  thumbnail: string;
+  description: string;
+  level: "Beginner" | "Intermediate" | "Advanced";
+  estimatedTime: string;
+  isLocked?: boolean;
+  isPassed?: boolean;
+  scorePercent?: number;
+};

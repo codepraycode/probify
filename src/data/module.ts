@@ -1,36 +1,42 @@
-import { Module } from "@/types/module";
+import { Module } from "@/types/exercise.types";
+import { nanoid } from "nanoid";
 
-// 
-// <g fill="#4a6cf7">
-//     <path d="m0 0c13.8071 0 25 11.1929 25 25h-23c-1.10457 0-2-.8954-2-2z"/><path d="m6 25c0-13.8071 11.1929-25 25-25v23c0 1.1046-.8954 2-2 2z" opacity=".5"/>
-//     </g>
-export const modulesData: Module[] = [
+export const dummyModules: Module[] = [
   {
-    id: 1,
-    index: 1,
-    title: "Introduction to Probability",
-    image: "/images/logo/icon.svg",
-    description: "Learn the basics of probability, outcomes, and events with interactive examples.",
-    estimatedTime: 45,
+    id: nanoid(),
+    title: "Intro to Probability",
+    slug: "intro-to-probability",
+    thumbnail: "/images/modules/probability-intro.jpg",
+    description: "Understand the basics of probability, outcomes, and simple experiments with engaging visuals and real-world examples.",
     level: "Beginner",
+    estimatedTime: "30 mins",
+    isLocked: false,
+    isPassed: true,
+    scorePercent: 72,
   },
   {
-    id: 2,
-    index: 2,
-    title: "Probability Rules & Types",
-    image: "/images/logo/icon.svg",
-    description: "Explore rules like addition and multiplication, and types like independent/dependent events.",
-    estimatedTime: 60,
-    level: "Intermediate",
+    id: nanoid(),
+    title: "Events & Sample Space",
+    slug: "events-and-sample-space",
+    thumbnail: "/images/modules/sample-space.jpg",
+    description: "Learn how to list all possible outcomes of an event and calculate basic probabilities using sample space diagrams.",
+    level: "Beginner",
+    estimatedTime: "45 mins",
+    isLocked: true,
+    isPassed: false,
+    scorePercent: 43,
   },
   {
-    id: 3,
-    index: 3,
-    title: "Real-Life Applications",
-    image: "/images/logo/icon.svg",
-    description: "Apply probability to games, predictions, and everyday decision-making scenarios.",
-    estimatedTime: 75,
+    id: nanoid(),
+    title: "Compound Events",
+    slug: "compound-events",
+    thumbnail: "/images/modules/compound-events.jpg",
+    description: "Master the art of calculating probabilities involving multiple events—independent, dependent, and mutually exclusive.",
     level: "Intermediate",
+    estimatedTime: "1 hr",
+    isLocked: true,
+    isPassed: false,
+    scorePercent: 0,
   },
-  // Add more modules as needed
 ];
+

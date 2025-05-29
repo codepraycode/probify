@@ -1,4 +1,4 @@
-import Blog from "@/components/Blog";
+import Blog from "@/components/Module";
 import Sources from "@/components/Home/Sources";
 import ScrollUp from "@/components/Common/ScrollUp";
 import Contact from "@/components/Home/Contact";

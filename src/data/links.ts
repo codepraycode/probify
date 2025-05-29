@@ -15,3 +15,10 @@ export const EXERCISE_REPORT_REF="d";
 export function EXERCISE_REPORT_REF_URL(reportId: string) {
     return `${EXERCISE_REPORT}?${EXERCISE_REPORT_REF}=${reportId}`;
 }
+
+
+export const MODULES="/modules";
+
+export function MODULE_PAGE_URL(ref: string) {
+    return `${MODULES}/${ref}`;
+}

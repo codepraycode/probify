@@ -7,6 +7,7 @@ import { PropsWithChildren } from "react";
 
 type Props = LinkProps & PropsWithChildren & {
     className?: string;
+    itemProp?: string;
 };
 
 export default function AppNav({href, children,onClick, ...rest}: Props) {

@@ -1,14 +1,33 @@
 import { HOME } from "@/data/links";
 import Link from "next/link";
 import AppNav from "./AppLink";
+import { BgDesign9 } from "./Icons";
+import clsx from "clsx";
+
+const trail = [];
+const pageName = "Modules"; // This should be dynamic based on the current page
+
+
+
+
+type Props = {
+    pageName: string;
+    description: string;
+    trail: { name: string; href: string }[];
+}
 
 const Breadcrumb = ({
     pageName,
+    trail,
     description,
-}: {
-    pageName: string;
-    description: string;
-}) => {
+}: Props) => {
+
+    const fullTrail = [
+        { name: "Home", href: HOME },
+        ...trail,
+        { name: pageName, href: "#" },
+    ];
+    
     return (
         <>
             <section
@@ -28,112 +47,61 @@ const Breadcrumb = ({
                             </div>
                         </div>
                         <div className="w-full px-4 md:w-4/12 lg:w-5/12">
-                            <div className="text-end">
+                            <nav
+                                className="text-end"
+                                aria-label="Breadcrumb"
+                                itemScope
+                                itemType="https://schema.org/BreadcrumbList"
+                            >
                                 <ul className="flex items-center md:justify-end">
-                                    <li className="flex items-center">
-                                        <AppNav
-                                            href={HOME}
-                                            className="pr-1 text-base font-medium text-body-color hover:text-primary"
-                                        >
-                                            Home
-                                        </AppNav>
-                                        <span className="mr-3 block h-2 w-2 rotate-45 border-r-2 border-t-2 border-body-color"></span>
-                                    </li>
-                                    <li className="text-base font-medium text-primary">
+                                    {fullTrail.map((item, idx) => {
+
+                                        const isLastItem = idx === fullTrail.length - 1;
+
+                                        return (
+                                            <li
+                                                key={idx}
+                                                className="flex items-center"
+                                                itemProp="itemListElement"
+                                                itemScope
+                                                itemType="https://schema.org/ListItem"
+                                            >
+                                                <AppNav
+                                                    href={item.href}
+                                                    itemProp="item"
+                                                    className={clsx(
+                                                        "pr-1 text-base font-medium",
+                                                        {
+                                                            "pointer-events-none text-primary":
+                                                                isLastItem,
+                                                            "text-body-color hover:text-primary":
+                                                                !isLastItem,
+                                                        },
+                                                    )}
+                                                >
+                                                    {item.name}
+                                                </AppNav>
+                                                <meta
+                                                    itemProp="position"
+                                                    content={(
+                                                        idx + 1
+                                                    ).toString()}
+                                                />
+                                                {!isLastItem && <span className="mr-3 block h-2 w-2 rotate-45 border-r-2 border-t-2 border-body-color"></span>}
+                                            </li>
+                                        );}
+                                    )}
+
+                                    {/* <li className="text-base font-medium text-primary">
                                         {pageName}
-                                    </li>
+                                    </li> */}
                                 </ul>
-                            </div>
+                            </nav>
                         </div>
                     </div>
                 </div>
 
-                <div>
-                    <span className="absolute left-0 top-0 z-[-1]">
-                        <svg
-                            width="287"
-                            height="254"
-                            viewBox="0 0 287 254"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <path
-                                opacity="0.1"
-                                d="M286.5 0.5L-14.5 254.5V69.5L286.5 0.5Z"
-                                fill="url(#paint0_linear_111:578)"
-                            />
-                            <defs>
-                                <linearGradient
-                                    id="paint0_linear_111:578"
-                                    x1="-40.5"
-                                    y1="117"
-                                    x2="301.926"
-                                    y2="-97.1485"
-                                    gradientUnits="userSpaceOnUse"
-                                >
-                                    <stop stopColor="#4A6CF7" />
-                                    <stop
-                                        offset="1"
-                                        stopColor="#4A6CF7"
-                                        stopOpacity="0"
-                                    />
-                                </linearGradient>
-                            </defs>
-                        </svg>
-                    </span>
-                    <span className="absolute right-0 top-0 z-[-1]">
-                        <svg
-                            width="628"
-                            height="258"
-                            viewBox="0 0 628 258"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <path
-                                opacity="0.1"
-                                d="M669.125 257.002L345.875 31.9983L524.571 -15.8832L669.125 257.002Z"
-                                fill="url(#paint0_linear_0:1)"
-                            />
-                            <path
-                                opacity="0.1"
-                                d="M0.0716344 182.78L101.988 -15.0769L142.154 81.4093L0.0716344 182.78Z"
-                                fill="url(#paint1_linear_0:1)"
-                            />
-                            <defs>
-                                <linearGradient
-                                    id="paint0_linear_0:1"
-                                    x1="644"
-                                    y1="221"
-                                    x2="429.946"
-                                    y2="37.0429"
-                                    gradientUnits="userSpaceOnUse"
-                                >
-                                    <stop stopColor="#4A6CF7" />
-                                    <stop
-                                        offset="1"
-                                        stopColor="#4A6CF7"
-                                        stopOpacity="0"
-                                    />
-                                </linearGradient>
-                                <linearGradient
-                                    id="paint1_linear_0:1"
-                                    x1="18.3648"
-                                    y1="166.016"
-                                    x2="105.377"
-                                    y2="32.3398"
-                                    gradientUnits="userSpaceOnUse"
-                                >
-                                    <stop stopColor="#4A6CF7" />
-                                    <stop
-                                        offset="1"
-                                        stopColor="#4A6CF7"
-                                        stopOpacity="0"
-                                    />
-                                </linearGradient>
-                            </defs>
-                        </svg>
-                    </span>
-                </div>
+                <BgDesign9 />
             </section>
         </>
     );
