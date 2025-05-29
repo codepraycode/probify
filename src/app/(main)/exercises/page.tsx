@@ -13,13 +13,19 @@ export default function ExercisePage() {
             <Breadcrumb
                 pageName="🎯 Your Exercises"
                 description="Practice makes perfect! Here are your exercises to master probability."
+                trail={[]}
             />
 
-            <Suspense fallback={<ExerciseLoader label="Loading your exercises" description="Hold on tight!"/>}>
-                <ExerciseList/>
+            <Suspense
+                fallback={
+                    <ExerciseLoader
+                        label="Loading your exercises"
+                        description="Hold on tight!"
+                    />
+                }
+            >
+                <ExerciseList />
             </Suspense>
-
-            
         </section>
     );
 }
