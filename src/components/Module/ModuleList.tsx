@@ -1,40 +1,42 @@
 "use client";
 import { Topic } from "@/types/exercise.types";
 import Link from "next/link";
-import { Container, SubTitle } from "../Common/Content";
+import { Container, Title2 } from "../Common/DocContent";
 import { CheckCircle } from "lucide-react";
 import { useState } from "react";
 import { MODULE_TOPIC_PAGE_URL } from "@/data/links";
+import { dummyTopics } from "@/data/module";
+import { showNotImplementedToast } from "@/utils/toast";
 
 type ModuleTopicsListProps = {
     moduleSlug: string;
-    topics: Topic[];
+    
 };
 
 export default function ModuleTopicsList({
     moduleSlug,
-    topics,
 }: ModuleTopicsListProps) {
+    const topics: Topic[] = dummyTopics;
     return (
-        <Container>
+        <>
             <div className="mx-auto max-w-4xl">
                 {/* <h2 className="mb-6 text-2xl font-semibold text-gray-800 md:text-3xl">
                     Topics Covered in This Module
                 </h2> */}
 
-                <SubTitle>Topics Covered in This Module</SubTitle>
+                <Title2>Topics Covered in This Module</Title2>
                 <br />
                 <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2">
                     {topics.map((topic, idx) => (
                         <ModuleTopic
                             topic={topic}
-                            link={MODULE_TOPIC_PAGE_URL(moduleSlug, topic.slug)}
+                            link={MODULE_TOPIC_PAGE_URL(topic.slug)}
                             key={idx}
                         />
                     ))}
                 </div>
             </div>
-        </Container>
+        </>
     );
 }
 
@@ -42,6 +44,7 @@ export function ModuleTopic({ topic, link }: { topic: Topic; link: string }) {
     const [showTooltip, setShowTooltip] = useState(false);
 
     const completed = topic.completed;
+    const locked = topic.locked;
     const showProgress =
         topic.progress !== undefined &&
         topic.progress <= 100 &&
@@ -54,7 +57,13 @@ export function ModuleTopic({ topic, link }: { topic: Topic; link: string }) {
     return (
         <Link
             href={link}
-            className="group relative block rounded-2xl border border-gray-200 bg-gray-50 p-6 shadow-sm transition-all hover:-translate-y-1 hover:border-purple-400 hover:bg-purple-50 hover:shadow-lg dark:border-gray-700 dark:bg-gray-900 dark:hover:bg-gray-800"
+            onClick={(e)=>{
+                if (locked) {
+                    e.preventDefault();
+                    showNotImplementedToast(topic.slug+'toast')
+                }
+            }}
+            className={("group relative block rounded-2xl border border-gray-200 bg-gray-50 p-6 shadow-sm transition-all hover:-translate-y-1 hover:border-purple-400 hover:bg-purple-50 hover:shadow-lg dark:border-gray-700 dark:bg-gray-900 dark:hover:bg-gray-800")}
         >
             {/* Completed badge */}
             {completed && (
@@ -71,6 +80,22 @@ export function ModuleTopic({ topic, link }: { topic: Topic; link: string }) {
                             {formattedDate
                                 ? `Completed on ${formattedDate}`
                                 : "Completed"}
+                        </div>
+                    )}
+                </div>
+            )}
+            { locked && (
+                <div
+                    className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-primary px-3 py-1 text-xs font-medium text-white shadow-sm transition-opacity duration-300"
+                    onMouseEnter={() => setShowTooltip(true)}
+                    onMouseLeave={() => setShowTooltip(false)}
+                >
+                    <CheckCircle className="h-4 w-4" />
+                    Locked
+                    {/* Tooltip */}
+                    {showTooltip && (
+                        <div className="absolute right-0 top-full z-10 mt-1 w-max max-w-xs rounded bg-gray-800 px-2 py-1 text-xs text-white shadow-md dark:bg-gray-700">
+                            Complete preceeding topic to unlock
                         </div>
                     )}
                 </div>

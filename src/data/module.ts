@@ -47,22 +47,25 @@ export const dummyTopics: Topic[] = [
         slug: "what-is-probability",
         completedAt: new Date().toDateString(),
         completed: true,
-        progress: 100
+        progress: 87
     },
     {
         title: "Theoretical vs Experimental",
         description: "Explore how predictions and experiments relate in probability.",
         slug: "theoretical-vs-experimental",
-        progress: 54,
+        locked: true,
+        // progress: 54,
     },
     {
         title: "Simple Events",
         description: "Learn how to calculate the chance of a single event happening.",
         slug: "simple-events",
+        locked: true,
     },
     {
         title: "Complementary Events",
         description: "See how knowing what *won’t* happen helps you predict what *will*.",
         slug: "complementary-events",
+        locked: true,
     },
 ]

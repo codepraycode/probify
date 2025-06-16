@@ -1,5 +1,6 @@
 
 import SectionTitle from "../Common/SectionTitle";
+import { VideoRenderer } from "../Common/VideoPlayer";
 // import { PlayIcon } from "../Common/Icons";
 
 // function PlayButton({onClick}:{onClick: ()=>void}) {
@@ -33,16 +34,11 @@ const Video = () => {
                             className="wow fadeInUp mx-auto max-w-[1070px] overflow-hidden rounded-md"
                             data-wow-delay=".15s"
                         >
-                            <div className="relative aspect-video w-full">
-                                <iframe
-                                    className="h-full w-full rounded-md"
-                                    src="https://www.youtube.com/embed/NpEaa2P7qZI?si=thAmeYrbyvTowjXN?autoplay=0&rel=0&showinfo=0&modestbranding=1"
-                                    title="Probify Intro Video"
-                                    frameBorder="0"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                    allowFullScreen
-                                />
-                            </div>
+                            <VideoRenderer
+                                url="https://www.youtube.com/embed/NpEaa2P7qZI?si=thAmeYrbyvTowjXN?autoplay=0&rel=0&showinfo=0&modestbranding=1"
+                                title="Probify Intro Video"
+                                mini
+                            />
                         </div>
                     </div>
                 </div>

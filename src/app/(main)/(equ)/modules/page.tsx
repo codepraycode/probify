@@ -8,9 +8,9 @@ import Paginator from "@/components/Common/Pagniator";
 import { default_metadata } from "@/data/framework";
 
 export const metadata: Metadata = {
-  title: "Modules - Probify",
-  description: "Explore our comprehensive modules designed to help you master probability step by step. Each module contains structured lessons, practice questions, and progress tracking.",
-  ...default_metadata
+    title: "Modules - Probify",
+    description: "Explore our comprehensive modules designed to help you master probability step by step. Each module contains structured lessons, practice questions, and progress tracking.",
+    ...default_metadata
 };
 
 const ModuleListPage = () => {

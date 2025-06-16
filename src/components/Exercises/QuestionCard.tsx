@@ -3,7 +3,7 @@
 import clsx from "clsx";
 import { Question, QuestionAnswer, QuestionId, QuestionSelectedOption } from "@/types/exercise.types";
 import { observer } from "mobx-react-lite";
-import { parseQuestionText } from "@/utils/renderes";
+import { parseQuestionText } from "@/utils/render-function";
 
 type QuestionCardProps = {
     question: Question;

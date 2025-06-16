@@ -23,6 +23,6 @@ export function MODULE_PAGE_URL(ref: string) {
     return `${MODULES}/${ref}`;
 }
 
-export function MODULE_TOPIC_PAGE_URL(slug: string, topic:string) {
-    return `${MODULES}/${slug}/topic/${topic}`;
+export function MODULE_TOPIC_PAGE_URL(topic:string) {
+    return `${MODULES}/topics/${topic}`;
 }

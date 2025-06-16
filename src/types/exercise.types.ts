@@ -96,4 +96,5 @@ export type Topic = {
     completed?: boolean;
     completedAt?: string;
     progress?: number;
+    locked?: boolean;
 };

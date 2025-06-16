@@ -29,3 +29,16 @@ export function calculateExerciseDuration(duration: number) {
 
     return duration * 60; // Convert minutes to seconds
 }
+
+export function formatDuration(seconds: number) {
+    const m = Math.floor(seconds / 60);
+    const s = seconds % 60;
+    return `${m}:${s.toString().padStart(2, "0")} min`;
+}
+
+export const formatDate = (date: Date) =>
+    date.toLocaleDateString(undefined, {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+    });

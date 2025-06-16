@@ -6,23 +6,13 @@ import Link from "next/link";
 import { SecondaryButton } from "../ui/Button";
 import clsx from "clsx";
 import { ProgressBar } from "./ProgressIndicator";
+import { formatDate, formatDuration } from "@/utils/functions";
 
 type ExerciseListItemProps = {
     exercise: ExerciseWithReport;
 };
 
-function formatDuration(seconds: number) {
-    const m = Math.floor(seconds / 60);
-    const s = seconds % 60;
-    return `${m}:${s.toString().padStart(2, "0")} min`;
-}
 
-const formatDate = (date: Date) =>
-    date.toLocaleDateString(undefined, {
-        year: "numeric",
-        month: "short",
-        day: "numeric",
-    });
 
 export function ExerciseListItem({ exercise }: ExerciseListItemProps) {
     const isClickable = Boolean(exercise.reportId);

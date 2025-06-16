@@ -1,4 +1,4 @@
-import "katex/dist/katex.min.css";
+
 import { ExerciseProvider } from "@/lib/context/ExerciseContext";
 import { Metadata } from "next";
 import { default_metadata } from "@/data/framework";

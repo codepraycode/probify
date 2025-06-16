@@ -6,7 +6,7 @@ import { Bar, BarChart, Cell, Legend, Pie, PieChart, ResponsiveContainer, Toolti
 import { Switch } from "./Switch";
 import { PrimaryButton, SecondaryButton } from "@/components/ui/Button";
 import { SubmittedAnswer } from "@/lib/schema/exerciseSchema";
-import { parseQuestionText } from "@/utils/renderes";
+import { parseQuestionText } from "@/utils/render-function";
 import {
     Flame,
     CheckCircle2,
