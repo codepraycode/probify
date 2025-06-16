@@ -3,7 +3,7 @@
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { HASH } from "@/data/links";
+import { HASH, PRIVACY, TERMS } from "@/data/links";
 import Checkbox from "../Common/Form/Checkbox";
 import InputField from "../Common/Form/InputField";
 import AppNav from "../Common/AppLink";
@@ -50,7 +50,7 @@ const SignUpAuthForm = () => {
     return (
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
             <div className="mb-4">
-                <FormError error={errors.root?.message}/>
+                <FormError error={errors.root?.message} />
             </div>
             <div className="mb-8">
                 <InputField
@@ -95,7 +95,7 @@ const SignUpAuthForm = () => {
                 <span>
                     By creating an account, you agree to the
                     <AppNav
-                        href={HASH}
+                        href={TERMS}
                         className="text-primary hover:underline"
                     >
                         {" "}
@@ -103,7 +103,7 @@ const SignUpAuthForm = () => {
                     </AppNav>
                     , and our
                     <AppNav
-                        href={HASH}
+                        href={PRIVACY}
                         className="text-primary hover:underline"
                     >
                         {" "}

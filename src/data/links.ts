@@ -24,5 +24,5 @@ export function MODULE_PAGE_URL(ref: string) {
 }
 
 export function MODULE_TOPIC_PAGE_URL(slug: string, topic:string) {
-    return `${MODULES}/${slug}/${topic}`;
+    return `${MODULES}/${slug}/topic/${topic}`;
 }

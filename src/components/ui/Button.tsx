@@ -21,7 +21,7 @@ function Button({ link, children, ...props }: Props) {
 
 export function BaseButton({ children, className, ...props }: Props) {
     const style = clsx(
-        " text-base font-medium text-dark dark:text-white ",
+        "text-base font-medium text-dark dark:text-white ",
         "hover:opacity-70",
         "px-7 py-3 block",
         className,
