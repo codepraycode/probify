@@ -12,7 +12,7 @@ export default function Logo(props: Props) {
     return (
       <AppNav
         href={HOME}
-        className={clsx("header-logo block w-full", props.className)}
+        className={clsx("header-logo block max-w-full", props.className)}
       >
         <Image
             src="/images/logo/logo-dark.svg"

@@ -16,7 +16,7 @@ const Footer = () => {
                     {/* Logo & Description */}
                     <div className="w-full px-4 md:w-1/2 lg:w-4/12 xl:w-5/12">
                         <div className="mb-12 max-w-[360px] lg:mb-16">
-                            <Logo className="mb-8 inline-block" />
+                            <Logo className="mb-8 inline-block w-[250px]" />
                             <p className="mb-6 text-base leading-relaxed text-body-color dark:text-body-color-dark">
                                 Master probability with clarity and confidence.
                                 Probify helps you understand the math behind
