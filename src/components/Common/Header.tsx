@@ -4,29 +4,13 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import {headerMenu} from "@/data/framework";
-import { useTheme } from "next-themes";
 import clsx from "clsx";
 import Logo from "./Logo";
 import { SIGNIN, SIGNUP } from "@/data/links";
-import { CheveronDown, MoonIcon, SunIcon } from "./Icons";
+import { CheveronDown } from "./Icons";
 import { PrimaryButton, BaseButton } from "../ui/Button";
 import AppNav from "./AppLink";
-
-
-const ThemeToggler = () => {
-    const { theme, setTheme } = useTheme();
-    return (
-        <button
-            aria-label="theme toggler"
-            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            className="bg-gray-2 dark:bg-dark-bg flex h-9 w-9 cursor-pointer items-center justify-center rounded-full text-black dark:text-white md:h-14 md:w-14"
-        >
-            <SunIcon className="h-5 w-5 stroke-current dark:hidden md:h-6 md:w-6" />
-            <MoonIcon className="hidden h-5 w-5 dark:block md:h-6 md:w-6" />
-        </button>
-    );
-};
-
+import { AuthNav } from "../Auth/AuthNav";
 
 
 const Header = () => {
@@ -186,16 +170,7 @@ const Header = () => {
                             </nav>
                         </div>
 
-                        <div className="flex items-center justify-end md:flex lg:pr-0">
-                            <div className="hidden items-center md:flex">
-                                <BaseButton link={SIGNIN}>Sign In</BaseButton>
-                                <PrimaryButton link={SIGNUP}>
-                                    Sign Up
-                                </PrimaryButton>
-                            </div>
-
-                            <ThemeToggler />
-                        </div>
+                        <AuthNav />
                     </div>
                 </div>
             </div>

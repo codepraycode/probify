@@ -4,6 +4,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { compare } from "bcryptjs"; // or argon2, depending on how you hashed
 import prisma from "@/db";
 import { PrismaAdapter } from "@auth/prisma-adapter";
+import { User } from "@/types/user.types";
 
 
 const authConfig: AuthOptions = {
@@ -13,6 +14,17 @@ const authConfig: AuthOptions = {
   },
   pages: {
     signIn: "/signin",
+  },
+  cookies: {
+    sessionToken: {
+      name: `next-auth.session-token`,
+      options: {
+        httpOnly: true,
+        sameSite: "lax",
+        path: "/",
+        secure: process.env.NODE_ENV === "production", // this
+      },
+    },
   },
   providers: [
     CredentialsProvider({
@@ -25,7 +37,7 @@ const authConfig: AuthOptions = {
         if (!credentials?.email || !credentials?.password) return null;
 
         //@ts-ignore
-        const user = await prisma.user.findUnique({
+        const user: User = await prisma.user.findUnique({
           where: { email: credentials.email },
         });
 
@@ -38,6 +50,9 @@ const authConfig: AuthOptions = {
           id: user.id,
           name: user.name,
           email: user.email,
+          avatarUrl: user.avatarUrl,
+          username: user.username,
+          image: user.avatarUrl,
         };
       },
     }),
@@ -47,8 +62,11 @@ const authConfig: AuthOptions = {
       if (user) token.id = user.id;
       return token;
     },
-    async session({ session, token }) {
-      if (token && session.user) session.user.id = token.id as string;
+    async session({ session, token, user }) {
+      if (token && session.user) {
+        session.user.id = token.id as string
+        // session.user.image = user.image;
+      };
       return session;
     },
   },
