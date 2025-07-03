@@ -28,6 +28,8 @@ export type UserInstance = User & {
     }[];
 }
 
+export type UserLeaderboardInstance = Omit<UserInstance, "_count">;
+
 
 export type UserProfile = {
     user: UserInstance;
@@ -37,12 +39,22 @@ export type UserProfile = {
     rank: number;
 };
 
+// export type LeaderboardReport = {
+//     id: string;
+//     name: string;
+//     username: string;
+//     avatarUrl: string;
+//     streak: number,
+//     topicCount: number,
+//     accuracy: number,
+// }
 export type LeaderboardReport = {
+    rank: number;
+    scorePercent: string;
     id: string;
     name: string;
-    username: string;
     avatarUrl: string;
-    streak: number,
-    topicCount: number,
-    accuracy: number,
+    school: string;
+    username: string;
+    cumulativeScore: number;
 }
