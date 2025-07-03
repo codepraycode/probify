@@ -10,6 +10,9 @@ import { ERROR_MESSAGES } from "./auth-messages";
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SignInFormValues, signInSchema } from "@/lib/validation/auth.validator";
+import { useNavigate } from "@/hooks/useNavigate";
+import { showSuccessToast } from "@/utils/toast";
+import { HOME } from "@/data/links";
 
 
 const SignInAuthForm = () => {
@@ -23,9 +26,13 @@ const SignInAuthForm = () => {
     });
 
     const [errorParam, setErrorParam] = useState("");
+    const {navigate} = useNavigate();
 
-    const errorMessage = errors.root?.message || 
-        (errorParam && ERROR_MESSAGES[errorParam]) || ERROR_MESSAGES.default;
+    let errorMessage = errors.root?.message
+
+    if (errorParam) {
+        errorMessage = ERROR_MESSAGES[errorParam] || ERROR_MESSAGES.default;
+    }
 
     const onSubmit = async (data: SignInFormValues) => {
 
@@ -39,13 +46,25 @@ const SignInAuthForm = () => {
 
         if (!res?.ok) {
             setErrorParam(res.error);
+            return;
         }
+
+        showSuccessToast("Authenticated!");
+        
+        setTimeout(() => {
+            // reset();
+            // window.location.href = "/auth/signin";
+            navigate(HOME)
+        }, 1200);
     };
+
+    // console.debug("Error msg", errorMsg);
+    // console.debug("Error root", errors.root?.message);
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
             <div className="mb-4">
-                <FormError error={`⚠️ ${errorMessage}`}/>
+                <FormError error={errorMessage && `⚠️ ${errorMessage}`}/>
             </div>
             <div className="mb-8">
                 <InputField
