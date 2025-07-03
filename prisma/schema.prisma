@@ -36,9 +36,45 @@ model ExerciseReport {
 
   exercise    ExerciseSession? @relation
   createdAt  DateTime         @default(now())
+
+  User User[]
 }
 
 enum QuestionType {
   mcq
   fill
+}
+
+
+model User {
+  id             String   @id @default(cuid())
+  name           String?
+  email          String   @unique
+  passwordHash   String   // Assuming you handle auth manually
+  avatarUrl      String?  // Optional profile image
+  // role           Role     @default(STUDENT)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  // Optional profile fields
+  username       String?  @unique
+  bio            String?
+  school         String?
+  gradeLevel     String?
+  country        String?
+  streak         Int      @default(0)
+  completedTopics TopicProgress[]
+  exerciseReports ExerciseReport[]
+
+  @@map("users")
+}
+
+model TopicProgress {
+  id         String   @id @default(cuid())
+  topicSlug  String
+  completed  Boolean  @default(false)
+  score      Int
+  userId     String
+  user       User     @relation(fields: [userId], references: [id])
+  completedAt DateTime?
 }

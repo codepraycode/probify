@@ -3,7 +3,7 @@ import { BgDesign6 } from "./Icons";
 import { APP_MAIL, APP_NAME } from "@/data/site";
 import Logo from "./Logo";
 import AppNav from "./AppLink";
-import { COOKIES, HASH, PRIVACY, TERMS } from "@/data/links";
+import { COOKIES, HASH, MODULES, PRIVACY, TERMS } from "@/data/links";
 
 const Footer = () => {
     return (
@@ -37,8 +37,7 @@ const Footer = () => {
                             </h2>
                             <ul>
                                 {[
-                                    { label: "Courses", href: HASH },
-                                    { label: "Topics", href: HASH },
+                                    { label: "Modules", href: MODULES },
                                     { label: "Resources", href: HASH },
                                     { label: "FAQ", href: HASH },
                                 ].map((link, index) => (

@@ -186,8 +186,8 @@ export function Note({ children }: PropsWithChildren) {
     );
 }
 
-export function Container({ children }: PropsWithChildren) {
-    return <div className="mx-auto w-full px-4 lg:w-8/12">{children}</div>;
+export function Container({ children, className}: PropsWithChildren & {className?:string}) {
+    return <div className={clsx("mx-auto w-full px-4 lg:w-8/12",className )}>{children}</div>;
 }
 
 type SummaryProps = React.HTMLAttributes<HTMLDivElement> & {
