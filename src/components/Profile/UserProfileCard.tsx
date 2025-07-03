@@ -5,6 +5,7 @@ import clsx from "clsx";
 import { dummyUsers } from "@/data/dummy";
 import { User, UserProgress } from "@/types/user.types";
 import { Container } from "../Common/DocContent";
+import ContainerLayout from "../ui/ContainerLayout";
 
 type UserProfileProps = {
     user: User;
@@ -20,9 +21,9 @@ type UserProfileProps = {
 
 export default function UserProfileCard({ user, report }: UserProfileProps) {
     return (
-        <Container className="space-y-8 py-10">
+        <ContainerLayout>
             {/* Profile Card */}
-            <div className="w-full rounded-xl border bg-white p-6 shadow-md dark:border-gray-700 dark:bg-zinc-900">
+            <div className="w-full rounded-xl border bg-white p-6 shadow-md dark:border-gray-700 dark:bg-bg-color-dark">
                 <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
                     {/* Avatar & Basic Info */}
                     <div className="flex items-center gap-4">
@@ -81,7 +82,7 @@ export default function UserProfileCard({ user, report }: UserProfileProps) {
 
                 {/* Bio */}
                 {user.bio && (
-                    <div className="mt-6 rounded-md bg-gray-50 p-4 text-sm text-gray-700 dark:bg-zinc-800 dark:text-gray-300">
+                    <div className="mt-6 rounded-md bg-gray-50 p-4 text-sm text-gray-700 dark:bg-bg-color-dark dark:text-gray-300">
                         <h3 className="mb-1 font-semibold text-body-color">
                             Bio
                         </h3>
@@ -118,14 +119,14 @@ export default function UserProfileCard({ user, report }: UserProfileProps) {
                     value={`${Math.round(report.averageScore ?? 0)}%`}
                 />
             </div>
-        </Container>
+        </ContainerLayout>
     );
 }
 
 // Reusable Cards
 function StatCard({ label, value }: { label: string; value: string | number }) {
     return (
-        <div className="rounded-xl border bg-white p-5 shadow-sm dark:border-gray-700 dark:bg-zinc-900">
+        <div className="rounded-xl border bg-white p-5 shadow-sm dark:border-gray-700 dark:bg-bg-color-dark">
             <p className="text-sm text-muted-foreground">{label}</p>
             <p className="text-2xl font-bold text-dark dark:text-white">
                 {value}
@@ -136,7 +137,7 @@ function StatCard({ label, value }: { label: string; value: string | number }) {
 
 function InfoCard({ label, value }: { label: string; value: string }) {
     return (
-        <div className="rounded-lg border bg-gray-50 p-3 dark:border-gray-700 dark:bg-zinc-800">
+        <div className="rounded-lg border bg-gray-50 p-3 dark:border-gray-700 dark:bg-bg-color-dark">
             <p className="text-xs font-medium text-muted-foreground">{label}</p>
             <p className="font-semibold text-dark dark:text-white">{value}</p>
         </div>
