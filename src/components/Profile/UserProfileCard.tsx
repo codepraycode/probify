@@ -1,14 +1,8 @@
-"use client";
-
 import Image from "next/image";
-import clsx from "clsx";
-import { dummyUsers } from "@/data/dummy";
-import { User, UserProgress } from "@/types/user.types";
-import { Container } from "../Common/DocContent";
-import ContainerLayout from "../ui/ContainerLayout";
+import { UserInstance } from "@/types/user.types";
 
 type UserProfileProps = {
-    user: User;
+    user: UserInstance;
     report: {
         _count?: {
             completedTopics?: number;
@@ -21,7 +15,7 @@ type UserProfileProps = {
 
 export default function UserProfileCard({ user, report }: UserProfileProps) {
     return (
-        <ContainerLayout>
+        <>
             {/* Profile Card */}
             <div className="w-full rounded-xl border bg-white p-6 shadow-md dark:border-gray-700 dark:bg-bg-color-dark">
                 <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
@@ -119,7 +113,7 @@ export default function UserProfileCard({ user, report }: UserProfileProps) {
                     value={`${Math.round(report.averageScore ?? 0)}%`}
                 />
             </div>
-        </ContainerLayout>
+        </>
     );
 }
 

@@ -1,21 +1,32 @@
-import Breadcrumb from "@/components/Common/Breadcrumb";
-import UserProfileCard from "@/components/Profile/UserProfileCard";
-import { dummyUsers } from "@/data/dummy";
 
-export default function ProfilePage() {
-    const userData = dummyUsers[0];
+import UserProfileCard from "@/components/Profile/UserProfileCard";
+import { getUserProfile } from "@/actions/profile.action";
+
+export default async function ProfilePage() {
+
+    const {
+        data,
+        message,
+        success
+    } = await getUserProfile();
+
+
+    const {
+        user,
+        averageScore,
+        rank
+    } = data;
 
     
 
     return (
-        <>
-            <Breadcrumb
-                pageName="My Profile"
-                description={`Welcome back, ${userData.name?.split(" ")[0] ?? "learner"}!`}
-                trail={[]}
-            />
-
-            <UserProfileCard user={userData} report={{}} />
-        </>
+        <UserProfileCard
+            user={user}
+            report={{
+                _count: user._count,
+                averageScore,
+                rank, // Placeholder rank
+            }}
+        />
     );
 }
