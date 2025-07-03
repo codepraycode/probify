@@ -4,6 +4,7 @@ export const HOME = "/";
 export const SIGNIN = "/signin";
 export const SIGNUP = "/signup";
 export const PROFILE = "/profile";
+export const LEADERBOARD = "/leaderboard";
 export const HASH = "/#";
 export const TERMS = "/#";
 export const PRIVACY = "/#";
