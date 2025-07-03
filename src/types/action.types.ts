@@ -1,6 +1,6 @@
 import { ActionErrorKind } from "@/utils/errorHandlers";
 
-export type ActionResult<T> = Promise<
+export type ServerResult<T> = 
     {
         success: false;
         data?: null;
@@ -12,4 +12,6 @@ export type ActionResult<T> = Promise<
         message: string;
         kind?: ActionErrorKind;
     }
->;
+
+
+export type ActionResult<T> = Promise<ServerResult<T>>;

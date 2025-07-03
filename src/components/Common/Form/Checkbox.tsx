@@ -10,7 +10,7 @@ type CheckboxProps = PropsWithChildren<
     error?: FieldError;
 };
 
-const Checkbox = ({
+export const Checkbox = ({
     children,
     id,
     className,
@@ -24,27 +24,25 @@ const Checkbox = ({
         <div className="mb-8">
             <label
                 htmlFor={checkboxId}
-                className="flex cursor-pointer select-none text-sm font-medium text-body-color"
+                className="flex cursor-pointer select-none items-start gap-2 text-sm font-medium text-body-color"
             >
-                <div className="relative">
+                <div className="relative flex-shrink-0">
                     <input
                         id={checkboxId}
                         type="checkbox"
-                        className="peer sr-only"
+                        className="peer h-5 w-5 appearance-none rounded border border-gray-300 bg-white transition-all duration-200 checked:border-primary checked:bg-primary focus:ring-2 focus:ring-primary focus:ring-offset-1"
                         {...rest}
                     />
-                    <div className="box mr-4 mt-1 flex h-5 w-5 items-center justify-center rounded border border-body-color border-opacity-20 dark:border-white dark:border-opacity-10">
-                        <CheckMark className="h-3 w-3 text-primary opacity-0 transition-opacity duration-200 peer-checked:opacity-100" />
-                    </div>
+                    <CheckMark className="pointer-events-none absolute left-1 top-1 h-3 w-3 text-white opacity-0 transition-opacity duration-200 peer-checked:opacity-100" />
                 </div>
-                {children}
+
+                <div className="pt-[2px]">{children}</div>
             </label>
 
-            <FormError error={error?.message} />
+            {error && <FormError error={error.message} />}
         </div>
     );
 };
-
 export default Checkbox;
 
 type CheckboxGroupProps = InputHTMLAttributes<HTMLInputElement> & {

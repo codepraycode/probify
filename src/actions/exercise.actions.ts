@@ -2,7 +2,7 @@
 
 import prisma from "@/db";
 import { CreateExerciseSessionData, Exercise, ExerciseWithReport, Report, ReportData } from "@/types/exercise.types";
-import { ActionResult } from "./type";
+import { ActionResult } from "../types/action.types";
 import { handleActionErrors } from "@/utils/errorHandlers";
 
 export async function createTestSession(data: CreateExerciseSessionData): ActionResult<string> {

@@ -1,20 +1,15 @@
 "use client";
 
+import { signIn } from "next-auth/react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
+
 import InputField from "../Common/Form/InputField";
 import { PrimaryButton } from "../ui/Button";
-import { showNotImplementedToast } from "@/utils/toast";
 import FormError from "../Common/Form/FormError";
-
-const signInSchema = z.object({
-    email: z.string().email("Invalid email address"),
-    password: z.string().min(6, "Password must be at least 6 characters"),
-});
-
-// 2. Infer TypeScript type from schema
-type SignInFormValues = z.infer<typeof signInSchema>;
+import { ERROR_MESSAGES } from "./auth-messages";
+import { useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { SignInFormValues, signInSchema } from "@/lib/validation/auth.validator";
 
 
 const SignInAuthForm = () => {
@@ -27,16 +22,30 @@ const SignInAuthForm = () => {
         resolver: zodResolver(signInSchema),
     });
 
+    const [errorParam, setErrorParam] = useState("");
+
+    const errorMessage = errors.root?.message || 
+        (errorParam && ERROR_MESSAGES[errorParam]) || ERROR_MESSAGES.default;
+
     const onSubmit = async (data: SignInFormValues) => {
-        console.debug("Submitted:", data);
-        // TODO: Call your auth logic here
-        showNotImplementedToast()
-        setTimeout(()=>reset(), 2000);
+
+        const {email, password} = data;
+
+        const res = await signIn("credentials", {
+            redirect: false,
+            email,
+            password,
+        });
+
+        if (!res?.ok) {
+            setErrorParam(res.error);
+        }
     };
+
     return (
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
             <div className="mb-4">
-                <FormError error={errors.root?.message}/>
+                <FormError error={`⚠️ ${errorMessage}`}/>
             </div>
             <div className="mb-8">
                 <InputField

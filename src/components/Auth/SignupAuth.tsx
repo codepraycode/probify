@@ -3,30 +3,17 @@
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { HASH, PRIVACY, TERMS } from "@/data/links";
+import { HASH, PRIVACY, SIGNIN, TERMS } from "@/data/links";
 import Checkbox from "../Common/Form/Checkbox";
 import InputField from "../Common/Form/InputField";
 import AppNav from "../Common/AppLink";
 import { PrimaryButton } from "../ui/Button";
-import { showNotImplementedToast } from "@/utils/toast";
+import { showErrorToast, showSuccessToast } from "@/utils/toast";
 import FormError from "../Common/Form/FormError";
+import { SignUpFormValues, signUpSchema } from "@/lib/validation/auth.validator";
+import { useNavigate } from "@/hooks/useNavigate";
+import { useState } from "react";
 
-const signUpSchema = z
-    .object({
-        username: z.string().min(3, "Username must be at least 3 characters"),
-        email: z.string().email("Invalid email address"),
-        password: z.string().min(6, "Password must be at least 6 characters"),
-        confirmPassword: z.string(),
-        agree: z.literal(true, {
-            errorMap: () => ({ message: "You must agree to the terms" }),
-        }),
-    })
-    .refine((data) => data.password === data.confirmPassword, {
-        path: ["confirmPassword"],
-        message: "Passwords do not match",
-    });
-
-type SignUpFormValues = z.infer<typeof signUpSchema>;
 
 
 const SignUpAuthForm = () => {
@@ -39,29 +26,68 @@ const SignUpAuthForm = () => {
         resolver: zodResolver(signUpSchema),
     });
 
-    const onSubmit = async (data: SignUpFormValues) => {
-        console.debug("Registering:", data);
-        // TODO: Submit to backend or Auth service
-        showNotImplementedToast();
 
-        setTimeout(reset, 2000);
+    const {navigate} = useNavigate();
+
+    const [errorMsg, setErrorMsg] = useState("");
+
+    const onSubmit = async (data: SignUpFormValues) => {
+        try {
+            const res = await fetch("/api/auth/register", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data),
+            });
+
+            const result = await res.json();
+
+            if (!res.ok) {
+                throw new Error(result.message || "Something went wrong");
+            }
+
+            showSuccessToast("Account created! Redirecting to login...");
+            reset();
+
+            setTimeout(() => {
+                // window.location.href = "/auth/signin";
+                navigate(SIGNIN)
+            }, 2000);
+        } catch (err: any) {
+            showErrorToast(err.message);
+            setErrorMsg(err.message);
+        }
     };
+
+    const errorMessage = errors.root?.message || errorMsg;
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
             <div className="mb-4">
-                <FormError error={errors.root?.message} />
+                <FormError error={`⚠️ ${errorMessage}`}/>
             </div>
+
             <div className="mb-8">
                 <InputField
-                    label="Your Username"
+                    label="Full Name"
+                    name="name"
+                    placeholder="Enter your full name"
+                    type="text"
+                    {...register("name")}
+                    error={errors.name}
+                />
+            </div>
+
+            <div className="mb-8">
+                <InputField
+                    label="Username"
                     name="username"
-                    placeholder="Enter a username"
+                    placeholder="Choose a username"
                     type="text"
                     {...register("username")}
                     error={errors.username}
                 />
             </div>
+
             <div className="mb-8">
                 <InputField
                     label="Email Address"
@@ -72,22 +98,59 @@ const SignUpAuthForm = () => {
                     error={errors.email}
                 />
             </div>
+
             <div className="mb-8">
                 <InputField
-                    label="Your Password"
+                    label="Password"
                     name="password"
                     placeholder="Enter your password"
                     type="password"
+                    {...register("password")}
+                    error={errors.password}
                 />
             </div>
+
             <div className="mb-8">
                 <InputField
-                    label="Confirm Your Password"
-                    name="re-password"
-                    placeholder="Enter your password again"
+                    label="Confirm Password"
+                    name="confirmPassword"
+                    placeholder="Confirm your password"
                     type="password"
                     {...register("confirmPassword")}
                     error={errors.confirmPassword}
+                />
+            </div>
+
+            <div className="mb-8">
+                <InputField
+                    label="School (optional)"
+                    name="school"
+                    placeholder="e.g. King's College, Lagos"
+                    type="text"
+                    {...register("school")}
+                    error={errors.school}
+                />
+            </div>
+
+            <div className="mb-8">
+                <InputField
+                    label="Grade Level (optional)"
+                    name="gradeLevel"
+                    placeholder="e.g. SS2"
+                    type="text"
+                    {...register("gradeLevel")}
+                    error={errors.gradeLevel}
+                />
+            </div>
+
+            <div className="mb-8">
+                <InputField
+                    label="Country (optional)"
+                    name="country"
+                    placeholder="e.g. Nigeria"
+                    type="text"
+                    {...register("country")}
+                    error={errors.country}
                 />
             </div>
 

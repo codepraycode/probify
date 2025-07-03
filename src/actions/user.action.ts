@@ -1,5 +1,5 @@
 import prisma from "@/db";
-import { ActionResult } from "./type";
+import { ActionResult } from "../types/action.types";
 import { handleActionErrors } from "@/utils/errorHandlers";
 import { LeaderboardReport } from "@/types/user.types";
 

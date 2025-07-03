@@ -1,7 +1,8 @@
+import { SessionProvider } from "@/providers/SessionProvider";
 import "../styles/index.css";
 
 // import { Inter } from "next/font/google";
-import { Providers } from "@/layout/ThemeLayout";
+import ThemeProvider from "@/providers/ThemeLayout";
 import { Toaster } from "sonner";
 
 
@@ -15,8 +16,10 @@ export default function RootLayout({
     return (
         <html suppressHydrationWarning lang="en">
             <body className={"bg-[#FCFCFC] dark:bg-black"}>
-                <Providers>
-                    {children}
+                <ThemeProvider>
+                    <SessionProvider>
+                        {children}
+                    </SessionProvider>
                     <Toaster
                         position="top-center"
                         toastOptions={{
@@ -24,7 +27,7 @@ export default function RootLayout({
                             className: "text-xl font-medium",
                         }}
                     />
-                </Providers>
+                </ThemeProvider>
             </body>
         </html>
     );

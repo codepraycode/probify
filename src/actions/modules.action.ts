@@ -1,5 +1,5 @@
 import { dummyModules } from "@/data/module";
-import { ActionResult } from "./type";
+import { ActionResult } from "../types/action.types";
 import {Module} from "@/types/exercise.types";
 import { ActionError, ActionErrorKind, handleActionErrors } from "@/utils/errorHandlers";
 
