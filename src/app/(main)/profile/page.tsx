@@ -2,6 +2,8 @@
 import UserProfileCard from "@/components/Profile/UserProfileCard";
 import { getUserProfile } from "@/actions/profile.action";
 
+export const dynamic = "force-dynamic"; 
+
 export default async function ProfilePage() {
 
     const {

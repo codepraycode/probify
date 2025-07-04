@@ -3,10 +3,11 @@ import { ActionResult } from "../types/action.types";
 import { handleActionErrors } from "@/utils/errorHandlers";
 import { UserInstance, UserProfile } from "@/types/user.types";
 import { redirect } from "next/navigation";
-import { session } from "@/auth";
+import { getCurrentSession } from "@/auth";
 
 
 export async function getUserProfile(): ActionResult<UserProfile> {
+    const session = await getCurrentSession()
     if (!session?.user?.email) redirect("/signin");
 
      try {

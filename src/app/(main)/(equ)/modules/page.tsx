@@ -35,7 +35,9 @@ const ModuleListPage = () => {
                         ))}
                     </div>
 
-                    <Paginator/>
+                    {/* <Paginator
+
+                    /> */}
                 </div>
             </section>
         </>
