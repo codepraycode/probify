@@ -21,6 +21,8 @@ model ExerciseSession {
 
   createdAt DateTime        @default(now())
   updatedAt DateTime        @updatedAt
+
+  Topic Topic[]
 }
 
 model ExerciseReport {
@@ -70,11 +72,31 @@ model User {
 }
 
 model TopicProgress {
-  id         String   @id @default(cuid())
-  topicSlug  String
-  completed  Boolean  @default(false)
-  score      Int
-  userId     String
-  user       User     @relation(fields: [userId], references: [id])
-  completedAt DateTime?
+  id           String   @id @default(cuid())
+  topicSlug    String
+  completed    Boolean  @default(false)
+  completedAt  DateTime?
+  score        Int?     // Optional scoring (e.g., 0-100)
+  userId       String
+  user         User     @relation(fields: [userId], references: [id])
+
+  topic   Topic    @relation(fields: [topicSlug], references: [slug])
+
+  @@unique([userId, topicSlug]) // Ensures one record per user-topic pair
+}
+model Topic {
+  id          String         @id @default(uuid())
+  slug        String         @unique  // Matches MDX filename (e.g., "probability-intro")
+  title       String
+  description String
+  difficulty  String?        // "Easy", "Medium", "Hard"
+  order       Int?           // Sorting
+  tags        String[]       // e.g., ["basics", "formulas"]
+  locked      Boolean        @default(false)  // For premium/content gating
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+
+  exercises   ExerciseSession[] // Related practice sessions
+
+  TopicProgress TopicProgress[]
 }

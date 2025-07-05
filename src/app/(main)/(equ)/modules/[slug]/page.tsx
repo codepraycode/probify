@@ -68,7 +68,7 @@ export async function generateMetadata({
     };
 }
 
-const docPath = path.join(process.cwd(), "src/data/docs/intro");
+const docPath = path.join(process.cwd(), "src/data/docs/modules");
 const extention = ".mdx"
 
 export async function generateStaticParams() {

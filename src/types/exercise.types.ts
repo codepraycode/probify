@@ -1,4 +1,4 @@
-import { ExerciseSession, ExerciseReport } from "@/db/generated/prisma";
+import { ExerciseSession, ExerciseReport, Topic as DbTopic, TopicProgress } from "@/db/generated/prisma";
 import { SubmittedAnswer } from "@/lib/schema/exerciseSchema";
 
 
@@ -89,12 +89,7 @@ export type Module = {
   scorePercent?: number;
 };
 
-export type Topic = {
-    title: string;
-    description: string;
-    slug: string;
-    completed?: boolean;
-    completedAt?: string;
-    progress?: number;
-    locked?: boolean;
+export type Topic = DbTopic;
+export type TopicWithProgress = Topic & {
+  progress?: TopicProgress | null;
 };
