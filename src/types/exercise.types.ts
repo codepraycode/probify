@@ -1,4 +1,4 @@
-import { ExerciseSession, ExerciseReport, Topic as DbTopic, TopicProgress } from "@/db/generated/prisma";
+import { ExerciseSession, ExerciseReport, Topic as DbTopic, TopicProgress, Module as DbModule } from "@/db/generated/prisma";
 import { SubmittedAnswer } from "@/lib/schema/exerciseSchema";
 
 
@@ -76,20 +76,43 @@ export type BreakDown = {
 
 // ||||||||||||||||  Modules ||||||||||||
 
-export type Module = {
-  id: string;
-  title: string;
-  slug: string;
-  thumbnail: string;
-  description: string;
-  level: "Beginner" | "Intermediate" | "Advanced";
-  estimatedTime: string;
-  isLocked?: boolean;
-  isPassed?: boolean;
-  scorePercent?: number;
+export type ModuleMeta = DbModule;
+
+export type TopicMeta = DbTopic;
+
+/**
+ * Composite Types
+ */
+export type ModuleWithTopics = ModuleMeta & {
+  topics: TopicWithProgress[];
 };
 
-export type Topic = DbTopic;
-export type TopicWithProgress = Topic & {
+export type ModuleWithProgress = ModuleMeta & {
+  progress: {
+    isCompleted: boolean;
+    completedCount: number;
+    totalCount: number;
+    completionPercentage: number;
+  };
+  topics: TopicWithProgress[];
+};
+
+export type TopicWithProgress = TopicMeta & {
   progress?: TopicProgress | null;
+};
+
+/**
+ * Metadata Types (for SEO/OG)
+ */
+export type ModuleMetadata = Pick<ModuleMeta, 
+  'title' | 'slug' | 'description'
+> & {
+  thumbnail?: string;
+};
+
+export type TopicMetadata = Pick<TopicMeta,
+  'title' | 'slug' | 'description'
+> & {
+  moduleSlug: string;
+  difficultyLabel?: string;
 };

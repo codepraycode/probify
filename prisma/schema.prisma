@@ -84,19 +84,41 @@ model TopicProgress {
 
   @@unique([userId, topicSlug]) // Ensures one record per user-topic pair
 }
-model Topic {
-  id          String         @id @default(uuid())
-  slug        String         @unique  // Matches MDX filename (e.g., "probability-intro")
+model Module {
+  id          String   @id @default(uuid())
+  slug        String   @unique
   title       String
   description String
-  difficulty  String?        // "Easy", "Medium", "Hard"
-  order       Int?           // Sorting
-  tags        String[]       // e.g., ["basics", "formulas"]
-  locked      Boolean        @default(false)  // For premium/content gating
-  createdAt   DateTime       @default(now())
-  updatedAt   DateTime       @updatedAt
+  order       Int      @default(0)
+  locked      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
-  exercises   ExerciseSession[] // Related practice sessions
+  // 1-to-Many: One Module has many Topics
+  topics      Topic[]
 
-  TopicProgress TopicProgress[]
+  @@map("modules")
+}
+
+model Topic {
+  id          String   @id @default(uuid())
+  slug        String   @unique
+  title       String
+  description String
+  difficulty  String?
+  tags        String[]
+  locked      Boolean  @default(false)
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Foreign Key
+  moduleId    String?
+  
+  // Relation
+  module      Module?  @relation(fields: [moduleId], references: [id])
+  exercises   ExerciseSession[]
+  progress    TopicProgress[]
+
+  @@index([moduleId]) // Improves query performance
 }

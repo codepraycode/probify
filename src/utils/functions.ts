@@ -1,4 +1,5 @@
 import { MIN_EXERCISE_DURATION } from "@/data/framework";
+import { Module } from "@/types/exercise.types";
 
 type WaitOption = {
     shouldErr?: boolean;
@@ -42,3 +43,15 @@ export const formatDate = (date: Date) =>
         month: "short",
         day: "numeric",
     });
+
+
+export function isModuleMeta(data: unknown): data is Module {
+  return (
+    typeof data === 'object' &&
+    data !== null &&
+    'id' in data &&
+    'slug' in data &&
+    'title' in data &&
+    'order' in data
+  );
+}

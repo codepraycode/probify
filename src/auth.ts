@@ -1,19 +1,16 @@
-// src/auth.ts
 import NextAuth from "next-auth";
 import authConfig from "@/lib/auth/config";
 
-// Export the NextAuth instance
 export const { 
-    auth, 
-    signIn, 
-    signOut, 
-    handlers 
+  handlers, 
+  auth,  // This is the proper auth function
+  signIn, 
+  signOut 
 } = NextAuth(authConfig);
 
+// Proper type for your session
+export type AppSession = Awaited<ReturnType<typeof auth>>;
 
-export const getCurrentSession = async () => {
-    return await auth(); // This will be called per-request
+export const getCurrentSession = async (): Promise<AppSession> => {
+  return await auth();
 };
-
-
-export { authConfig };

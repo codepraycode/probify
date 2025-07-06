@@ -65,9 +65,17 @@ const config = {
                     '0%': { transform: 'scale(0.95)' },
                     '100%': { transform: 'scale(1.05)' },
                 },
+                // fadeIn: {
+                //     '0%': { opacity: 0 },
+                //     '100%': { opacity: 1 },
+                // },
                 fadeIn: {
-                    '0%': { opacity: 0 },
-                    '100%': { opacity: 1 },
+                    '0%': { opacity: 0, transform: 'scale(0.95)' },
+                    '100%': { opacity: 1, transform: 'scale(1)' }
+                },
+                fadeOut: {
+                    '0%': { opacity: 1, transform: 'scale(1)' },
+                    '100%': { opacity: 0, transform: 'scale(0.95)' }
                 },
                 shake: {
                     "0%, 100%": { transform: "translateX(0)" },
@@ -89,6 +97,8 @@ const config = {
                 flicker: "flicker 1.5s infinite",
                 bounce: "bounce 1s infinite",
                 pulse: "pulse 2s infinite",
+                'in': 'fadeIn 150ms ease-out',
+                'out': 'fadeOut 150ms ease-in'
             },
             boxShadow: {
                 signUp: "0px 5px 10px rgba(4, 10, 34, 0.2)",

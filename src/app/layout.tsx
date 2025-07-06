@@ -1,5 +1,6 @@
 import { SessionProvider } from "@/providers/SessionProvider";
 import "../styles/index.css";
+// import "@radix-ui/themes/styles.css";
 
 // import { Inter } from "next/font/google";
 import ThemeProvider from "@/providers/ThemeLayout";
@@ -21,11 +22,15 @@ export default function RootLayout({
                         {children}
                     </SessionProvider>
                     <Toaster
-                        position="top-center"
                         toastOptions={{
                             duration: 4000,
                             className: "text-xl font-medium",
                         }}
+                        position="top-right"
+                        richColors
+                        closeButton
+                        expand={true}
+                        visibleToasts={3}
                     />
                 </ThemeProvider>
             </body>

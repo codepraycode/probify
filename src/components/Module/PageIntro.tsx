@@ -1,24 +1,24 @@
 
 import { readFileSync } from "fs";
-import {
-    Container,
-} from "../Common/DocContent";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { mdxParser } from "@/utils/render-function";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
+import matter from "gray-matter";
 
 type Props = {
     contentPath: string;
 };
 
 export default function PageIntro({ contentPath }: Props) {
-    const content = readFileSync(contentPath, "utf8");
+    const fileContent = readFileSync(contentPath, "utf8");
+
+    const { content, data: _frontmatter } = matter(fileContent);
 
     return (
-        <Container>
+        <div className="prose max-w-none">
             <MDXRemote
-                source={content}
+                source={content} // Only pass the content without frontmatter
                 components={mdxParser}
                 options={{
                     mdxOptions: {
@@ -28,7 +28,7 @@ export default function PageIntro({ contentPath }: Props) {
                     },
                 }}
             />
-        </Container>
+        </div>
     );
 
     // return (

@@ -7,6 +7,7 @@ import { mdxParser } from "@/utils/render-function"; // your MDX component map
 import { existsSync, readFileSync } from "fs";
 import { notFound } from "next/navigation";
 import { Container } from "@/components/Common/DocContent";
+import matter from "gray-matter";
 
 // type Props = {
 //     source: string;
@@ -79,7 +80,9 @@ $$
 
 export default function ClassTextContent({contentPath}: Props) {
 
-    const content = readFileSync(contentPath, "utf8");
+    const fileContent = readFileSync(contentPath, "utf8");
+    
+    const { content, data: _frontmatter } = matter(fileContent);
     return (
         <Container>
             <MDXRemote

@@ -7,6 +7,9 @@ import { notFound } from "next/navigation";
 import path from "path";
 
 
+const TOPICS_PATH = path.join(process.cwd(), "src/data/docs/topics");
+const MDX_EXTENSION = ".mdx";
+
 const docPath = path.join(process.cwd(), "src/data/docs/topics");
 const extention = ".mdx"
 
