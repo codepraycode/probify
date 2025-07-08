@@ -6,6 +6,7 @@ import { default_metadata } from "@/data/framework";
 import Link from "next/link";
 import { Plus } from "lucide-react";
 import { loadModules } from "@/actions/modules.action";
+import { EmptyModuleState, ModuleLoadError } from "@/components/Module/ModuleError";
 
 export const metadata: Metadata = {
     title: "Modules - Probify",
@@ -43,14 +44,7 @@ export default async function ModuleListPage({
             <section className="pb-[120px] pt-[20px]">
                 <div className="container">
                     {!result.success ? (
-                        <div className="flex flex-col items-center justify-center py-12 text-center">
-                            <h3 className="mb-4 text-xl font-semibold text-red-500">
-                                Failed to load modules
-                            </h3>
-                            <p className="text-gray-600 dark:text-gray-400">
-                                {result.message}
-                            </p>
-                        </div>
+                       <ModuleLoadError message={result.message}/>
                     ) : result.data.modules.length === 0 ? (
                         <EmptyModuleState />
                     ) : (
@@ -84,23 +78,3 @@ export default async function ModuleListPage({
     );
 }
 
-function EmptyModuleState() {
-    return (
-        <div className="flex flex-col items-center justify-center py-12 text-center">
-            <div className="mx-auto max-w-md space-y-4">
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-                    No Modules Found
-                </h3>
-                <p className="text-gray-600 dark:text-gray-400">
-                    Get started by creating your first learning module.
-                </p>
-                {/* <Button asChild className="mt-4">
-                    <Link href="/modules/create">
-                        <Plus className="mr-2 h-4 w-4" />
-                        Create Module
-                    </Link>
-                </Button> */}
-            </div>
-        </div>
-    );
-}

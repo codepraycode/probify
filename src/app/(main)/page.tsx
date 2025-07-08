@@ -9,6 +9,8 @@ import { Metadata } from "next";
 import About from "@/components/Home/About";
 import CourseModules from "@/components/Home/CourseModule";
 import { APP_LIVE_URL } from "@/data/links";
+import { Suspense } from "react";
+import PageLoader from "@/components/ui/PageLoader";
 
 export const metadata: Metadata = {
     title: "Probify – Learn Probability the Smart Way",
@@ -61,7 +63,9 @@ export default function Home() {
             <Testimonials />
             {/* <Pricing /> */}
             {/* <Blog /> */}
-            <CourseModules/>
+            <Suspense fallback={<PageLoader label="Loading modules..." />}>
+                <CourseModules/>
+            </Suspense>
             <Contact />
         </>
     );
