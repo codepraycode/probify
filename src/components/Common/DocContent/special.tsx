@@ -210,7 +210,7 @@ export const Summary: React.FC<SummaryProps> = ({
         >
             <div className="mb-2 flex items-center gap-2 text-green-800 dark:text-green-100">
                 <ScrollText className="h-5 w-5" />
-                <h3 className="text-base font-semibold">{title}</h3>
+                <h3 className="text-xl text-white my-0 font-semibold">{title}</h3>
             </div>
             <div className="prose prose-sm max-w-none dark:prose-invert">
                 {children}
@@ -237,9 +237,9 @@ export const Facts: React.FC<FactsProps> = ({
             )}
             {...props}
         >
-            <div className="mb-2 flex items-center gap-2 text-purple-800 dark:text-purple-100">
+            <div className="mb-2 flex flex-row items-center gap-2 text-purple-800 dark:text-purple-100">
                 <Info className="h-5 w-5" />
-                <h3 className="text-base font-semibold">{title}</h3>
+                <h3 className="text-xl text-white my-0 font-semibold">{title}</h3>
             </div>
             <div className="prose prose-sm max-w-none dark:prose-invert">
                 {children}
