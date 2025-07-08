@@ -15,7 +15,7 @@
     "db:reset": "prisma migrate reset",
     "sync:topics": "tsx src/scripts/sync-topics.ts",
     "sync:modules": "tsx src/scripts/sync-modules.ts",
-    "sync:all": "pnpm sync:modules && pnpm:sync:topics"
+    "sync:all": "pnpm sync:modules && pnpm sync:topics"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.10.0",
