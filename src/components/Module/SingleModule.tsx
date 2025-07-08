@@ -1,6 +1,6 @@
 "use client";
 import { MODULE_PAGE_URL } from "@/data/links";
-import { Module } from "@/types/exercise.types";
+import { ModuleMeta as Module } from "@/types/exercise.types";
 import Link from "next/link";
 import { ImageWithFallback } from "../Common/ImageWithFallback";
 import clsx from "clsx";
