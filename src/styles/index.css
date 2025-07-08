@@ -31,4 +31,49 @@
   input#checkboxLabel:checked ~ .box span {
     @apply opacity-100;
   }
+
+        .math-renderer.inline {
+          display: inline;
+          vertical-align: middle;
+          margin: 0 0.1em;
+        }
+    
+        .math-renderer.block {
+          display: block;
+          margin: 1.5rem 0;
+          padding: 1rem;
+          background-color: hsl(var(--muted));
+          border-radius: var(--radius);
+          overflow-x: auto;
+        }
+    
+        .katex {
+          font-size: 1.05em;
+          line-height: 1.6;
+        }
+    
+        .katex-display {
+          margin: 0;
+          padding: 0.5rem 0;
+        }
+
+                /* Add to your global styles */
+                .shadow-xs {
+                  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+                }
+        
+                /* Better definition spacing in prose context */
+                .prose .definition-wrapper {
+                  margin: 1.5rem 0;
+                }
+
+                                .grid>* {
+                                  min-width: 0;
+                                  /* Prevent grid blowout */
+                                }
+                
+                                /* Better grid item containment */
+                                .grid-item-content {
+                                  height: 100%;
+                                }
 }

@@ -1,43 +1,67 @@
-import { PropsWithChildren, ReactNode } from "react";
+// components/mdx/List.tsx
+import clsx from "clsx";
+import React, { ReactNode } from "react";
 
 
-export type ListProps = {
-    title?: ReactNode;
+export interface ListProps {
+    children?: React.ReactNode;
+    className?: string;
+    ordered?: boolean;
+    title?: string;
     items: ReactNode[];
-    type?: "ul" | "ol";
-};
+}
 
-export function List({ title, items, type = "ul" }: ListProps) {
-    const ListTag = type;
-
-    const baseStyles =
-        "list-inside space-y-2 text-base font-medium text-body-color sm:text-lg lg:text-base xl:text-lg";
-
-    const listStyle = type === "ol" ? "list-decimal" : "list-disc";
+export function List({
+    children,
+    className = "",
+    ordered = false,
+    title,
+    items,
+}: ListProps) {
+    const ListTag = ordered ? "ol" : "ul";
 
     return (
-        <div className="mx-auto my-8 rounded-xl border-body-color text-left shadow-sm dark:border-white">
+        <div className="mx-auto my-8 rounded-xl text-left shadow-sm ">
             {title && (
-                <h3 className="mb-4 text-xl font-semibold text-body-color">
+                <h3 className="mb-4 px-4 pt-4 text-xl font-semibold text-body-color dark:text-white">
                     {title}
                 </h3>
             )}
-
-            <ListTag className={`${baseStyles} ${listStyle}`}>
-                {items.map((item, idx) => (
-                    <li key={idx}>{item}</li>
-                ))}
+            <ListTag
+                className={clsx(
+                    "list-inside space-y-2 px-4 pb-4",
+                    "text-base font-medium text-body-color dark:text-gray-300",
+                    "sm:text-lg lg:text-base xl:text-lg",
+                    ordered ? "list-decimal" : "list-disc",
+                    className,
+                )}
+            >
+                
+                {!items ? children : items.map((each, idx)=>{
+                    return (
+                        <ListItem key={idx}>
+                            {each}
+                        </ListItem>
+                    )
+                })}
             </ListTag>
         </div>
     );
 }
 
-export function ListItem({ children }: PropsWithChildren) {
+interface ListItemProps {
+    children?: React.ReactNode;
+    className?: string;
+}
+
+export function ListItem({ children, className = "" }: ListItemProps) {
     return (
         <li
-            className={
-                "list-inside space-y-2 text-base font-medium text-body-color sm:text-lg lg:text-base xl:text-lg"
-            }
+            className={clsx(
+                "py-2 list-outside",
+                "[&>p]:ml-3 [&>p]:inline", // Ensures paragraphs render inline
+                className,
+            )}
         >
             {children}
         </li>

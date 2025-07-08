@@ -1,4 +1,4 @@
-import { PropsWithChildren } from "react";
+import React, { PropsWithChildren } from "react";
 import { BoldText, Text } from "./texts";
 import clsx from "clsx";
 import { Calendar, Eye, HelpCircle, Info, ScrollText } from "lucide-react";
@@ -282,3 +282,254 @@ export function PageMeta({
         </div>
     );
 }
+
+
+export type ExperimentProps = {
+  title?: string;
+  children: React.ReactNode;
+  className?: string;
+  variant?: 'default' | 'interactive' | 'visualization';
+}
+
+export const Experiment: React.FC<ExperimentProps> = ({
+  title,
+  children,
+  className = '',
+  variant = 'default',
+}) => {
+  return (
+    <div
+      className={clsx(
+        'my-8 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden',
+        'shadow-sm bg-white dark:bg-gray-900',
+        {
+          'border-blue-200 dark:border-blue-800': variant === 'interactive',
+          'border-purple-200 dark:border-purple-800': variant === 'visualization',
+        },
+        className
+      )}
+    >
+      {title && (
+        <div
+          className={clsx(
+            'px-4 py-3 border-b border-gray-200 dark:border-gray-700',
+            'bg-gray-50 dark:bg-gray-800',
+            {
+              'bg-blue-50 dark:bg-blue-900/30': variant === 'interactive',
+              'bg-purple-50 dark:bg-purple-900/30': variant === 'visualization',
+            }
+          )}
+        >
+          <h4 className="font-semibold text-gray-900 dark:text-white flex items-center gap-2">
+            {variant === 'interactive' && (
+              <svg
+                className="w-5 h-5 text-blue-500 dark:text-blue-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                />
+              </svg>
+            )}
+            {variant === 'visualization' && (
+              <svg
+                className="w-5 h-5 text-purple-500 dark:text-purple-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"
+                />
+              </svg>
+            )}
+            {title}
+          </h4>
+        </div>
+      )}
+      <div
+        className={clsx('p-4', {
+          'bg-gradient-to-br from-blue-50/30 to-white dark:from-blue-900/10 dark:to-gray-900':
+            variant === 'interactive',
+          'bg-gradient-to-br from-purple-50/30 to-white dark:from-purple-900/10 dark:to-gray-900':
+            variant === 'visualization',
+        })}
+      >
+        {children}
+      </div>
+    </div>
+  );
+};
+
+interface DefinitionProps {
+  title: React.ReactNode;
+  children: React.ReactNode;
+  className?: string;
+  badge?: string;
+  variant?: 'default' | 'theorem' | 'formula' | 'example';
+}
+
+export const Definition: React.FC<DefinitionProps> = ({
+  title,
+  children,
+  className = '',
+  badge,
+  variant = 'default',
+}) => {
+  const variantStyles = {
+    default: 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900',
+    theorem: 'border-blue-200 dark:border-blue-800 bg-blue-50/30 dark:bg-blue-900/20',
+    formula: 'border-green-200 dark:border-green-800 bg-green-50/30 dark:bg-green-900/20',
+    example: 'border-purple-200 dark:border-purple-800 bg-purple-50/30 dark:bg-purple-900/20',
+  };
+
+  const badgeColors = {
+    default: 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200',
+    theorem: 'bg-blue-100 dark:bg-blue-800 text-blue-800 dark:text-blue-100',
+    formula: 'bg-green-100 dark:bg-green-800 text-green-800 dark:text-green-100',
+    example: 'bg-purple-100 dark:bg-purple-800 text-purple-800 dark:text-purple-100',
+  };
+
+  return (
+    <div
+      className={clsx(
+        'my-6 rounded-lg border p-4 shadow-xs',
+        variantStyles[variant],
+        className
+      )}
+    >
+      <div className="flex items-start gap-3">
+        {badge && (
+          <span
+            className={clsx(
+              'mt-0.5 inline-flex items-center rounded-full px-3 py-1 text-xs font-medium',
+              badgeColors[variant]
+            )}
+          >
+            {badge}
+          </span>
+        )}
+        <div className="flex-1">
+          <h4 className="text-lg font-semibold text-gray-900 dark:text-white">
+            {title}
+          </h4>
+          <div className="mt-2 text-gray-700 dark:text-gray-300 [&>p]:m-0 [&>p]:mt-2">
+            {children}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+interface GridProps {
+  children: React.ReactNode;
+  columns?: number | { sm?: number; md?: number; lg?: number; xl?: number };
+  gap?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+  className?: string;
+  align?: 'start' | 'center' | 'end' | 'stretch';
+}
+
+export const Grid: React.FC<GridProps> = ({
+  children,
+  columns = 2,
+  gap = 'md',
+  className = '',
+  align = 'stretch',
+}) => {
+  // Handle responsive column definitions
+  const getColumnsClass = () => {
+    if (typeof columns === 'number') {
+      return `grid-cols-1 sm:grid-cols-${Math.min(columns, 2)} md:grid-cols-${Math.min(columns, 3)} lg:grid-cols-${columns}`;
+    }
+    
+    return [
+      'grid-cols-1',
+      columns.sm && `sm:grid-cols-${columns.sm}`,
+      columns.md && `md:grid-cols-${columns.md}`,
+      columns.lg && `lg:grid-cols-${columns.lg}`,
+      columns.xl && `xl:grid-cols-${columns.xl}`,
+    ].filter(Boolean).join(' ');
+  };
+
+  const gapClasses = {
+    none: 'gap-0',
+    xs: 'gap-2 sm:gap-3',
+    sm: 'gap-3 sm:gap-4',
+    md: 'gap-4 sm:gap-6',
+    lg: 'gap-6 sm:gap-8',
+    xl: 'gap-8 sm:gap-10',
+  };
+
+  const alignClasses = {
+    start: 'items-start',
+    center: 'items-center',
+    end: 'items-end',
+    stretch: 'items-stretch',
+  };
+
+  return (
+    <div
+      className={clsx(
+        'grid',
+        getColumnsClass(),
+        gapClasses[gap],
+        alignClasses[align],
+        className
+      )}
+    >
+      {React.Children.map(children, (child, index) => (
+        <div key={index} className="h-full">
+          {child}
+        </div>
+      ))}
+    </div>
+  );
+};
+
+// Optional GridItem component for more control
+interface GridItemProps {
+  children: React.ReactNode;
+  span?: number | { sm?: number; md?: number; lg?: number; xl?: number };
+  className?: string;
+}
+
+export const GridItem: React.FC<GridItemProps> = ({
+  children,
+  span = 1,
+  className = '',
+}) => {
+  const getSpanClass = () => {
+    if (typeof span === 'number') {
+      return `col-span-1 sm:col-span-${Math.min(span, 2)} md:col-span-${Math.min(span, 3)} lg:col-span-${span}`;
+    }
+    
+    return [
+      'col-span-1',
+      span.sm && `sm:col-span-${span.sm}`,
+      span.md && `md:col-span-${span.md}`,
+      span.lg && `lg:col-span-${span.lg}`,
+      span.xl && `xl:col-span-${span.xl}`,
+    ].filter(Boolean).join(' ');
+  };
+
+  return (
+    <div className={clsx(getSpanClass(), className)}>
+      {children}
+    </div>
+  );
+};

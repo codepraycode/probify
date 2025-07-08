@@ -25,7 +25,7 @@ export function LeaderboardTable({
     if (isLoading) return <LeaderboardSkeleton />;
 
     return (
-        <div className="rounded-xl border bg-white p-6 shadow-md dark:border-gray-700 dark:bg-zinc-900">
+        <div className="rounded-xl border bg-white p-6 shadow-md dark:border-gray-700 dark:bg-bg-color-dark">
             {data.length === 0 ? (
                 <EmptyLeaderboardState />
             ) : (

@@ -1,8 +1,45 @@
 import { dummyModules } from "@/data/module";
 import { ActionResult } from "../types/action.types";
-import {ModuleMetadata, ModuleWithProgress, ModuleWithTopics, TopicWithProgress} from "@/types/exercise.types";
+import {TopicMetadata, ModuleWithProgress, ModuleWithTopics, TopicWithProgress, ModuleMetadata} from "@/types/exercise.types";
 import { ActionError, ActionErrorKind, handleActionErrors } from "@/utils/errorHandlers";
 import prisma from "@/db";
+
+export async function getTopicMeta(
+    slug: string
+): ActionResult<TopicMetadata> {
+    try {
+        //@ts-ignore
+        const data = await prisma.topic.findUnique({
+            where: { slug },
+            select: {
+                title: true,
+                slug: true,
+                description: true,
+            }
+        });
+
+        if (!data) {
+            return {
+                success: false,
+                message: "Topic not found",
+                kind: ActionErrorKind.ERROR_404,
+            };
+        }
+
+        return {
+            success: true,
+            data: data,
+            message: "Topic loaded successfully",
+        };
+    } catch (error) {
+        handleActionErrors(error);
+        return {
+            success: false,
+            message: error instanceof Error ? error.message : "Database error",
+            kind: ActionErrorKind.ERROR_500,
+        };
+  }
+}
 
 export async function getModuleMeta(
     slug: string

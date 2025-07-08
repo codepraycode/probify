@@ -23,6 +23,10 @@ import {
     Facts,
     PageMeta,
     Container,
+    Math,
+    Experiment,
+    Definition,
+    Grid,
 } from "@/components/Common/DocContent";
 import ModuleTopicsList from "@/components/Module/ModuleList";
 import { JSX, PropsWithChildren } from "react";
@@ -50,6 +54,7 @@ export const mdxParser = {
     p: (props: MdxParser) => <Paragraph {...props} />,
     li: (props: MdxParser) => <ListItem {...props} />,
     Bold: (props: MdxParser) => <BoldText {...props} />,
+    BoldText: (props: MdxParser) => <BoldText {...props} />,
     a: (props: MdxLinkParser) => <LinkText {...props} />,
     Note: (props: MdxParser) => <Note {...props} />,
     blockquote: (props: MdxParser) => <Note {...props} />,
@@ -57,6 +62,14 @@ export const mdxParser = {
     Line: (props: MdxParser) => <Divider {...props} />,
     List: (props: MdxListParser) => <List {...props} />,
     Example: (props: MdxExampleParser) => <Example {...props} />,
+    ListItem,
+    Paragraph,
+    Title2,
+    // Experiment,
+    Definition,
+    Grid,
+    Math,
+    Divider,
     Table,
     TableHead,
     TableBody,
