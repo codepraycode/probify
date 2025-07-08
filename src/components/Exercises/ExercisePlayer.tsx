@@ -1,82 +1,110 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
-import { useNavigate } from "@/hooks/useNavigate";
-import { useExercise } from "@/lib/context/ExerciseContext";
-import { Exercise, ExerciseWithReport, QuestionAnswer, QuestionId } from "@/types/exercise.types";
-import { nanoid } from "nanoid";
 import { useCallback, useEffect, useMemo, useRef } from "react";
 import { observer } from "mobx-react-lite";
-import { TimerBar } from "./TimeBar";
-import ProgressIndicator from "./ProgressIndicator";
-import { QuestionCard } from "./QuestionCard";
-import { PrimaryButton, SecondaryButton } from "../ui/Button";;
+import { useSession } from "next-auth/react";
+import { nanoid } from "nanoid";
+import { useNavigate } from "@/hooks/useNavigate";
+import { useExercise } from "@/lib/context/ExerciseContext";
+import { Exercise, QuestionAnswer, QuestionId } from "@/types/exercise.types";
 import { EXERCISE_REPORT_REF_URL } from "@/data/links";
 import { showErrorToast, showSuccessToast } from "@/utils/toast";
 import { calculateExerciseDuration } from "@/utils/functions";
-import { useSession } from "next-auth/react";
+import { TimerBar } from "./TimeBar";
+// import { ProgressIndicator } from "./ProgressIndicator";
+import { QuestionCard } from "./QuestionCard";
+import { PrimaryButton, SecondaryButton } from "../ui/Button";
+import ProgressIndicator from "./ProgressIndicator";
 
-type Props = {
+type ExercisePlayerProps = {
     exercise: Exercise;
-}
+};
 
-function ExercisePlayer(props: Props) {
-    const { exercise } = props;
-
-    const toastId = exercise.id;
-
-
-    const { data: session, status } = useSession();
-    const user = session?.user;
-
+const ExercisePlayer = observer(({ exercise }: ExercisePlayerProps) => {
+    const toastId = useRef(nanoid());
     const containerRef = useRef<HTMLDivElement>(null);
-    const startTimeRef = useRef<number>(Date.now());
+    const startTimeRef = useRef(Date.now());
     const testFormRef = useRef<HTMLFormElement>(null);
-
+    const { data: session } = useSession();
     const store = useExercise();
     const { navigate } = useNavigate();
 
-    const duration = useMemo(()=>{
-        return calculateExerciseDuration(exercise.duration);
-    }, [exercise.duration]);
+    const duration = useMemo(
+        () => calculateExerciseDuration(exercise.duration),
+        [exercise.duration],
+    );
 
     const handleSaveAnswer = (id: QuestionId, value: QuestionAnswer) => {
         store.setSelection(id, value);
     };
 
-    const handleSubmit = useCallback(async (e?: React.FormEvent) => {
-        e?.preventDefault();
+    const handleSubmit = useCallback(
+        async (e?: React.FormEvent) => {
+            e?.preventDefault();
 
-        const endTime = Date.now();
-        const totalTime = Math.floor((endTime - startTimeRef.current) / 1000);
-        const minutes = Math.floor(totalTime / 60);
-        const seconds = totalTime % 60;
+            if (!session?.user?.id) {
+                showErrorToast(
+                    "You must be logged in to submit",
+                    toastId.current,
+                );
+                return;
+            }
 
-        const {success, message, data: reportId} = await store.submitAnswers({
-            duration: { minutes, seconds },
-            exerciseId: exercise.id,
-            userId: user.id
-        });
+            try {
+                const endTime = Date.now();
+                const totalTime = Math.floor(
+                    (endTime - startTimeRef.current) / 1000,
+                );
+                const minutes = Math.floor(totalTime / 60);
+                const seconds = totalTime % 60;
 
-        if (!success) {
-            // Handle error, show message to user
-            showErrorToast(message, toastId);
-            return;
-        }
+                const {
+                    success,
+                    message,
+                    data: reportId,
+                } = await store.submitAnswers({
+                    duration: { minutes, seconds },
+                    exerciseId: exercise.id,
+                    userId: session.user.id,
+                });
 
-        showSuccessToast(message, toastId);
-        navigate(EXERCISE_REPORT_REF_URL(reportId));
-    }, []);
+                if (!success) {
+                    showErrorToast(
+                        message || "Submission failed",
+                        toastId.current,
+                    );
+                    return;
+                }
 
-    const handleKeydown = (e: KeyboardEvent) => {
-        if (e.key === "ArrowRight") store.goNext();
-        if (e.key === "ArrowLeft") store.goPrev();
-    };
+                showSuccessToast(
+                    message || "Exercise submitted!",
+                    toastId.current,
+                );
+                navigate(EXERCISE_REPORT_REF_URL(reportId));
+            } catch (error) {
+                showErrorToast(
+                    error instanceof Error
+                        ? error.message
+                        : "An unexpected error occurred",
+                    toastId.current,
+                );
+            }
+        },
+        [exercise.id, navigate, session?.user?.id, store],
+    );
+
+    const handleKeydown = useCallback(
+        (e: KeyboardEvent) => {
+            if (e.key === "ArrowRight") store.goNext();
+            if (e.key === "ArrowLeft") store.goPrev();
+        },
+        [store],
+    );
 
     useEffect(() => {
         window.addEventListener("keydown", handleKeydown);
         return () => window.removeEventListener("keydown", handleKeydown);
-    }, []);
+    }, [handleKeydown]);
 
     useEffect(() => {
         containerRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -84,19 +112,23 @@ function ExercisePlayer(props: Props) {
 
     return (
         <section
-            className="container min-h-[350px] max-w-2xl space-y-6 py-10"
             ref={containerRef}
+            className="container min-h-[350px] max-w-2xl space-y-6 py-10"
         >
-            <form onSubmit={handleSubmit} className="space-y-6" ref={testFormRef}>
-                <div className="sticky top-0 z-20 rounded-md p-2 shadow-sm backdrop-blur-md">
+            <form
+                onSubmit={handleSubmit}
+                className="space-y-6"
+                ref={testFormRef}
+            >
+                <div className="sticky top-0 z-20 rounded-md bg-white/80 p-2 shadow-sm backdrop-blur-md dark:bg-gray-900/80">
                     <h1 className="text-heading text-2xl font-bold dark:text-white">
-                        🧠 Test Your Probability Skills
+                        🧠 {"Test Your Probability Skills"}
                     </h1>
                     <p className="text-sm text-gray-600 dark:text-gray-400">
-                        Stay focused! Complete all questions within the time
-                        limit.
-                    </p>
-                    <br />
+                        {/* {exercise.description ||
+                            "Stay focused! Complete all questions within the time limit."} */}
+
+                        Stay focused! Complete all questions within the time limit.                    </p>
                     <TimerBar
                         durationInSeconds={duration}
                         className="mb-4 mt-2"
@@ -107,21 +139,23 @@ function ExercisePlayer(props: Props) {
                 <ProgressIndicator
                     currentIndex={store.currentIndex}
                     length={store.questions.length}
-                    updatedSelection={() => {}}
-                    isActive={false}
+                    // selections={store.selections}
+                    updatedSelection={()=>{}}
+                    isActive={true}
                 />
 
                 <QuestionCard
                     question={store.currentQuestion}
                     onAnswer={handleSaveAnswer}
-                    sourceAnswer={store.getSelectionOption}
+                    selectedAnswer={store.getSelectionOption(
+                        store.currentQuestion.id,
+                    )}
                 />
 
                 <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:justify-between">
                     <SecondaryButton
                         onClick={() => store.goPrev()}
                         disabled={store.isFirst}
-                        className="rounded-xl bg-gray-300 px-4 py-2 text-black disabled:opacity-50 dark:bg-stroke-dark dark:text-white"
                         type="button"
                     >
                         ← Previous
@@ -130,24 +164,18 @@ function ExercisePlayer(props: Props) {
                     {!store.isLast ? (
                         <PrimaryButton
                             onClick={() => store.goNext()}
-                            className="rounded-xl bg-primary px-4 py-2 text-white shadow-btn hover:shadow-btn-hover disabled:opacity-50"
                             disabled={!store.canProceed}
                             type="button"
                         >
                             Next →
                         </PrimaryButton>
                     ) : (
-                        <PrimaryButton
-                            type="submit"
-                            className="rounded-xl bg-green-600 px-4 py-2 text-white shadow-btn hover:bg-green-700"
-                        >
-                            ✅ Submit
-                        </PrimaryButton>
+                        <PrimaryButton type="submit">✅ Submit</PrimaryButton>
                     )}
                 </div>
             </form>
         </section>
     );
-}
+});
 
-export default observer(ExercisePlayer);
+export default ExercisePlayer;

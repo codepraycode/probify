@@ -5,6 +5,7 @@ type Props = {
     length: number;
     updatedSelection: (index: number) => void;
     isActive: boolean;
+    // selections: number;
 }
 
 

@@ -17,9 +17,9 @@ export const metadata: Metadata = {
 export default async function ModuleListPage({
     searchParams,
 }: {
-    searchParams?: { page?: string };
+    searchParams?: Promise<{ page?: string }>;
 }) {
-    const currentPage = Number(searchParams?.page) || 1;
+    const currentPage = Number((await searchParams)?.page) || 1;
     const perPage = 6;
 
     const result = await loadModules(currentPage, perPage);
