@@ -11,35 +11,44 @@ datasource db {
 
 model ExerciseSession {
   id        String          @id @default(cuid())
-  duration  Int             // Total duration in seconds
-  questions Int             // Total number of questions
-  topics    String[]        // Array of topic strings
-  type      QuestionType[]  // Array of question types
-
+  duration  Int             // Duration in seconds
+  questions Int             // Total questions attempted
+  topics    String[]        // Topic slugs covered
+  type      QuestionType[]  // Question types included
+  
+  // Relationships
   report    ExerciseReport? @relation(fields: [reportId], references: [id], onDelete: Cascade)
   reportId  String?         @unique
-
+  userId    String          // Link to user who completed the exercise
+  user      User            @relation(fields: [userId], references: [id])
+  
   createdAt DateTime        @default(now())
   updatedAt DateTime        @updatedAt
 
+  @@index([userId]) // For faster user queries
   Topic Topic[]
 }
 
 model ExerciseReport {
   id         String           @id @default(cuid())
-  score      Int
-  total      Int
-  accuracy   Float            // e.g., 75.5 for 75.5%
-
-  duration    Json             // JSON blob of duration
-  answers    Json             // JSON blob of all submitted answers
-  topics    Json             // JSON blob of topics breakdown
-  types    Json             // JSON blob of question types breakdown
-
-  exercise    ExerciseSession? @relation
+  score      Int              // Points earned
+  total      Int              // Max possible points
+  accuracy   Float            // Percentage correct (e.g. 75.5)
+  
+  // Detailed analytics
+  duration    Json            // Time spent per question
+  answers    Json             // User's answers
+  topics     Json             // Performance by topic
+  types      Json             // Performance by question type
+  
+  // Relationships
+  exercise   ExerciseSession? @relation
+  userId     String           // Denormalized for easier queries
+  user       User             @relation(fields: [userId], references: [id])
+  
   createdAt  DateTime         @default(now())
 
-  User User[]
+  @@index([userId]) // For faster user queries
 }
 
 enum QuestionType {
@@ -66,7 +75,11 @@ model User {
   country        String?
   streak         Int      @default(0)
   completedTopics TopicProgress[]
-  exerciseReports ExerciseReport[]
+  // Removed duplicate field definition
+
+  // Exercise relationships
+  exerciseSessions ExerciseSession[]
+  exerciseReports  ExerciseReport[]
 
   @@map("users")
 }

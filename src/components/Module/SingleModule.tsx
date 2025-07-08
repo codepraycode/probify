@@ -1,25 +1,37 @@
 "use client";
 import { MODULE_PAGE_URL } from "@/data/links";
-import { Module } from "@/types/exercise.types";
 import Link from "next/link";
 import { ImageWithFallback } from "../Common/ImageWithFallback";
 import clsx from "clsx";
 import { CheckCircle, Lock } from "lucide-react";
 import { showErrorToast } from "@/utils/toast";
+import { ModuleWithProgress } from "@/types/exercise.types";
 
-export const SingleModuleCard = ({ module }: { module: Module }) => {
+export const SingleModuleCard = ({ module }: { module: ModuleWithProgress }) => {
     const {
         id,
         title,
         slug,
-        thumbnail,
+        // thumbnail,
         description,
-        level,
-        estimatedTime,
-        isLocked,
-        isPassed,
-        scorePercent,
+        // level,
+        // estimatedTime,
+        // isLocked,
+        // isPassed,
+        // scorePercent,
+        
+        locked: isLocked,
     } = module;
+
+
+    const level="available";
+
+    const isPassed = false;
+
+    const scorePercent = 0;
+    const estimatedTime = "10 minutes";
+
+    const thumbnail = "/images/modules/probability-intro.jpg";
 
     return (
         <div
@@ -37,7 +49,7 @@ export const SingleModuleCard = ({ module }: { module: Module }) => {
                     e.preventDefault();
                     showErrorToast(
                         "This module is locked. Please complete previous modules to unlock it.",
-                        id
+                        id,
                     );
                 }}
                 className="relative block aspect-[37/22] w-full"
@@ -80,7 +92,7 @@ export const SingleModuleCard = ({ module }: { module: Module }) => {
                             e.preventDefault();
                             showErrorToast(
                                 "This module is locked. Please complete previous modules to unlock it.",
-                                id
+                                id,
                             );
                         }}
                         className={clsx(

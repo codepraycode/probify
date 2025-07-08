@@ -13,6 +13,7 @@ import { useNavigate } from "@/hooks/useNavigate";
 import { topicOptions } from "@/lib/store/ExerciseStore";
 import { QuestionTypeLabels } from "@/types/exercise.types";
 import { showErrorToast, showLoadingToast, showSuccessToast } from "@/utils/toast";
+import { useSession } from "next-auth/react";
 
 
 export default function ExerciseSetupForm() {
@@ -27,13 +28,18 @@ export default function ExerciseSetupForm() {
 
     const toastId = "exerciseSetupToast";
 
+
+    const { data: session, status } = useSession();
+    const user = session?.user;
+    
+
     const store = useExercise();
 
     const {navigate} = useNavigate();
 
     const onSubmit = async (data: ExerciseSetupFormValues) => {
         showLoadingToast("Creating Exercise...", toastId);
-        const {success, message, data: link} = await store.createExerciseSession(data);
+        const {success, message, data: link} = await store.createExerciseSession({...data, userId: user.id});
 
         if (!success) {
             showErrorToast(message, toastId);

@@ -6,7 +6,6 @@ import { wait } from "@/utils/functions";
 import { EXERCISE_SETUP } from "@/data/links";
 import { createTestSession, saveExerciseReport } from "@/actions/exercise.actions";
 
-
 // TODO: Make this option user specific
 export const topicOptions = [
     "All",
@@ -21,6 +20,8 @@ export class ExerciseStore {
     questions:Question[] = [];
     currentIndex = 1;
     selections = new Map<QuestionId, QuestionSelectedOption>();
+
+
 
     constructor(questions: Question[]) {
         this.questions = questions.slice(1,5);
@@ -75,12 +76,13 @@ export class ExerciseStore {
         }
     }
 
-    async createExerciseSession(data: ExerciseSetupFormValues) {
+    async createExerciseSession(data: ExerciseSetupFormValues & {userId: string;}) {
         const {
             duration,
             questions,
             topics,
-            type
+            type,
+            userId
         } = data;
 
         // await wait(2);
@@ -89,7 +91,9 @@ export class ExerciseStore {
             duration,
             questions,
             topics,
-            type: type.split(QUESTION_TYPE_DELIMETER) as QuestionType[]
+            type: type.split(QUESTION_TYPE_DELIMETER) as QuestionType[],
+            userId
+
         }
 
         // console.debug("Session Data", dataToSubmit);
@@ -97,7 +101,7 @@ export class ExerciseStore {
         return await createTestSession(dataToSubmit);
     }
 
-    async submitAnswers({ duration, exerciseId }: { duration: ExerciseDuration, exerciseId: string }) {
+    async submitAnswers({ duration, exerciseId, userId }: { duration: ExerciseDuration, exerciseId: string, userId:string; }) {
         const total = this.questions.length;
         let score = 0;
 
@@ -152,7 +156,8 @@ export class ExerciseStore {
             duration,
             answers,
             topics,
-            types
+            types,
+            userId
         };
 
         return await saveExerciseReport({...report, exerciseId})

@@ -2,7 +2,7 @@ import { ExerciseSession, ExerciseReport, Topic as DbTopic, TopicProgress, Modul
 import { SubmittedAnswer } from "@/lib/schema/exerciseSchema";
 
 
-export type CreateExerciseSessionData = Pick<ExerciseSession, "duration" | "questions" | "topics" | "type">
+export type CreateExerciseSessionData = Pick<ExerciseSession, "duration" | "questions" | "topics" | "type" | "userId">;
 
 export type ExerciseDuration = {
     minutes: number;

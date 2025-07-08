@@ -1,7 +1,7 @@
-import { Module, Topic } from "@/types/exercise.types";
+// import { Module, Topic } from "@/types/exercise.types";
 import { nanoid } from "nanoid";
 
-export const dummyModules: Module[] = [
+export const dummyModules: any[] = [
     {
         id: nanoid(),
         title: "Intro to Probability",
@@ -40,7 +40,7 @@ export const dummyModules: Module[] = [
     },
 ];
 
-export const dummyTopics: Topic[] = [
+export const dummyTopics: any[] = [
     {
         title: "What is Probability?",
         description: "Understand the meaning of probability and why it's important.",

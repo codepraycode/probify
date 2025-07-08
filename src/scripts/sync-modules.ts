@@ -32,6 +32,9 @@ async function syncModules() {
                 topics: {
                     connect: topicRefs?.map((slug: string) => ({ slug })) || [],
                 },
+                locked: frontmatter.locked ?? false,
+                createdAt: (frontmatter.createdAt ? new Date(frontmatter.createdAt) : new Date()).toISOString(),
+                updatedAt: new Date()
             }
     
             await prisma.module.upsert({
@@ -40,7 +43,7 @@ async function syncModules() {
                 create: dt,
             });
     
-            console.log(`🔄 Synced module: ${slug} with ${frontmatter.topicRefs.length} topics`);
+            console.log(`🔄 Synced module: ${slug} with ${(frontmatter.topicRefs || []).length} topics`);
         } catch (error) {
             console.error(`❌ Failed syncing ${file}:`, error instanceof Error ? error.message : error);
         }

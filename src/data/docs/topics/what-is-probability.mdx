@@ -1,158 +1,148 @@
 ---
-title: "Introduction to Probability"
+title: "What Is Probability?"
 slug: "what-is-probability"
-difficulty: "Easy"
+description: "Understanding how likely an event is to happen — from impossible to certain!"
 order: 1
-tags: ["basics", "formulas"]
+difficulty: "Easy"
+tags: ["basics", "definition", "scale"]
 createdAt: "2023-01-15"
 locked: false
 ---
 
-# Introduction to Probability
+<Title2>🎲 1.1 – What Is Probability?</Title2>
 
-Learn the fundamental concepts of probability, including definitions, formulas, and real-life examples.
+<Paragraph>
+Probability means <BoldText>“How likely is something to happen?”</BoldText>
+</Paragraph>
 
-## 🎲 What is Probability?
+<Paragraph>
+You see it every day:
+</Paragraph>
 
-Probability is a branch of mathematics that deals with **uncertainty**. It tells us how likely something is to happen.
-
-In simple terms:
+<List
+  items={[
+    "Will I pass my test? 🤞",
+    "Will it rain today? ☔",
+    "Will I get jollof or beans in the cafeteria? 🍚",
+  ]}
+/>
 
 <Note>
-**Probability** is a number between 0 and 1 that shows how likely an event is to occur.
-- If something is <Bold>impossible</Bold>, its probability is <Bold>0</Bold>. If something is <Bold>certain</Bold>, its probability is <Bold>1</Bold>.
+Probability helps us stop guessing and start calculating!
 </Note>
 
+<Title3>🎯 The Probability Scale</Title3>
 
-### 🔢 Probability Formula
-
-If all outcomes are equally likely, the probability of an event happening is:
-
-$$
-P(E) = \frac{\text{Number of favorable outcomes}}{\text{Total number of possible outcomes}}
-$$
-
-<Example title="🧠 Example 1: Tossing a Coin">
-
-A coin has 2 sides: **Heads (H)** and **Tails (T)**.
-
-- What’s the probability of getting a Head?
-
-$$
-P(\text{Head}) = \frac{1}{2}
-$$
-
-- What’s the probability of getting a Tail?
-
-$$
-P(\text{Tail}) = \frac{1}{2}
-$$
-</Example>
-***
-<Example title="🎲 Example 2: Rolling a Die">
-
-A die has 6 faces numbered 1 to 6.
-
-- What’s the probability of rolling a **3**?
-
-$$
-P(3) = \frac{1}{6}
-$$
-
-- What’s the probability of rolling a number **less than 5**?
-
-Numbers less than 5: {1, 2, 3, 4} → 4 outcomes
-
-$$
-P(\text{less than 5}) = \frac{4}{6} = \frac{2}{3}
-$$
-
-</Example>
-***
-
-
-## 🧩 Key Vocabulary
+<Paragraph>
+The probability scale slides from 0 to 1:
+</Paragraph>
 
 <Table>
-    <TableHead>
-        <TableRow>
-            <TableHeaderCell>
-                Term
-            </TableHeaderCell>
-
-            <TableHeaderCell>
-                Meaning
-            </TableHeaderCell>
-        </TableRow>
-    </TableHead>
-    <TableBody>
-        <TableRow>
-            <TableCell>
-                <Bold>Experiment</Bold>
-            </TableCell>
-            <TableCell>
-                An action with an uncertain result (e.g., rolling a die)
-            </TableCell>
-        </TableRow>
-        <TableRow>
-            <TableCell>
-                <Bold>Outcome</Bold>
-            </TableCell>
-            <TableCell>
-                A possible result of an experiment (e.g., getting a 6)
-            </TableCell>
-        </TableRow>
-        <TableRow>
-            <TableCell>
-                <Bold>Event</Bold>
-            </TableCell>
-            <TableCell>
-                A set of one or more outcomes
-            </TableCell>
-        </TableRow>
-        <TableRow>
-            <TableCell>
-                <Bold>Sample Space (S)</Bold>
-            </TableCell>
-            <TableCell>
-                The set of all possible outcomes
-            </TableCell>
-        </TableRow>
-    </TableBody>
+  <TableHead>
+    <TableRow>
+      <TableHeaderCell>Word</TableHeaderCell>
+      <TableHeaderCell>Emoji</TableHeaderCell>
+      <TableHeaderCell>Probability</TableHeaderCell>
+    </TableRow>
+  </TableHead>
+  <TableBody>
+    <TableRow>
+      <TableCell>Impossible</TableCell>
+      <TableCell>❌</TableCell>
+      <TableCell>0</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Unlikely</TableCell>
+      <TableCell>😕</TableCell>
+      <TableCell>0.25</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Even Chance</TableCell>
+      <TableCell>🤷‍♂️</TableCell>
+      <TableCell>0.5</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Likely</TableCell>
+      <TableCell>😃</TableCell>
+      <TableCell>0.75</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Certain</TableCell>
+      <TableCell>✅</TableCell>
+      <TableCell>1</TableCell>
+    </TableRow>
+  </TableBody>
 </Table>
 
-For example, when rolling a die:
+<Paragraph><BoldText>💬 Let's Break Each One Down!</BoldText></Paragraph>
 
+<Example title="❌ Impossible (0)">
+No way. Zero chance. Not happening.
+
+Example: A person growing 5 heads 👽  
+That’s a 0 on the probability scale.
+</Example>
+
+<Example title="😕 Unlikely (~0.25)">
+It could happen… but probably won’t.
+
+Example: You waking up with purple hair without dyeing it 💜🧑‍🎤
+</Example>
+
+<Example title="🤷‍♂️ Even Chance (0.5)">
+A fair game. You’ve got a 50-50 shot!
+
+Example: Tossing a coin – Head or Tail? 🪙  
+Either one has the same chance.
+</Example>
+
+<Example title="😃 Likely (~0.75)">
+Very possible — just not guaranteed.
+
+Example: You’ll eat something today 😋  
+Not 100%, but… yeah, pretty likely.
+</Example>
+
+<Example title="✅ Certain (1)">
+It will happen. No doubt.
+
+Example: January 1st is New Year’s Day 🎉  
+There’s no other option — that’s a 1!
+</Example>
+
+<Divider />
+
+<Title2>📦 1.2 – Probability Words You Must Know</Title2>
+
+<Paragraph>
+Let’s unlock the probability vocabulary chest 🗝️:
+</Paragraph>
+
+<List
+  type="ul"
+  items={[
+    "**🎲 Random** – Happens without planning or pattern. *Example:* Picking a student from class randomly means everyone has an equal chance.",
+    "**🔥 Event** – Something that happens — like tossing a coin or rolling a dice. *All possible results = Sample space*",
+    "**🎯 Outcome** – The result of an event. *If you toss a coin → Head or Tail. These are the 2 outcomes.* If the result is what you want, we call it a **favourable outcome!**",
+    "**🔁 Trial** – One try or test in an experiment. *Each time you toss a coin, that’s one trial.*",
+    "**🧪 Experiment** – A process or activity you repeat to collect data. *Tossing a dice 50 times is an experiment.*",
+    "**✅ Favourable Outcome** – The result you’re hoping for. *If you want to roll a 6, getting a 6 is the favourable outcome.*",
+    "**📦 Sample Space** – All the possible outcomes of an event. *For a dice, the sample space is: 1, 2, 3, 4, 5, 6.*",
+    "**📈 Relative Frequency** – How often something happens, compared to all the trials. *If you get 5 heads in 10 tosses, relative frequency is 5/10 = 0.5*",
+    "**🧠 Theoretical Probability** – What should happen, based on logic (not experiments). *Theoretical chance of rolling a 3 on a dice is 1/6.*",
+    "**🔬 Experimental Probability** – What actually happens when you try something out. *If you roll a dice and get a 3 two times out of six rolls, that’s experimental probability.*",
+    "**🚫🔁 Mutually Exclusive Events** – Two things that can’t happen at the same time. *You can’t get both a Head and a Tail in one coin toss.*",
+    "**🔗 Independent Events** – One event doesn't affect the other. *Rolling one dice doesn’t affect the outcome of a second dice.*",
+  ]}
+/>
+
+<Note>
+🧠 Quick Win: The Probability Formula  
 $$
-S = \{1, 2, 3, 4, 5, 6\}
+P(E) = \frac{\text{Number of favourable outcomes}}{\text{Total number of possible outcomes}}
 $$
+</Note>
 
----
-
-<Facts title="Fact">
-If you toss two coins, the sample space becomes:
-
-$$
-S = \{HH, HT, TH, TT\}
-$$
-
-Each pair has equal chance. So:
-
-$$
-P(\text{Exactly one head}) = \frac{2}{4} = \frac{1}{2}
-$$
-</Facts>
-
----
-
-<Summary title="Summary">
-- Probability helps us reason about uncertain outcomes.
-- It always lies between **0** and **1**.
-- Use the formula $$ P(E) = \frac{\text{favorable outcomes}}{\text{total outcomes}} $$ when outcomes are equally likely.
-- Real-life applications include games, weather forecasts, and risk assessments.
-
+<Summary title="✨ Time to Show What You Know">
+Let’s turn those brains into badges! 🧠🏅
 </Summary>
-
-Keep exploring — probability is all around you! 🎯
-
-

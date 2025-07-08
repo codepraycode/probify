@@ -3,7 +3,9 @@
 import prisma from "@/db";
 import { CreateExerciseSessionData, Exercise, ExerciseWithReport, Report, ReportData } from "@/types/exercise.types";
 import { ActionResult } from "../types/action.types";
-import { handleActionErrors } from "@/utils/errorHandlers";
+import { ActionErrorKind, handleActionErrors } from "@/utils/errorHandlers";
+import { JsonValue } from "@/db/generated/prisma/runtime/library";
+import { SubmittedAnswer } from "@/lib/schema/exerciseSchema";
 
 export async function createTestSession(data: CreateExerciseSessionData): ActionResult<string> {
     try {
@@ -112,39 +114,54 @@ export async function getAllTestSession(): ActionResult<ExerciseWithReport[]> {
 
 
 export async function saveExerciseReport({
-    exerciseId,
-    ...report
-}: ReportData & {exerciseId: string} ): ActionResult<string> {
-    try {
+  exerciseId,
+  userId,
+  ...report
+}: ReportData & { exerciseId: string }): ActionResult<string> {
+  try {
+    // Calculate accuracy
+    const accuracy = (report.score / report.total) * 100;
 
-        const dt = await prisma.exerciseReport.create({
-            data: {
-                ...report,
-                exercise: {
-                    connect: {
-                        id: exerciseId,
-                    },
-                },
-            },
-            select: {
-                id: true,
-            }
-        });
-
-        return {
-            success: true,
-            message: "Report is Ready",
-            data: dt.id,
-        }
-    } catch (err) {
-        handleActionErrors(err);
-        return {
-            success: false,
-            message: "Could not process report",
-        }
+    // Use transaction for data integrity
+    interface SaveExerciseReportTransactionResult {
+      newReport: Report;
     }
-}
 
+    const [newReport] = await prisma.$transaction([
+      prisma.exerciseReport.create({
+        data: {
+          ...report,
+          accuracy,
+          user: { connect: { id: userId } },
+          exercise: { connect: { id: exerciseId } },
+        },
+      }),
+      prisma.exerciseSession.update({
+        where: { id: exerciseId },
+        data: {
+          user: { connect: { id: userId } },
+        },
+      }),
+    ]);
+
+    const result: Report = newReport;
+
+    return {
+      success: true,
+      message: "Exercise report saved successfully",
+      data: result.id,
+    };
+  } catch (error) {
+    console.error("Failed to save exercise report:", error);
+    return {
+      success: false,
+      message: error instanceof Error 
+        ? error.message 
+        : "An unknown error occurred while saving the report",
+      kind: ActionErrorKind.ERROR_500,
+    };
+  }
+}
 // Get a single report by its ID (with answers)
 export async function getExerciseReportById(reportId: string): ActionResult<Report> {
     try {

@@ -14,6 +14,7 @@ import { PrimaryButton, SecondaryButton } from "../ui/Button";;
 import { EXERCISE_REPORT_REF_URL } from "@/data/links";
 import { showErrorToast, showSuccessToast } from "@/utils/toast";
 import { calculateExerciseDuration } from "@/utils/functions";
+import { useSession } from "next-auth/react";
 
 type Props = {
     exercise: Exercise;
@@ -23,6 +24,10 @@ function ExercisePlayer(props: Props) {
     const { exercise } = props;
 
     const toastId = exercise.id;
+
+
+    const { data: session, status } = useSession();
+    const user = session?.user;
 
     const containerRef = useRef<HTMLDivElement>(null);
     const startTimeRef = useRef<number>(Date.now());
@@ -50,6 +55,7 @@ function ExercisePlayer(props: Props) {
         const {success, message, data: reportId} = await store.submitAnswers({
             duration: { minutes, seconds },
             exerciseId: exercise.id,
+            userId: user.id
         });
 
         if (!success) {

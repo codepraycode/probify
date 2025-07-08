@@ -122,6 +122,59 @@ export async function loadModule(
   }
 }
 
+
+export async function loadModules(
+  page: number = 1,
+  perPage: number = 6
+): ActionResult<{
+  modules: ModuleWithProgress[];
+  total: number;
+}> {
+  try {
+    const [modules, total] = await prisma.$transaction([
+        //@ts-ignore
+      prisma.module.findMany({
+        skip: (page - 1) * perPage,
+        take: perPage,
+        include: {
+          topics: {
+            include: {
+              progress: true,
+            },
+          },
+        },
+        orderBy: { order: 'asc' },
+      }),
+      //@ts-ignore
+      prisma.module.count(),
+    ]);
+
+    const enrichedModules = modules.map(module => ({
+      ...module,
+      progress: {
+        completedTopics: module.topics.filter(t => t.progress?.[0]?.completed).length,
+        totalTopics: module.topics.length,
+        isCompleted: module.topics.every(t => t.progress?.[0]?.completed),
+      }
+    }));
+
+    return {
+      success: true,
+      data: {
+        modules: enrichedModules,
+        total,
+      },
+      message: "Modules loaded successfully",
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message: error instanceof Error ? error.message : "Failed to load modules",
+      kind: ActionErrorKind.ERROR_500,
+    };
+  }
+}
+
 export async function loadTopicsByIds(
   topicIds: string[],
   userId?: string
