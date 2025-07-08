@@ -167,9 +167,10 @@ export async function loadModules(
       message: "Modules loaded successfully",
     };
   } catch (error) {
+    handleActionErrors(error)
     return {
       success: false,
-      message: error instanceof Error ? error.message : "Failed to load modules",
+      message: "Could not load modules",
       kind: ActionErrorKind.ERROR_500,
     };
   }

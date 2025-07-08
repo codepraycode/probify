@@ -6,7 +6,7 @@ import matter from "gray-matter";
 
 const modulePath = path.join(process.cwd(), "src/data/docs/modules");
 
-async function syncModules() {
+export async function syncModules() {
     console.log("📚 Starting module sync...");
     const start = Date.now();
     const files = fs.readdirSync(modulePath);
@@ -49,13 +49,6 @@ async function syncModules() {
         }
     }
 
-    
-
     console.log("🎉 Module sync completed");
-
+    console.log(`⏱️ Sync took ${(Date.now() - start) / 1000}s`);
 }
-
-syncModules().catch((e) => {
-  console.error("🔥 Sync failed:", e);
-  process.exit(1);
-});

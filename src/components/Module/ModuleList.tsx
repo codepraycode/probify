@@ -12,6 +12,7 @@ import clsx from "clsx";
 import { Tooltip } from "../ui/Tooltip";
 import { Progress } from "../ui/Progress";
 import { useToast } from "@/hooks/useToast";
+import { ArrowUpIcon, LockIcon } from "../ui/svg";
 
 type ModuleTopicsListProps = {
     topics: TopicWithProgress[];
@@ -31,8 +32,38 @@ export default function ModuleTopicsList({ topics }: ModuleTopicsListProps) {
     // const topics: Topic[] = dummyTopics;
 
     let template = (
-        <div className="text-center">
-            <Title2>Come back later to learn this module</Title2>
+        <div className="mx-auto max-w-2xl rounded-xl border border-gray-200 bg-gradient-to-br from-gray-50 to-gray-100 p-8 text-center shadow-sm dark:border-gray-700 dark:from-gray-800 dark:to-gray-900">
+            <div className="mb-6 inline-flex rounded-full bg-blue-50 p-4 dark:bg-blue-900/30">
+                <LockIcon className="h-10 w-10 text-blue-500 dark:text-blue-400" />
+            </div>
+
+            <h2 className="mb-3 text-2xl font-bold text-gray-900 dark:text-white md:text-3xl">
+                Module Locked
+            </h2>
+
+            <p className="mb-6 text-lg text-gray-600 dark:text-gray-300">
+                Complete the previous modules to unlock this content
+            </p>
+
+            <div className="inline-flex animate-bounce items-center gap-2 font-medium text-blue-600 dark:text-blue-400">
+                <ArrowUpIcon className="h-5 w-5" />
+                <span>Keep going - you&apos;re making progress!</span>
+            </div>
+
+            {/* <div className="mt-8 border-t border-gray-200 pt-6 dark:border-gray-700">
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                    Currently completed: {completedModules}/{totalModules}{" "}
+                    modules
+                </p>
+                <div className="mt-2 h-2.5 w-full rounded-full bg-gray-200 dark:bg-gray-700">
+                    <div
+                        className="h-2.5 rounded-full bg-blue-600"
+                        style={{
+                            width: `${(completedModules / totalModules) * 100}%`,
+                        }}
+                    />
+                </div>
+            </div> */}
         </div>
     );
 

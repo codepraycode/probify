@@ -8,7 +8,7 @@ const docPath = path.join(process.cwd(), "src/data/docs/topics");
 
 
 
-async function syncTopics() {
+export async function syncTopics() {
   console.log("📚 Starting topic sync...");
   const start = Date.now();
   const files = fs.readdirSync(docPath);
@@ -50,10 +50,4 @@ async function syncTopics() {
   console.log(`⏱️ Sync took ${(Date.now() - start) / 1000}s`);
 
   console.log("🎉 Topic sync completed");
-  process.exit(0);
 }
-
-syncTopics().catch((e) => {
-  console.error("🔥 Sync failed:", e);
-  process.exit(1);
-});
