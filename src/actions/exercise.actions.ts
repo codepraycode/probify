@@ -8,6 +8,7 @@ import { JsonValue } from "@/db/generated/prisma/runtime/library";
 import { SubmittedAnswer } from "@/lib/schema/exerciseSchema";
 
 export async function createTestSession(data: CreateExerciseSessionData): ActionResult<string> {
+    console.dir(data)
     try {
             const session = await prisma.exerciseSession.create({
             data,
@@ -139,7 +140,8 @@ export async function saveExerciseReport({
       prisma.exerciseSession.update({
         where: { id: exerciseId },
         data: {
-          user: { connect: { id: userId } },
+        //   ise: { connect: { id: userId } },
+        userId: userId
         },
       }),
     ]);

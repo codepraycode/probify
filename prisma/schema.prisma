@@ -20,13 +20,14 @@ model ExerciseSession {
   report    ExerciseReport? @relation(fields: [reportId], references: [id], onDelete: Cascade)
   reportId  String?         @unique
   userId    String          // Link to user who completed the exercise
-  user      User            @relation(fields: [userId], references: [id])
+  // user      User            @relation(fields: [userId], references: [id])
   
   createdAt DateTime        @default(now())
   updatedAt DateTime        @updatedAt
 
   @@index([userId]) // For faster user queries
   Topic Topic[]
+  User User[]
 }
 
 model ExerciseReport {
