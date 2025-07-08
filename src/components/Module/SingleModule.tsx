@@ -4,9 +4,10 @@ import { ModuleMeta as Module } from "@/types/exercise.types";
 import Link from "next/link";
 import { ImageWithFallback } from "../Common/ImageWithFallback";
 import clsx from "clsx";
-import { CheckCircle, Lock } from "lucide-react";
+import { CheckCircle, Lock, LockOpenIcon } from "lucide-react";
 import { showErrorToast } from "@/utils/toast";
 import { ModuleWithProgress } from "@/types/exercise.types";
+import { LockClosedIcon } from "../ui/svg";
 
 export const SingleModuleCard = ({ module }: { module: ModuleWithProgress }) => {
     const {
@@ -24,8 +25,10 @@ export const SingleModuleCard = ({ module }: { module: ModuleWithProgress }) => 
         locked: isLocked,
     } = module;
 
+    // const isLocked = true;
 
-    const level="available";
+
+    const level= isLocked ? "Locked" : "available";
 
     const isPassed = false;
 
@@ -55,7 +58,18 @@ export const SingleModuleCard = ({ module }: { module: ModuleWithProgress }) => 
                 }}
                 className="relative block aspect-[37/22] w-full"
             >
-                <span className="absolute right-4 top-4 z-20 inline-flex items-center justify-center rounded-full bg-primary px-3 py-1.5 text-xs font-semibold capitalize text-white">
+                <span
+                    className={`absolute right-4 top-4 z-20 inline-flex items-center justify-center rounded-full px-3 py-1.5 text-xs font-semibold capitalize ${
+                        isLocked
+                            ? "bg-gray-200 text-gray-500 dark:bg-gray-700 dark:text-gray-400"
+                            : "bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-sm dark:from-blue-600 dark:to-blue-700"
+                    }`}
+                >
+                    {isLocked ? (
+                        <LockClosedIcon className="mr-1 h-3 w-3" />
+                    ) : (
+                        <LockOpenIcon className="mr-1 h-3 w-3" />
+                    )}
                     {level}
                 </span>
 
