@@ -1,9 +1,9 @@
 "use client";
 import { TopicWithProgress } from "@/types/exercise.types";
 import Link from "next/link";
-import { Container, Title2 } from "../Common/DocContent";
+import { Container, Divider, Title2 } from "../Common/DocContent";
 import { CheckCircle, Lock } from "lucide-react";
-import { useState } from "react";
+import { PropsWithChildren, useState } from "react";
 import { MODULE_TOPIC_PAGE_URL } from "@/data/links";
 import { dummyTopics } from "@/data/module";
 import { showNotImplementedToast } from "@/utils/toast";
@@ -17,26 +17,41 @@ type ModuleTopicsListProps = {
     topics: TopicWithProgress[];
 };
 
+
+function Wrapper(props: PropsWithChildren){
+    return (
+        <div className="mx-auto max-w-4xl">
+            <Divider />
+            {props.children}
+        </div>
+    );
+}
+
 export default function ModuleTopicsList({ topics }: ModuleTopicsListProps) {
     // const topics: Topic[] = dummyTopics;
 
-    if (topics.length < 1) return null;
-    return (
-        <>
-            <div className="mx-auto max-w-4xl">
-                {/* <h2 className="mb-6 text-2xl font-semibold text-gray-800 md:text-3xl">
-                    Topics Covered in This Module
-                </h2> */}
+    let template = (
+        <div className="text-center">
+            <Title2>Come back later to learn this module</Title2>
+        </div>
+    );
 
-                <Title2>Topics Covered in This Module</Title2>
-                <br />
-                <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2">
-                    {topics.map((topic, idx) => (
-                        <ModuleTopic topic={topic} key={idx} />
-                    ))}
-                </div>
+    if (topics.length >= 1) template = (
+        <>
+            <Title2>Topics Covered in This Module</Title2>
+            <br />
+            <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2">
+                {topics.map((topic, idx) => (
+                    <ModuleTopic topic={topic} key={idx} />
+                ))}
             </div>
         </>
+    );
+    return (
+        <Wrapper>
+        
+            {template}
+        </Wrapper>
     );
 }
 
