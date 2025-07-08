@@ -19,6 +19,8 @@ type ModuleTopicsListProps = {
 
 export default function ModuleTopicsList({ topics }: ModuleTopicsListProps) {
     // const topics: Topic[] = dummyTopics;
+
+    if (topics.length < 1) return null;
     return (
         <>
             <div className="mx-auto max-w-4xl">
