@@ -128,7 +128,8 @@ const ExercisePlayer = observer(({ exercise }: ExercisePlayerProps) => {
                         {/* {exercise.description ||
                             "Stay focused! Complete all questions within the time limit."} */}
 
-                        Stay focused! Complete all questions within the time limit.                    </p>
+                        Stay focused! Complete all questions within the time limit.
+                    </p>
                     <TimerBar
                         durationInSeconds={duration}
                         className="mb-4 mt-2"

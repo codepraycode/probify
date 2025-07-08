@@ -14,6 +14,9 @@ export const EXERCISES="/exercises";
 export const EXERCISE_SETUP=`${EXERCISES}/setup`;
 export const EXERCISE_REPORT=`${EXERCISES}/report`;
 export const EXERCISE_REPORT_REF="d";
+export function EXERCISE_PAGE_URL(id: string) {
+    return `${EXERCISES}/${id}`;
+}
 export function EXERCISE_REPORT_REF_URL(reportId: string) {
     return `${EXERCISE_REPORT}?${EXERCISE_REPORT_REF}=${reportId}`;
 }

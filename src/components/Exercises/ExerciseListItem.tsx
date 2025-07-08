@@ -1,9 +1,16 @@
 "use client";
 
-import { EXERCISE_REPORT_REF_URL, EXERCISE_SETUP, EXERCISES, HASH } from "@/data/links";
+import {
+    EXERCISE_PAGE_URL,
+    EXERCISE_REPORT_REF_URL,
+    EXERCISE_SETUP,
+    EXERCISES,
+    HASH,
+    SIGNIN,
+} from "@/data/links";
 import { ExerciseWithReport } from "@/types/exercise.types";
 import Link from "next/link";
-import { SecondaryButton } from "../ui/Button";
+import { PrimaryButton, SecondaryButton } from "../ui/Button";
 import clsx from "clsx";
 import { ProgressBar } from "./ProgressIndicator";
 import { formatDate, formatDuration } from "@/utils/functions";
@@ -12,13 +19,11 @@ type ExerciseListItemProps = {
     exercise: ExerciseWithReport;
 };
 
-
-
 export function ExerciseListItem({ exercise }: ExerciseListItemProps) {
     const isClickable = Boolean(exercise.reportId);
     const linkHref = isClickable
         ? EXERCISE_REPORT_REF_URL(exercise.reportId!)
-        : HASH;
+        : EXERCISE_PAGE_URL(exercise.id);
 
     return (
         <Link
@@ -83,7 +88,7 @@ export function ExerciseListItem({ exercise }: ExerciseListItemProps) {
             )}
 
             {exercise.report && (
-                <div className="mt-auto rounded-md bg-gray-100 px-3 py-2 text-sm dark:bg-gray-800 space-y-4">
+                <div className="mt-auto space-y-4 rounded-md bg-gray-100 px-3 py-2 text-sm dark:bg-gray-800">
                     <div className="flex flex-wrap items-center justify-between gap-2">
                         <span className="font-semibold ">
                             ✅ Score: {exercise.report.score}/
@@ -94,9 +99,7 @@ export function ExerciseListItem({ exercise }: ExerciseListItemProps) {
                         </span>
                     </div>
 
-                    <ProgressBar
-                        value={exercise.report.accuracy}
-                    />
+                    <ProgressBar value={exercise.report.accuracy} />
                 </div>
             )}
         </Link>
@@ -110,7 +113,7 @@ export function ExerciseSetup() {
             className={clsx(
                 "group relative overflow-hidden rounded-2xl border-2 border-dashed border-primary p-8 text-primary transition-all duration-300 ease-in-out",
                 "cursor-pointer select-none focus:outline-none focus:ring-4 focus:ring-primary/40",
-                "hover:bg-primary hover:text-white flex flex-col items-center justify-center gap-4",
+                "flex flex-col items-center justify-center gap-4 hover:bg-primary hover:text-white",
             )}
         >
             {/* Glow + Hover Background Effect */}
@@ -135,7 +138,6 @@ export function ExerciseSetup() {
     );
 }
 
-
 export function NoExerciseError() {
     return (
         <div className="mx-auto flex max-w-lg flex-col items-center justify-center space-y-4 rounded-lg border p-8 text-center shadow-md">
@@ -156,9 +158,9 @@ export function NoExerciseError() {
             </SecondaryButton>
         </div>
     );
-};
+}
 
-export function LoadExerciseError({message}: {message?: string}) {
+export function LoadExerciseError({ message }: { message?: string }) {
     return (
         <div className="mx-auto flex max-w-lg flex-col items-center justify-center space-y-4 rounded-lg border border-red-400 bg-red-50 p-8 text-center shadow-md dark:border-red-700 dark:bg-red-900">
             <div className="text-6xl">⚠️</div>
@@ -166,7 +168,8 @@ export function LoadExerciseError({message}: {message?: string}) {
                 Oops! Something Went Wrong
             </h2>
             <p className="max-w-xs text-red-700 dark:text-red-200">
-                {message ?? "We encountered an error while trying to load your exercises. Please check your connection or try again."}
+                {message ??
+                    "We encountered an error while trying to load your exercises. Please check your connection or try again."}
             </p>
 
             <Link
@@ -180,4 +183,27 @@ export function LoadExerciseError({message}: {message?: string}) {
         </div>
     );
 }
- 
+
+export function AuthRequiredExercisePrompt() {
+    return (
+        <div className="mx-auto flex max-w-lg flex-col items-center justify-center space-y-4 rounded-lg border border-blue-200 bg-blue-50 p-8 text-center shadow-md dark:border-blue-800 dark:bg-blue-900/20">
+            <div className="text-6xl">🔒</div>
+            <h2 className="text-2xl font-bold text-blue-800 dark:text-blue-200">
+                Exercise History Locked
+            </h2>
+            <p className="max-w-xs text-blue-700 dark:text-blue-300">
+                Please sign in to view your personalized exercise history and
+                progress tracking.
+            </p>
+
+            <SecondaryButton
+                link={SIGNIN}
+                className="bg-yellow-600 hover:bg-yellow-700 focus:ring-yellow-500 mt-4 rounded-md px-6 py-2 font-semibold text-white transition focus:outline-none focus:ring-2"
+                aria-label="Create new exercise"
+            >
+                Sign In
+            </SecondaryButton>
+
+        </div>
+    );
+}

@@ -1,6 +1,6 @@
 import Breadcrumb from "@/components/Common/Breadcrumb";
 import { ExerciseList } from "@/components/Exercises/ExerciseList";
-import ExerciseLoader from "@/components/Exercises/ExercisePreloader";
+import PageLoader from "@/components/ui/PageLoader";
 import { Suspense } from "react";
 
 export default function ExercisePage() {
@@ -18,7 +18,8 @@ export default function ExercisePage() {
 
             <Suspense
                 fallback={
-                    <ExerciseLoader
+                    <PageLoader
+                        icon="🎯"
                         label="Loading your exercises"
                         description="Hold on tight!"
                     />

@@ -1,4 +1,4 @@
-import ModuleLoader from "@/components/Module/ModuleLoader";
+import ModuleLoader from "@/components/ui/PageLoader";
 
 export default function LoadingModule() {
     return (

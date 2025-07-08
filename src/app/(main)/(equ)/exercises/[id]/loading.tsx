@@ -1,9 +1,10 @@
-import ExerciseLoader from "@/components/Exercises/ExercisePreloader";
+import PageLoader from "@/components/ui/PageLoader";
 
 export default function LoadingExercise() {
     return (
-        <ExerciseLoader
+        <PageLoader
             full
+            icon="🎯"
             label="Loading Your Exercise"
             description="Getting your probability questions ready... Almost there!"
         />

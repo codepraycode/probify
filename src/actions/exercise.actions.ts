@@ -80,10 +80,13 @@ export async function getSession(id: string): ActionResult<Exercise> {
     }
 }
 
-export async function getAllTestSession(): ActionResult<ExerciseWithReport[]> {
+export async function getAllTestSession(userId: string): ActionResult<ExerciseWithReport[]> {
     try {
         // @ts-ignore
         const data = await prisma.exerciseSession.findMany({
+            where: {
+                userId
+            },
             include: {
                 report: true,
             },
