@@ -20,14 +20,12 @@ model ExerciseSession {
   report    ExerciseReport? @relation(fields: [reportId], references: [id], onDelete: Cascade)
   reportId  String?         @unique
   userId    String          // Link to user who completed the exercise
-  // user      User            @relation(fields: [userId], references: [id])
+  user      User            @relation(fields: [userId], references: [id], onDelete: Cascade)
   
   createdAt DateTime        @default(now())
   updatedAt DateTime        @updatedAt
 
-  @@index([userId]) // For faster user queries
-  Topic Topic[]
-  User User[]
+  @@index([userId])
 }
 
 model ExerciseReport {
@@ -37,20 +35,21 @@ model ExerciseReport {
   accuracy   Float            // Percentage correct (e.g. 75.5)
   
   // Detailed analytics
-  duration    Json            // Time spent per question
-  answers    Json             // User's answers
-  topics     Json             // Performance by topic
-  types      Json             // Performance by question type
+  duration   Json            // Time spent per question
+  answers    Json            // User's answers
+  topics     Json            // Performance by topic
+  types      Json            // Performance by question type
   
   // Relationships
   exercise   ExerciseSession? @relation
   userId     String           // Denormalized for easier queries
-  user       User             @relation(fields: [userId], references: [id])
+  user       User             @relation(fields: [userId], references: [id], onDelete: Cascade)
   
   createdAt  DateTime         @default(now())
 
-  @@index([userId]) // For faster user queries
+  @@index([userId])
 }
+
 
 enum QuestionType {
   mcq
@@ -131,7 +130,6 @@ model Topic {
   
   // Relation
   module      Module?  @relation(fields: [moduleId], references: [id])
-  exercises   ExerciseSession[]
   progress    TopicProgress[]
 
   @@index([moduleId]) // Improves query performance

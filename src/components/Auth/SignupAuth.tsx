@@ -63,7 +63,7 @@ const SignUpAuthForm = () => {
     return (
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
             <div className="mb-4">
-                <FormError error={`⚠️ ${errorMessage}`}/>
+                <FormError error={errorMessage && `⚠️ ${errorMessage}`}/>
             </div>
 
             <div className="mb-8">

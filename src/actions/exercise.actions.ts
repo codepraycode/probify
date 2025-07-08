@@ -7,29 +7,41 @@ import { ActionErrorKind, handleActionErrors } from "@/utils/errorHandlers";
 import { JsonValue } from "@/db/generated/prisma/runtime/library";
 import { SubmittedAnswer } from "@/lib/schema/exerciseSchema";
 
-export async function createTestSession(data: CreateExerciseSessionData): ActionResult<string> {
-    console.dir(data)
-    try {
-            const session = await prisma.exerciseSession.create({
-            data,
-            select: {
-                id: true
-            }
-        });
-        return {
-            success: true,
-            message: "Created Exercise Session",
-            data: session.id
-        };
-    } catch(err) {
-        handleActionErrors(err);
-        return {
-            success: false,
-            message: "Could not create exercise",
-        }
+export async function createTestSession(
+  data: CreateExerciseSessionData
+): Promise<ActionResult<string>> {
+  try {
+    // Validate input data
+    if (!data.userId) {
+      throw new Error("User ID is required");
     }
-}
 
+    const session = await prisma.exerciseSession.create({
+      data: {
+        duration: data.duration,
+        questions: data.questions,
+        topics: data.topics,
+        type: data.type,
+        userId: data.userId,
+      },
+      select: {
+        id: true,
+      },
+    });
+
+    return {
+      success: true,
+      message: "Exercise session created successfully",
+      data: session.id,
+    };
+  } catch (err) {
+    handleActionErrors(err);
+    return {
+      success: false,
+      message: err.message || "Failed to create exercise session",
+    };
+  }
+}
 export async function closeSession({
     sessionId,
     reportId,
@@ -39,16 +51,30 @@ export async function closeSession({
     reportId: string;
     duration: { minutes: number; seconds: number };
 }) {
-    const updatedSession = await prisma.exerciseSession.update({
-        where: { id: sessionId },
-        data: {
-            minutes: duration.minutes,
-            seconds: duration.seconds,
-            reportId: reportId,
-            updatedAt: new Date(),
-        },
-    });
-    return updatedSession;
+    try {
+        const updatedSession = await prisma.exerciseSession.update({
+            where: { id: sessionId },
+            data: {
+                minutes: duration.minutes,
+                seconds: duration.seconds,
+                reportId: reportId,
+                updatedAt: new Date(),
+            },
+        });
+
+        return {
+            success: true,
+            message: "Closed Exercise Session",
+            data: updatedSession,
+        };
+    } catch(err) {
+        handleActionErrors(err);
+        return {
+            success: false,
+            message: "Could not create exercise",
+        }
+    }
+    
 }
 
 
@@ -157,7 +183,8 @@ export async function saveExerciseReport({
       data: result.id,
     };
   } catch (error) {
-    console.error("Failed to save exercise report:", error);
+    // console.error("Failed to save exercise report:", error);
+    handleActionErrors(error);
     return {
       success: false,
       message: error instanceof Error 

@@ -10,10 +10,10 @@ import clsx from "clsx";
 import { CheckboxGroup, RadioGroup } from "../Common/Form/Checkbox";
 import { useExercise } from "@/lib/context/ExerciseContext";
 import { useNavigate } from "@/hooks/useNavigate";
-import { topicOptions } from "@/lib/store/ExerciseStore";
 import { QuestionTypeLabels } from "@/types/exercise.types";
 import { showErrorToast, showLoadingToast, showSuccessToast } from "@/utils/toast";
 import { useSession } from "next-auth/react";
+import { topicOptions } from "@/data/options";
 
 
 export default function ExerciseSetupForm() {
@@ -46,12 +46,10 @@ export default function ExerciseSetupForm() {
             return;
         }
 
+        setTimeout(() => navigate(link), 980);
         showSuccessToast(message, toastId);
 
 
-        navigate(link);
-
-        // setTimeout(() => reset(), 2000);
     };
 
     return (
